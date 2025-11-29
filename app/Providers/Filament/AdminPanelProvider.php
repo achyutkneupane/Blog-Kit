@@ -109,7 +109,7 @@ final class AdminPanelProvider extends PanelProvider
                     ->shouldShowEmailForm(false),
                 FilamentDeveloperLoginsPlugin::make()
                     ->enabled(app()->isLocal())
-                    ->users(fn () => User::pluck('email', 'name')->toArray()),
+                    ->users(fn () => User::query()->pluck('email', 'name')->toArray()),
             ])
             ->userMenuItems([
                 'profile' => Action::make('profile')
