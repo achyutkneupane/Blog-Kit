@@ -7,7 +7,7 @@ namespace App\Traits;
 use App\Models\SeoDetail;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
-trait HasSEO
+trait HasSEODetails
 {
     public static function boot(): void
     {

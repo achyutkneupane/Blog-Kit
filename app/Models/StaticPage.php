@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use AchyutN\LaravelHelpers\Traits\HasTheSlug;
-use App\Traits\HasSEO;
+use App\Traits\HasSEODetails;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
@@ -33,6 +33,6 @@ use Illuminate\Support\Carbon;
  */
 final class StaticPage extends Model
 {
-    use HasSEO;
+    use HasSEODetails;
     use HasTheSlug;
 }
