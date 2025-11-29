@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Traits;
 
 use App\Models\SeoDetail;
@@ -11,7 +13,7 @@ trait HasSEO
     {
         parent::boot();
 
-        static::created(function ($model) {
+        static::created(function ($model): void {
             $model->seo()->create([
                 'meta_title' => $model->title,
                 'og_title' => $model->title,

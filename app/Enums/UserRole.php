@@ -15,8 +15,11 @@ use Illuminate\Contracts\Support\Htmlable;
 enum UserRole: string implements HasColor, HasIcon, HasLabel
 {
     case Developer = 'developer';
+
     case Admin = 'admin';
+
     case Writer = 'writer';
+
     case User = 'user';
 
     public function getLabel(): ?string
