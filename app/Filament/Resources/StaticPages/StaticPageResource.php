@@ -13,7 +13,6 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Actions\ViewAction;
 use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Resource;
@@ -82,7 +81,7 @@ final class StaticPageResource extends Resource
                 Action::make('seo')
                     ->label('SEO')
                     ->icon(Heroicon::OutlinedCog6Tooth)
-                    ->url(fn (StaticPage $record): string => ManageStaticPageSEO::getUrl(['record' => $record])),
+                    ->url(fn (StaticPage $staticPage): string => ManageStaticPageSEO::getUrl(['record' => $staticPage])),
                 DeleteAction::make(),
             ])
             ->toolbarActions([
@@ -96,7 +95,7 @@ final class StaticPageResource extends Resource
     {
         return [
             'index' => ManageStaticPages::route('/'),
-            'seo' => Pages\ManageStaticPageSEO::route('/{record}/seo'),
+            'seo' => ManageStaticPageSEO::route('/{record}/seo'),
         ];
     }
 }
