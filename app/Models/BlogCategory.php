@@ -8,6 +8,7 @@ use AchyutN\LaravelHelpers\Traits\HasTheSlug;
 use App\Traits\HasSEODetails;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -37,4 +38,20 @@ class BlogCategory extends Model
     use HasTheSlug;
 
     public string $sluggableColumn = 'name';
+
+    /**
+     * The model binding column.
+     *
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
+    /** @return HasMany<Blog> */
+    public function blogs(): HasMany
+    {
+        return $this->hasMany(Blog::class);
+    }
 }
