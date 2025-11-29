@@ -6,9 +6,11 @@ namespace App\Providers\Filament;
 
 use AchyutN\FilamentLogViewer\FilamentLogViewer;
 use App\Enums\UserRole;
+use App\Models\User;
 use App\Settings\SiteSettings;
 use Awcodes\Gravatar\GravatarPlugin;
 use Awcodes\Gravatar\GravatarProvider;
+use DutchCodingCompany\FilamentDeveloperLogins\FilamentDeveloperLoginsPlugin;
 use Exception;
 use Filament\Actions\Action;
 use Filament\Http\Middleware\Authenticate;
@@ -105,6 +107,9 @@ final class AdminPanelProvider extends PanelProvider
                     ->shouldShowAvatarForm(false)
                     ->shouldShowDeleteAccountForm(true)
                     ->shouldShowEmailForm(false),
+                FilamentDeveloperLoginsPlugin::make()
+                    ->enabled(app()->isLocal())
+                    ->users(fn () => User::pluck('email', 'name')->toArray()),
             ])
             ->userMenuItems([
                 'profile' => Action::make('profile')

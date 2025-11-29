@@ -35,6 +35,7 @@ final class User extends Authenticatable implements FilamentUser
         return in_array($this->role, [
             UserRole::Developer,
             UserRole::Admin,
+            UserRole::Writer,
         ]);
     }
 
