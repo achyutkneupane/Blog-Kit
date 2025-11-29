@@ -25,7 +25,9 @@ final class StaticPageResource extends Resource
 {
     protected static ?string $model = StaticPage::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::DocumentDuplicate;
+
+    protected static string|BackedEnum|null $activeNavigationIcon = Heroicon::OutlinedDocumentDuplicate;
 
     protected static ?string $recordTitleAttribute = 'title';
 
