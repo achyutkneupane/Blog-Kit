@@ -1,0 +1,43 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Filament\Components;
+
+use App\Models\SeoDetail;
+use BackedEnum;
+use Filament\Resources\Pages\EditRecord;
+use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
+use Illuminate\Database\Eloquent\Model;
+
+final class ManageSEORecord extends EditRecord
+{
+    protected static ?string $navigationLabel = 'SEO';
+
+    protected static ?string $breadcrumb = 'SEO';
+
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::MagnifyingGlassCircle;
+
+    public function mount(int|string $record): void
+    {
+        $this->record = $this->resolveRecord($record)->load('seo');
+        $this->form->fill($this->record?->seo?->toArray() ?? []);
+    }
+
+    public function form(Schema $schema): Schema
+    {
+        return $schema
+            ->schema(SEOForm::schema());
+    }
+
+    protected function handleRecordUpdate(Model $record, array $data): Model
+    {
+        SeoDetail::query()->updateOrCreate([
+            'seoable_id' => $record->getKey(),
+            'seoable_type' => $record->getMorphClass(),
+        ], $data);
+
+        return $record;
+    }
+}
