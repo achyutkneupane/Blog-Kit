@@ -11,7 +11,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Database\Eloquent\Model;
 
-final class ManageSEORecord extends EditRecord
+class ManageSEORecord extends EditRecord
 {
     protected static ?string $navigationLabel = 'SEO';
 
