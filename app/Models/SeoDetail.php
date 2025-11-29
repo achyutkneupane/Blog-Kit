@@ -51,7 +51,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|SeoDetail whereSeoableType($value)
  * @method static Builder<static>|SeoDetail whereUpdatedAt($value)
  *
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 final class SeoDetail extends Model
 {

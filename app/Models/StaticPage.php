@@ -12,6 +12,8 @@ use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
+ * @property string $title
+ * @property string $slug
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read SeoDetail|null $seo
@@ -22,6 +24,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|StaticPage query()
  * @method static Builder<static>|StaticPage whereCreatedAt($value)
  * @method static Builder<static>|StaticPage whereId($value)
+ * @method static Builder<static>|StaticPage whereSlug($value)
+ * @method static Builder<static>|StaticPage whereTitle($value)
  * @method static Builder<static>|StaticPage whereUpdatedAt($value)
  * @method static Builder<static>|StaticPage withUniqueSlugConstraints(Model $model, string $attribute, array $config, string $slug)
  *

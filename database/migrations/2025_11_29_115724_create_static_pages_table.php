@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('static_pages', function (Blueprint $blueprint): void {
             $blueprint->id();
+            $blueprint->string('title');
+            $blueprint->string('slug')->unique();
             $blueprint->timestamps();
         });
     }
