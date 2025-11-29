@@ -31,7 +31,7 @@ final class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Model::unguard();
-        Vite::macro('image', fn (string $asset) => $this->asset("resources/assets/images/{$asset}"));
+        Vite::macro('image', fn (string $asset) => $this->asset('resources/assets/images/'.$asset));
 
         Table::configureUsing(
             fn (Table $table): Table => $table
