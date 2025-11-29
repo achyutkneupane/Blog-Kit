@@ -28,6 +28,7 @@ class ManageSEORecord extends EditRecord
     public function form(Schema $schema): Schema
     {
         return $schema
+            ->columns(1)
             ->schema(SEOForm::schema());
     }
 
