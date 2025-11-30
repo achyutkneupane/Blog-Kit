@@ -18,11 +18,13 @@ return new class extends Migration
         Schema::create('blogs', function (Blueprint $blueprint): void {
             $blueprint->id();
             $blueprint->string('title');
-            $blueprint->text('slug');
+            $blueprint->string('slug');
             $blueprint->text('description');
             $blueprint->longText('content');
-            $blueprint->foreignIdFor(BlogCategory::class)->constrained();
-            $blueprint->foreignIdFor(User::class)->constrained();
+            $blueprint->foreignIdFor(BlogCategory::class)
+                ->constrained();
+            $blueprint->foreignIdFor(User::class)
+                ->constrained();
             $blueprint->timestamp('published_at')->nullable();
             $blueprint->timestamps();
         });
