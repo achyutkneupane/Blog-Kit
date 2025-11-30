@@ -16,13 +16,17 @@ class CreateBlog extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $publishOption = ScheduleOption::tryFrom($data['publish']);
+        $publishOption = $data['publish'];
 
         if ($publishOption === ScheduleOption::Now) {
             $data['published_at'] = now();
         } elseif ($publishOption === ScheduleOption::Draft) {
             $data['published_at'] = null;
         }
+
+        unset($data['publish']);
+
+        $data['user_id'] = auth()->id();
 
         return $data;
     }

@@ -71,7 +71,7 @@ class Blog extends MediaModel implements Viewable
     /** @return BelongsTo<BlogCategory> */
     public function category(): BelongsTo
     {
-        return $this->belongsTo(BlogCategory::class);
+        return $this->belongsTo(BlogCategory::class, 'blog_category_id');
     }
 
     /** @return BelongsTo<User> */

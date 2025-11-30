@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Blogs\Schemas;
 
 use App\Enums\ScheduleOption;
+use App\Filament\Resources\BlogCategories\BlogCategoryResource;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
@@ -27,10 +28,14 @@ class BlogForm
                             ->required(),
                         TextInput::make('slug')
                             ->disabledOn('create')
-                            ->helperText('Will auto-generate while creating the blog.')
-                            ->required(),
+                            ->helperText('Will auto-generate while creating the blog.'),
                         Select::make('blog_category_id')
                             ->relationship('category', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->createOptionForm(
+                                fn (Schema $schema): Schema => BlogCategoryResource::form($schema)
+                            )
                             ->required(),
                     ]),
                 Textarea::make('description')
