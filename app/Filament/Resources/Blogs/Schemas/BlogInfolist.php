@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Blogs\Schemas;
 
 use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 class BlogInfolist
@@ -13,26 +14,29 @@ class BlogInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('title'),
-                TextEntry::make('slug')
-                    ->columnSpanFull(),
-                TextEntry::make('description')
-                    ->columnSpanFull(),
-                TextEntry::make('content')
-                    ->columnSpanFull(),
-                TextEntry::make('blog_category_id')
-                    ->numeric(),
-                TextEntry::make('user_id')
-                    ->numeric(),
-                TextEntry::make('published_at')
-                    ->dateTime()
-                    ->placeholder('-'),
-                TextEntry::make('created_at')
-                    ->dateTime()
-                    ->placeholder('-'),
-                TextEntry::make('updated_at')
-                    ->dateTime()
-                    ->placeholder('-'),
+                Section::make()
+                    ->columns()
+                    ->columnSpanFull()
+                    ->components([
+                        TextEntry::make('category.name')
+                            ->label('Category')
+                            ->numeric(),
+                        TextEntry::make('author.name')
+                            ->label('Author')
+                            ->numeric(),
+                        TextEntry::make('title'),
+                        TextEntry::make('published_at')
+                            ->label('Published')
+                            ->since()
+                            ->dateTimeTooltip()
+                            ->placeholder('Draft'),
+                        TextEntry::make('description')
+                            ->label('Excerpt')
+                            ->columnSpanFull(),
+                        TextEntry::make('content')
+                            ->html()
+                            ->columnSpanFull(),
+                    ]),
             ]);
     }
 }
