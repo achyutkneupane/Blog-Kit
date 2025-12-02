@@ -1,5 +1,5 @@
 <nav class="bg-neutral-900 sticky w-full z-20 top-0 start-0 min-h-[72px]">
-    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <div class="container-xl flex flex-wrap items-center justify-between py-4">
         <a href="{{ route('landing-page') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
             <span class="self-center text-3xl text-neutral-50 font-semibold whitespace-nowrap">
                 {{ $settings->name }}

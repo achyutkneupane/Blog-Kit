@@ -29,7 +29,7 @@
 </head>
 <body class="text-white font-sans">
     <x-base.header />
-    <div class="container">
+    <div class="container-xl">
         {{ $slot }}
     </div>
     <x-base.footer />

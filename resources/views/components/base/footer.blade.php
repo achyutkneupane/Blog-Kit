@@ -1,5 +1,5 @@
 <footer class="bg-neutral-900">
-    <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+    <div class="container-xl py-4 md:py-8">
         <div class="sm:flex sm:items-center sm:justify-between">
             <a href="{{ route('landing-page') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
             <span class="self-center text-3xl text-neutral-50 font-semibold whitespace-nowrap">

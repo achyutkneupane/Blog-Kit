@@ -26,11 +26,10 @@
 }
 
 @layer components {
-    .container {
+    .container-xl {
         @apply w-full;
         @apply mx-auto;
         @apply max-w-screen-xl;
-        @apply py-8;
-        @apply lg:py-16;
+        @apply px-4 lg:px-0;
     }
 }
