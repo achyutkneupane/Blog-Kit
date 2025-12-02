@@ -41,6 +41,8 @@ final class AppServiceProvider extends ServiceProvider
             fn (Table $table): Table => $table
                 ->defaultNumberLocale('en_NP')
                 ->defaultCurrency('NPR')
+                ->deferFilters(false)
+                ->deferColumnManager(false)
         );
 
         if (app()->environment('production')) {
