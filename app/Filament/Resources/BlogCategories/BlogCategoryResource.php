@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\BlogCategories;
 
 use App\Filament\Resources\BlogCategories\Pages\ManageBlogCategories;
-use App\Models\BlogCategory;
+use App\Models\Category;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -22,7 +22,7 @@ use UnitEnum;
 
 class BlogCategoryResource extends Resource
 {
-    protected static ?string $model = BlogCategory::class;
+    protected static ?string $model = Category::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::RectangleStack;
 

@@ -33,7 +33,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read User $author
- * @property-read BlogCategory|null $category
+ * @property-read Category|null $category
  * @property-read MediaCollection<int, Media> $media
  * @property-read int|null $media_count
  * @property-read SeoDetail|null $seo
@@ -68,10 +68,10 @@ class Blog extends MediaModel implements Viewable
     use HasTheSlug;
     use InteractsWithViews;
 
-    /** @return BelongsTo<BlogCategory> */
+    /** @return BelongsTo<Category> */
     public function category(): BelongsTo
     {
-        return $this->belongsTo(BlogCategory::class, 'blog_category_id');
+        return $this->belongsTo(Category::class, 'blog_category_id');
     }
 
     /** @return BelongsTo<User> */

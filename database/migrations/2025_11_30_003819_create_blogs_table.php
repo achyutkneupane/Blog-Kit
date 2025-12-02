@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Models\BlogCategory;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -21,7 +21,7 @@ return new class extends Migration
             $blueprint->string('slug');
             $blueprint->text('description');
             $blueprint->longText('content');
-            $blueprint->foreignIdFor(BlogCategory::class)
+            $blueprint->foreignIdFor(Category::class)
                 ->constrained();
             $blueprint->foreignIdFor(User::class)
                 ->constrained();

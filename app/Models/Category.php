@@ -22,20 +22,20 @@ use Illuminate\Support\Carbon;
  * @property-read int|null $blogs_count
  * @property-read SeoDetail|null $seo
  *
- * @method static Builder<static>|BlogCategory findSimilarSlugs(string $attribute, array $config, string $slug)
- * @method static Builder<static>|BlogCategory newModelQuery()
- * @method static Builder<static>|BlogCategory newQuery()
- * @method static Builder<static>|BlogCategory query()
- * @method static Builder<static>|BlogCategory whereCreatedAt($value)
- * @method static Builder<static>|BlogCategory whereId($value)
- * @method static Builder<static>|BlogCategory whereName($value)
- * @method static Builder<static>|BlogCategory whereSlug($value)
- * @method static Builder<static>|BlogCategory whereUpdatedAt($value)
- * @method static Builder<static>|BlogCategory withUniqueSlugConstraints(Model $model, string $attribute, array $config, string $slug)
+ * @method static Builder<static>|Category findSimilarSlugs(string $attribute, array $config, string $slug)
+ * @method static Builder<static>|Category newModelQuery()
+ * @method static Builder<static>|Category newQuery()
+ * @method static Builder<static>|Category query()
+ * @method static Builder<static>|Category whereCreatedAt($value)
+ * @method static Builder<static>|Category whereId($value)
+ * @method static Builder<static>|Category whereName($value)
+ * @method static Builder<static>|Category whereSlug($value)
+ * @method static Builder<static>|Category whereUpdatedAt($value)
+ * @method static Builder<static>|Category withUniqueSlugConstraints(Model $model, string $attribute, array $config, string $slug)
  *
  * @mixin \Eloquent
  */
-class BlogCategory extends Model
+class Category extends Model
 {
     use HasSEODetails;
     use HasTheSlug;
