@@ -1,3 +1,3 @@
 <x-layouts.app>
-    Home Page
+    <x-section.hero-section />
 </x-layouts.app>
