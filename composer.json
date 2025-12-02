@@ -13,8 +13,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
-        "achyutn/filament-log-viewer": "^1",
-        "achyutn/laravel-helpers": "^0.9.7",
+        "achyutn/filament-log-viewer": "^1.6",
+        "achyutn/laravel-helpers": "^0.9",
         "awcodes/filament-gravatar": "^3.0",
         "cyrildewit/eloquent-viewable": "^7.0",
         "dutchcodingcompany/filament-developer-logins": "^2.0",
