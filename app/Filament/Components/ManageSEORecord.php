@@ -9,6 +9,7 @@ use BackedEnum;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 
 class ManageSEORecord extends EditRecord
@@ -40,5 +41,10 @@ class ManageSEORecord extends EditRecord
         ], $data);
 
         return $record;
+    }
+
+    public function getTitle(): string|Htmlable
+    {
+        return parent::getTitle() . " SEO";
     }
 }
