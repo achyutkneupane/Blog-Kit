@@ -6,6 +6,7 @@ namespace App\Providers\Filament;
 
 use AchyutN\FilamentLogViewer\FilamentLogViewer;
 use App\Enums\UserRole;
+use App\Models\Scopes\LowerRoleOnly;
 use App\Models\User;
 use App\Settings\SiteSettings;
 use Awcodes\Gravatar\GravatarPlugin;
@@ -109,7 +110,12 @@ final class AdminPanelProvider extends PanelProvider
                     ->shouldShowEmailForm(false),
                 FilamentDeveloperLoginsPlugin::make()
                     ->enabled(app()->isLocal())
-                    ->users(fn () => User::query()->pluck('email', 'name')->toArray()),
+                    ->users(
+                        fn () => User::query()
+                            ->withoutGlobalScope(LowerRoleOnly::class)
+                            ->pluck('email', 'name')
+                            ->toArray()
+                    ),
             ])
             ->userMenuItems([
                 'profile' => Action::make('profile')
