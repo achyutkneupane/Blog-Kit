@@ -14,6 +14,8 @@ use App\Filament\Resources\Blogs\Schemas\BlogInfolist;
 use App\Filament\Resources\Blogs\Tables\BlogsTable;
 use App\Models\Blog;
 use BackedEnum;
+use Filament\Pages\Enums\SubNavigationPosition;
+use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -31,6 +33,8 @@ class BlogResource extends Resource
     protected static ?string $recordTitleAttribute = 'title';
 
     protected static string|null|UnitEnum $navigationGroup = 'Blog Management';
+
+    protected static ?SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
 
     public static function form(Schema $schema): Schema
     {
@@ -63,5 +67,14 @@ class BlogResource extends Resource
             'edit' => EditBlog::route('/{record}/edit'),
             'seo' => ManageBlogSEO::route('/{record}/seo'),
         ];
+    }
+
+    public static function getRecordSubNavigation(Page $page): array
+    {
+        return $page->generateNavigationItems([
+            ViewBlog::class,
+            EditBlog::class,
+            ManageBlogSEO::class,
+        ]);
     }
 }

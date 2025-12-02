@@ -18,7 +18,7 @@ class ManageSEORecord extends EditRecord
 
     protected static ?string $breadcrumb = 'SEO';
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::MagnifyingGlassCircle;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::MagnifyingGlass;
 
     public function mount(int|string $record): void
     {
