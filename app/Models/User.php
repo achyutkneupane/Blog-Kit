@@ -86,7 +86,7 @@ final class User extends Authenticatable implements FilamentUser
     public function lowerRoles(): array
     {
         return match (auth()->user()->role) {
-            UserRole::Developer => [UserRole::Developer, UserRole::Admin, UserRole::User],
+            UserRole::Developer => [UserRole::Developer, UserRole::Admin, UserRole::Writer, UserRole::User],
             UserRole::Admin => [UserRole::Admin, UserRole::Writer, UserRole::User],
             UserRole::Writer => [UserRole::Writer, UserRole::User],
             UserRole::User => [UserRole::User],
