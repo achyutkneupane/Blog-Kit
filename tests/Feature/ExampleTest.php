@@ -2,8 +2,11 @@
 
 declare(strict_types=1);
 
-it('returns a successful response', function (): void {
-    $response = $this->get('/');
+use App\Enums\UserRole;
+use App\Models\User;
 
-    $response->assertStatus(200);
+it('returns a redirection response', function (): void {
+    $response = $this->get('/admin');
+
+    $response->assertStatus(302);
 });

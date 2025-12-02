@@ -55,7 +55,7 @@ final class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
-            ->path('')
+            ->path('admin')
             ->brandName(fn () => $this->settings->name)
             ->brandLogo(fn () => $this->settings->logo ? '/'.$this->settings->logo : null)
             ->brandLogoHeight('3rem')
