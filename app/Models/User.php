@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\UserRole;
+use App\Models\Scopes\LowerRoleOnly;
 use Database\Factories\UserFactory;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -51,6 +54,7 @@ use Illuminate\Support\Carbon;
  *
  * @mixin \Eloquent
  */
+#[ScopedBy(LowerRoleOnly::class)]
 final class User extends Authenticatable implements FilamentUser
 {
     use HasFactory;
@@ -83,8 +87,9 @@ final class User extends Authenticatable implements FilamentUser
     {
         return match (auth()->user()->role) {
             UserRole::Developer => [UserRole::Developer, UserRole::Admin, UserRole::User],
-            UserRole::Admin => [UserRole::User],
-            UserRole::User => [],
+            UserRole::Admin => [UserRole::Admin, UserRole::Writer, UserRole::User],
+            UserRole::Writer => [UserRole::Writer, UserRole::User],
+            UserRole::User => [UserRole::User],
         };
     }
 
