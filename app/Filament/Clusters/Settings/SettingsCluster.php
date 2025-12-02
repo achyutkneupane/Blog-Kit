@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Clusters\Settings;
 
+use App\Enums\UserRole;
 use BackedEnum;
 use Filament\Clusters\Cluster;
 use Filament\Support\Icons\Heroicon;
@@ -16,4 +17,9 @@ final class SettingsCluster extends Cluster
     protected static string|BackedEnum|null $activeNavigationIcon = Heroicon::OutlinedCog8Tooth;
 
     protected static string|UnitEnum|null $navigationGroup = 'System';
+
+    public static function canAccess(): bool
+    {
+        return in_array(auth()->user()->role, [UserRole::Developer, UserRole::Admin]);
+    }
 }

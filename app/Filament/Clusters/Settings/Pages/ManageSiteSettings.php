@@ -8,6 +8,8 @@ use App\Filament\Clusters\Settings\SettingsCluster;
 use App\Settings\SiteSettings;
 use BackedEnum;
 use Exception;
+use Filament\Forms\Components\CodeEditor;
+use Filament\Forms\Components\CodeEditor\Enums\Language;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Pages\SettingsPage;
@@ -39,6 +41,7 @@ final class ManageSiteSettings extends SettingsPage
                     ->imageEditor()
                     ->openable()
                     ->preserveFilenames()
+                    ->helperText(null)
                     ->previewable()
                     ->downloadable()
                     ->deletable(),
@@ -73,6 +76,12 @@ final class ManageSiteSettings extends SettingsPage
                     ->rules([
                         'dimensions:ratio=40/21',
                     ]),
+                CodeEditor::make('robots_txt')
+                    ->label('robots.txt'),
+                CodeEditor::make('header_scripts')
+                    ->language(Language::Html),
+                CodeEditor::make('footer_scripts')
+                    ->language(Language::Html),
             ]);
     }
 }

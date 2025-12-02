@@ -5,13 +5,55 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\UserRole;
+use App\Models\Scopes\LowerRoleOnly;
+use Database\Factories\UserFactory;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property UserRole $role
+ * @property Carbon|null $email_verified_at
+ * @property string $password
+ * @property string|null $remember_token
+ * @property Carbon|null $deleted_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
+ * @property-read int|null $notifications_count
+ *
+ * @method static UserFactory factory($count = null, $state = [])
+ * @method static Builder<static>|User newModelQuery()
+ * @method static Builder<static>|User newQuery()
+ * @method static Builder<static>|User onlyTrashed()
+ * @method static Builder<static>|User query()
+ * @method static Builder<static>|User whereCreatedAt($value)
+ * @method static Builder<static>|User whereDeletedAt($value)
+ * @method static Builder<static>|User whereEmail($value)
+ * @method static Builder<static>|User whereEmailVerifiedAt($value)
+ * @method static Builder<static>|User whereId($value)
+ * @method static Builder<static>|User whereName($value)
+ * @method static Builder<static>|User wherePassword($value)
+ * @method static Builder<static>|User whereRememberToken($value)
+ * @method static Builder<static>|User whereRole($value)
+ * @method static Builder<static>|User whereUpdatedAt($value)
+ * @method static Builder<static>|User withTrashed(bool $withTrashed = true)
+ * @method static Builder<static>|User withoutTrashed()
+ *
+ * @mixin \Eloquent
+ */
+#[ScopedBy(LowerRoleOnly::class)]
 final class User extends Authenticatable implements FilamentUser
 {
     use HasFactory;
@@ -35,6 +77,7 @@ final class User extends Authenticatable implements FilamentUser
         return in_array($this->role, [
             UserRole::Developer,
             UserRole::Admin,
+            UserRole::Writer,
         ]);
     }
 
@@ -42,9 +85,10 @@ final class User extends Authenticatable implements FilamentUser
     public function lowerRoles(): array
     {
         return match (auth()->user()->role) {
-            UserRole::Developer => [UserRole::Developer, UserRole::Admin, UserRole::User],
-            UserRole::Admin => [UserRole::User],
-            UserRole::User => [],
+            UserRole::Developer => [UserRole::Developer, UserRole::Admin, UserRole::Writer, UserRole::User],
+            UserRole::Admin => [UserRole::Admin, UserRole::Writer, UserRole::User],
+            UserRole::Writer => [UserRole::Writer, UserRole::User],
+            UserRole::User => [UserRole::User],
         };
     }
 

@@ -15,6 +15,7 @@ it('returns correct lowerRoles for Developer', function (): void {
     expect($developer->lowerRoles())->toBe([
         UserRole::Developer,
         UserRole::Admin,
+        UserRole::Writer,
         UserRole::User,
     ]);
 });
