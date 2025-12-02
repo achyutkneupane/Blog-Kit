@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Blogs\Schemas;
 
 use App\Enums\ScheduleOption;
-use App\Filament\Resources\BlogCategories\BlogCategoryResource;
+use App\Filament\Resources\Categories\CategoryResource;
 use App\Models\Blog;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\RichEditor;
@@ -36,7 +36,7 @@ class BlogForm
                             ->searchable()
                             ->preload()
                             ->createOptionForm(
-                                fn (Schema $schema): Schema => BlogCategoryResource::form($schema)
+                                fn (Schema $schema): Schema => CategoryResource::form($schema)
                             )
                             ->required(),
                     ]),

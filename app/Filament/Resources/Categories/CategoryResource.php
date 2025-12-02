@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\BlogCategories;
+namespace App\Filament\Resources\Categories;
 
-use App\Filament\Resources\BlogCategories\Pages\ManageBlogCategories;
+use App\Filament\Resources\Categories\Pages\ManageCategories;
 use App\Models\Category;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
@@ -20,7 +20,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use UnitEnum;
 
-class BlogCategoryResource extends Resource
+class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
 
@@ -92,7 +92,7 @@ class BlogCategoryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ManageBlogCategories::route('/'),
+            'index' => ManageCategories::route('/'),
         ];
     }
 }
