@@ -31,8 +31,9 @@ class BlogForm
                         TextInput::make('slug')
                             ->disabledOn('create')
                             ->helperText('Will auto-generate while creating the blog.'),
-                        Select::make('blog_category_id')
-                            ->relationship('category', 'name')
+                        Select::make('categories')
+                            ->relationship('categories', 'name')
+                            ->multiple()
                             ->searchable()
                             ->preload()
                             ->createOptionForm(

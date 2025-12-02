@@ -1,7 +1,9 @@
 <?php
 
 declare(strict_types=1);
-use App\Models\User;
+
+use App\Models\Blog;
+use App\Models\Category;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,17 +15,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('blogs', function (Blueprint $blueprint): void {
+        Schema::create('blog_category', function (Blueprint $blueprint): void {
             $blueprint->id();
-            $blueprint->string('title');
-            $blueprint->string('slug');
-            $blueprint->text('description');
-            $blueprint->longText('content');
-            $blueprint->foreignIdFor(User::class)
+            $blueprint->foreignIdFor(Blog::class)
                 ->nullable()
                 ->constrained()
                 ->nullOnDelete();
-            $blueprint->timestamp('published_at')->nullable();
+            $blueprint->foreignIdFor(Category::class)
+                ->nullable()
+                ->constrained()
+                ->nullOnDelete();
             $blueprint->timestamps();
         });
     }
@@ -33,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('blogs');
+        Schema::dropIfExists('blog_category');
     }
 };

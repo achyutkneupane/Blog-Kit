@@ -18,8 +18,9 @@ class BlogInfolist
                     ->columns()
                     ->columnSpanFull()
                     ->components([
-                        TextEntry::make('category.name')
+                        TextEntry::make('categories.name')
                             ->label('Category')
+                            ->badge()
                             ->numeric(),
                         TextEntry::make('author.name')
                             ->label('Author')

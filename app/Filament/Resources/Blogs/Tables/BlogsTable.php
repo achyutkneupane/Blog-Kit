@@ -17,7 +17,9 @@ class BlogsTable
             ->columns([
                 TextColumn::make('title')
                     ->searchable(),
-                TextColumn::make('category.name'),
+                TextColumn::make('categories.name')
+                    ->label('Category')
+                    ->badge(),
                 TextColumn::make('author.name'),
                 TextColumn::make('published_at')
                     ->label('Published')
