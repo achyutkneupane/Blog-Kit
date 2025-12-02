@@ -33,6 +33,11 @@ class ManageSEORecord extends EditRecord
             ->schema(SEOForm::schema());
     }
 
+    public function getTitle(): string|Htmlable
+    {
+        return parent::getTitle().' SEO';
+    }
+
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
         SeoDetail::query()->updateOrCreate([
@@ -41,10 +46,5 @@ class ManageSEORecord extends EditRecord
         ], $data);
 
         return $record;
-    }
-
-    public function getTitle(): string|Htmlable
-    {
-        return parent::getTitle() . " SEO";
     }
 }

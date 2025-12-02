@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Categories;
 
+use App\Filament\Components\SEOAction;
 use App\Filament\Resources\Categories\Pages\ManageCategories;
 use App\Filament\Resources\Categories\Pages\ManageCategorySEO;
 use App\Models\Category;
@@ -83,6 +84,7 @@ class CategoryResource extends Resource
             ])
             ->recordActions([
                 EditAction::make(),
+                SEOAction::make(),
                 DeleteAction::make(),
             ])
             ->toolbarActions([
