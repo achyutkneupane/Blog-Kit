@@ -29,7 +29,7 @@ class BlogInfolist
                         TextEntry::make('published_at')
                             ->label('Published')
                             ->since()
-                            ->dateTimeTooltip('F j, Y, g:i A')
+                            ->dateTimeTooltip()
                             ->placeholder('Draft'),
                         TextEntry::make('description')
                             ->label('Excerpt')

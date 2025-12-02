@@ -11,6 +11,7 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -41,8 +42,20 @@ final class AppServiceProvider extends ServiceProvider
             fn (Table $table): Table => $table
                 ->defaultNumberLocale('en_NP')
                 ->defaultCurrency('NPR')
+                ->defaultDateDisplayFormat('F j, Y')
+                ->defaultTimeDisplayFormat('g:i A')
+                ->defaultDateTimeDisplayFormat('F j, Y, g:i A')
                 ->deferFilters(false)
                 ->deferColumnManager(false)
+        );
+
+        Schema::configureUsing(
+            fn (Schema $schema): Schema => $schema
+                ->defaultNumberLocale('en_NP')
+                ->defaultCurrency('NPR')
+                ->defaultDateDisplayFormat('F j, Y')
+                ->defaultTimeDisplayFormat('g:i A')
+                ->defaultDateTimeDisplayFormat('F j, Y, g:i A')
         );
 
         if (app()->environment('production')) {

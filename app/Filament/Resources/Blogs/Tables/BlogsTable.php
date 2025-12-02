@@ -24,7 +24,7 @@ class BlogsTable
                 TextColumn::make('published_at')
                     ->label('Published')
                     ->since()
-                    ->dateTimeTooltip('F j, Y, g:i A')
+                    ->dateTimeTooltip()
                     ->sortable(),
             ])
             ->filters([

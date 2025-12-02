@@ -68,12 +68,12 @@ class CategoryResource extends Resource
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->since()
-                    ->dateTimeTooltip('F j, Y, g:i A')
+                    ->dateTimeTooltip()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
                     ->since()
-                    ->dateTimeTooltip('F j, Y, g:i A')
+                    ->dateTimeTooltip()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
