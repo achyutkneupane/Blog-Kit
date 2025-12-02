@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\StaticPages;
 
+use App\Filament\Components\SEOAction;
 use App\Filament\Resources\StaticPages\Pages\ManageStaticPages;
 use App\Filament\Resources\StaticPages\Pages\ManageStaticPageSEO;
 use App\Models\StaticPage;
 use BackedEnum;
-use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -80,10 +80,7 @@ final class StaticPageResource extends Resource
             ->recordActions([
                 EditAction::make()
                     ->slideOver(),
-                Action::make('seo')
-                    ->label('SEO')
-                    ->icon(Heroicon::OutlinedCog6Tooth)
-                    ->url(fn (StaticPage $staticPage): string => ManageStaticPageSEO::getUrl(['record' => $staticPage])),
+                SEOAction::make(),
                 DeleteAction::make(),
             ])
             ->toolbarActions([
