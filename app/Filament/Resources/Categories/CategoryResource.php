@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Categories;
 
 use App\Filament\Resources\Categories\Pages\ManageCategories;
+use App\Filament\Resources\Categories\Pages\ManageCategorySEO;
 use App\Models\Category;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
@@ -95,6 +96,7 @@ class CategoryResource extends Resource
     {
         return [
             'index' => ManageCategories::route('/'),
+            'seo' => ManageCategorySEO::route('/{record}/seo'),
         ];
     }
 }

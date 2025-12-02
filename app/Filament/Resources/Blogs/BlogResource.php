@@ -7,6 +7,7 @@ namespace App\Filament\Resources\Blogs;
 use App\Filament\Resources\Blogs\Pages\CreateBlog;
 use App\Filament\Resources\Blogs\Pages\EditBlog;
 use App\Filament\Resources\Blogs\Pages\ListBlogs;
+use App\Filament\Resources\Blogs\Pages\ManageBlogSEO;
 use App\Filament\Resources\Blogs\Pages\ViewBlog;
 use App\Filament\Resources\Blogs\Schemas\BlogForm;
 use App\Filament\Resources\Blogs\Schemas\BlogInfolist;
@@ -60,6 +61,7 @@ class BlogResource extends Resource
             'create' => CreateBlog::route('/create'),
             'view' => ViewBlog::route('/{record}'),
             'edit' => EditBlog::route('/{record}/edit'),
+            'seo' => ManageBlogSEO::route('/{record}/seo'),
         ];
     }
 }
