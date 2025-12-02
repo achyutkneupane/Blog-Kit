@@ -6,6 +6,8 @@ namespace App\Filament\Resources\Blogs\Tables;
 
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Infolists\Components\IconEntry;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -17,6 +19,9 @@ class BlogsTable
             ->columns([
                 TextColumn::make('title')
                     ->searchable(),
+                IconColumn::make('is_featured')
+                    ->label('Featured')
+                    ->boolean(),
                 TextColumn::make('categories.name')
                     ->label('Category')
                     ->badge(),

@@ -67,10 +67,10 @@ class BlogForm
                     ->boolean()
                     ->inline()
                     ->options([
-                        1 => 'Yes',
-                        0 => 'No',
+                        true => 'Yes',
+                        false => 'No',
                     ])
-                    ->default(0),
+                    ->default(false),
             ]);
     }
 }
