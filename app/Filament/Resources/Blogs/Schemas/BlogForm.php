@@ -6,6 +6,7 @@ namespace App\Filament\Resources\Blogs\Schemas;
 
 use App\Enums\ScheduleOption;
 use App\Filament\Resources\BlogCategories\BlogCategoryResource;
+use App\Models\Blog;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
@@ -13,6 +14,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Group;
 use Filament\Schemas\Schema;
 
 class BlogForm
@@ -45,15 +47,18 @@ class BlogForm
                 RichEditor::make('content')
                     ->required()
                     ->columnSpanFull(),
-                ToggleButtons::make('publish')
-                    ->label('Publish')
-                    ->options(ScheduleOption::class)
-                    ->live()
-                    ->inline(),
-                DateTimePicker::make('published_at')
-                    ->label('Publish On')
-                    ->visible(fn (callable $get): bool => $get('publish') === ScheduleOption::Later)
-                    ->required(fn (callable $get): bool => $get('publish') === ScheduleOption::Later),
+                Group::make([
+                    ToggleButtons::make('publish')
+                        ->label('Publish')
+                        ->options(ScheduleOption::class)
+                        ->live()
+                        ->inline(),
+                    DateTimePicker::make('published_at')
+                        ->label('Publish On')
+                        ->visible(fn (callable $get): bool => $get('publish') === ScheduleOption::Later)
+                        ->required(fn (callable $get): bool => $get('publish') === ScheduleOption::Later),
+                ])
+                    ->hidden(fn (?Blog $blog): bool => $blog && $blog->published_at < now()),
             ]);
     }
 }

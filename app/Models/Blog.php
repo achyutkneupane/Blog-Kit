@@ -84,4 +84,11 @@ class Blog extends MediaModel implements Viewable
     {
         return 'slug';
     }
+
+    protected function casts(): array
+    {
+        return [
+            'published_at' => 'datetime',
+        ];
+    }
 }
