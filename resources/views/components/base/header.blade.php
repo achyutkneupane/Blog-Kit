@@ -20,7 +20,7 @@
                     <a href="#" class="block py-2 px-3 text-white bg-primary rounded-sm md:bg-transparent md:text-primary md:p-0" aria-current="page">Home</a>
                 </li>
                 <li>
-                    <a href="#" class="block py-2 px-3 text-white rounded hover:bg-primary/20 md:hover:bg-transparent md:border-0 md:hover:text-primary/90 md:p-0">About</a>
+                    <a href="#" class="block py-2 px-3 text-white rounded hover:bg-primary/20 md:hover:bg-transparent md:border-0 md:hover:text-primary/80 md:p-0">About</a>
                 </li>
             </ul>
         </div>
