@@ -29,7 +29,7 @@
 </head>
 <body class="text-white font-sans">
     <x-base.header />
-        {{ $slot }}
+    {{ $slot }}
     <x-base.footer />
 
     @stack('scripts')
