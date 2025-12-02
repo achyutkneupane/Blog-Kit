@@ -23,6 +23,7 @@ return new class extends Migration
                 ->nullable()
                 ->constrained()
                 ->nullOnDelete();
+            $blueprint->tinyInteger('is_featured')->default(0);
             $blueprint->timestamp('published_at')->nullable();
             $blueprint->timestamps();
         });

@@ -92,6 +92,7 @@ class Blog extends MediaModel implements Viewable
     {
         return [
             'published_at' => 'datetime',
+            'is_featured' => 'boolean',
         ];
     }
 }
