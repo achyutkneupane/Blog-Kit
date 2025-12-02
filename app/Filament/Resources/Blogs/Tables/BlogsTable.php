@@ -19,23 +19,13 @@ class BlogsTable
             ->columns([
                 TextColumn::make('title')
                     ->searchable(),
-                TextColumn::make('blog_category_id')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('user_id')
-                    ->numeric()
-                    ->sortable(),
+                TextColumn::make('category.name'),
+                TextColumn::make('author.name'),
                 TextColumn::make('published_at')
-                    ->dateTime()
+                    ->label('Published')
+                    ->since()
+                    ->dateTimeTooltip()
                     ->sortable(),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
@@ -43,11 +33,6 @@ class BlogsTable
             ->recordActions([
                 ViewAction::make(),
                 EditAction::make(),
-            ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
             ]);
     }
 }
