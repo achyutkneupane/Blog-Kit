@@ -59,7 +59,18 @@ class BlogForm
                         ->visible(fn (callable $get): bool => $get('publish') === ScheduleOption::Later)
                         ->required(fn (callable $get): bool => $get('publish') === ScheduleOption::Later),
                 ])
+                    ->columns()
+                    ->columnSpanFull()
                     ->hidden(fn (?Blog $blog): bool => $blog && $blog->published_at < now()),
+                ToggleButtons::make('is_featured')
+                    ->label('Featured')
+                    ->boolean()
+                    ->inline()
+                    ->options([
+                        1 => 'Yes',
+                        0 => 'No',
+                    ])
+                    ->default(0),
             ]);
     }
 }
