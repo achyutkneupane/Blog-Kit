@@ -6,6 +6,7 @@ namespace App\Models;
 
 use AchyutN\LaravelHelpers\Models\MediaModel;
 use AchyutN\LaravelHelpers\Traits\HasTheSlug;
+use App\Models\Scopes\LowerRoleOnly;
 use App\Models\Scopes\PublishedScope;
 use App\Traits\HasSEODetails;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
@@ -80,7 +81,10 @@ class Blog extends MediaModel implements Viewable
     /** @return BelongsTo<User> */
     public function author(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id')
+            ->withoutGlobalScopes([
+                LowerRoleOnly::class,
+            ]);
     }
 
     public function getRouteKeyName(): string
