@@ -2,5 +2,7 @@
 
 declare(strict_types=1);
 
-Route::get('/', App\Http\Controllers\RenderLandingPage::class)
+use App\Http\Controllers\RenderLandingPage;
+
+Route::get('/', RenderLandingPage::class)
     ->name('landing-page');

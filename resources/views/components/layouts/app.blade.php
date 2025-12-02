@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark bg-white dark:bg-neutral-800">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     @php
         use App\Settings\SiteSettings;
@@ -28,11 +28,12 @@
     @stack('styles')
 </head>
 <body class="text-white font-sans">
-{{--<x-base.header />--}}
-{{ $slot }}
-{{--<x-base.footer />--}}
-@stack('scripts')
-<script src="//cdn.jsdelivr.net/npm/flowbite@4/dist/flowbite.min.js"></script>
-{!! $siteSettings->footer_scripts !!}
+    <x-base.header />
+        {{ $slot }}
+    <x-base.footer />
+
+    @stack('scripts')
+    <script src="//cdn.jsdelivr.net/npm/flowbite@4/dist/flowbite.min.js"></script>
+    {!! $siteSettings->footer_scripts !!}
 </body>
 </html>
