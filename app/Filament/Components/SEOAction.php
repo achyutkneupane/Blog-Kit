@@ -20,7 +20,7 @@ class SEOAction extends Action
 
         $this->url(function ($livewire, $record): string {
             /** @var resource $resource */
-            $resource = app($livewire->getResource());
+            $resource = resolve($livewire->getResource());
 
             return $resource->getUrl('seo', ['record' => $record]);
         });
