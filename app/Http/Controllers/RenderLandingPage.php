@@ -16,9 +16,9 @@ class RenderLandingPage extends Controller
      */
     public function __invoke(Request $request): View|Factory
     {
-        $featured = Blog::query()
-            ->get();
+        $featured = Blog::whereIsFeatured(1)->get();
+        $latest = Blog::query()->except($featured)->orderBy('published_at', 'desc')->get();
 
-        return view('components.page.landing-page', compact('featured'));
+        return view('components.page.landing-page', compact('featured', 'latest'));
     }
 }
