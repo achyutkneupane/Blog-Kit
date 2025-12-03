@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace App\View\Components\Base;
+namespace App\View\Components\Shared;
 
-use App\Settings\SiteSettings;
+use App\Models\Blog;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Header extends Component
+class BlogComponent extends Component
 {
     /**
      * Create a new component instance.
      */
     public function __construct(
-        public SiteSettings $settings
+        public Blog $blog
     ) {
         //
     }
@@ -25,6 +25,6 @@ class Header extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.base.header');
+        return view('components.shared.blog-component');
     }
 }

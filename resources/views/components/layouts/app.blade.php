@@ -28,11 +28,11 @@
     @stack('styles')
 </head>
 <body class="text-white font-sans">
-    <x-base.header />
+    <x-shared.header />
     <div class="container-xl">
         {{ $slot }}
     </div>
-    <x-base.footer />
+    <x-shared.footer />
 
     @stack('scripts')
     <script src="//cdn.jsdelivr.net/npm/flowbite@4/dist/flowbite.min.js"></script>
