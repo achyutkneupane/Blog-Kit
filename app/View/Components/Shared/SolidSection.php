@@ -4,22 +4,17 @@ declare(strict_types=1);
 
 namespace App\View\Components\Shared;
 
-use App\Models\Blog;
 use Closure;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Collection;
 use Illuminate\View\Component;
 
-class BlogList extends Component
+class SolidSection extends Component
 {
     /**
      * Create a new component instance.
-     *
-     * @param  Collection<Blog>  $blogs
      */
     public function __construct(
-        public Collection $blogs,
-        public ?string $title,
+        public ?string $text = null,
     ) {
         //
     }
@@ -29,6 +24,6 @@ class BlogList extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.shared.blog-list');
+        return view('components.shared.solid-section');
     }
 }

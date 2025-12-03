@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 
 class RenderLandingPage extends Controller
 {
-
     /**
      * Handle the incoming request.
      */
@@ -19,6 +18,7 @@ class RenderLandingPage extends Controller
     {
         $featured = Blog::query()
             ->get();
+
         return view('components.page.landing-page', compact('featured'));
     }
 }
