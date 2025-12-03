@@ -18,6 +18,7 @@ use Illuminate\Support\Carbon;
  * @property string $slug
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property-read BlogCategory|null $pivot
  * @property-read Collection<int, Blog> $blogs
  * @property-read int|null $blogs_count
  * @property-read SeoDetail|null $seo
