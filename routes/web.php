@@ -7,5 +7,5 @@ use App\Http\Controllers\RenderLandingPage;
 
 Route::get('/', RenderLandingPage::class)
     ->name('landing-page');
-Route::get('/{blog}', RenderBlogView::class)
+Route::get('/blog/{blog}', RenderBlogView::class)
     ->name('blog.view');

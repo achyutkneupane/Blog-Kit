@@ -20,8 +20,6 @@
                     <a
                         href="{{ route('landing-page') }}"
                         @class([
-//                            "block py-2 px-3 text-white bg-primary rounded-sm md:bg-transparent md:p-0",
-//                            request()->routeIs('landing-page') ? 'md:text-primary' : 'md:hover:text-primary/80 md:hover:bg-transparent'
                             "block py-2 px-3 text-white rounded-sm md:bg-transparent md:p-0",
                             request()->routeIs('landing-page') ? 'md:text-primary bg-primary md:bg-transparent' : 'md:hover:text-primary/80 md:hover:bg-transparent'
                         ])
