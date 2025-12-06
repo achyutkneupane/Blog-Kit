@@ -25,6 +25,8 @@ trait HasSEODetails
             $model->seoDetails()->create([
                 'meta_title' => $model->title ?? $model->name,
                 'og_title' => $model->title ?? $model->name,
+                'meta_description' => $model->description ?? null,
+                'og_description' => $model->description ?? null,
                 'author' => auth()->check() ? auth()->user()->name : config('app.name'),
                 'robots' => ['index', 'follow'],
                 'publisher' => config('app.name'),
@@ -37,8 +39,7 @@ trait HasSEODetails
      */
     public function seoDetails(): MorphOne
     {
-        return $this->morphOne(SeoDetail::class, 'seoable')
-            ->withoutGlobalScopes();
+        return $this->morphOne(SeoDetail::class, 'seoable');
     }
 
     public function getDynamicSEOData(): SEOData
