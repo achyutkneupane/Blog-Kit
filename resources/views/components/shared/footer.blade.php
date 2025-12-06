@@ -18,6 +18,19 @@
                         Home
                     </a>
                 </li>
+                @foreach(\App\Models\StaticPage::query()->get() as $staticPage)
+                <li>
+                    <a
+                        href="{{ route('page.view', $staticPage) }}"
+                        @class([
+                            "ml-4 md:ml-0 hover:underline text-neutral-300",
+                            request()->routeIs('page.view', ['staticPage' => $staticPage]) ? 'text-primary' : 'hover:text-primary'
+                        ])
+                    >
+                        {{ $staticPage->title }}
+                    </a>
+                </li>
+                @endforeach
             </ul>
         </div>
         <hr class="my-6 border-default sm:mx-auto lg:my-8">
