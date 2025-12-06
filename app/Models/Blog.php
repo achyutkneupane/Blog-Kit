@@ -15,6 +15,7 @@ use CyrildeWit\EloquentViewable\Support\Period;
 use CyrildeWit\EloquentViewable\View;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -100,5 +101,12 @@ class Blog extends MediaModel implements Viewable
             'published_at' => 'datetime',
             'is_featured' => 'boolean',
         ];
+    }
+
+    protected function url(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): string => route('blog.view', $this),
+        );
     }
 }
