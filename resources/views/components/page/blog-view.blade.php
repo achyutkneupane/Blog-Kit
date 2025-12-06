@@ -33,4 +33,7 @@
             </article>
         </div>
     </main>
+    @push('seo')
+        {!! seo()->for($blog) !!}
+    @endpush
 </x-layouts.app>

@@ -22,7 +22,7 @@ class ManageSEORecord extends EditRecord
 
     public function mount(int|string $record): void
     {
-        $this->record = $this->resolveRecord($record)->load('seo');
+        $this->record = $this->resolveRecord($record)->load('seoDetails');
         $this->form->fill($this->record?->seo?->toArray() ?? []);
     }
 
