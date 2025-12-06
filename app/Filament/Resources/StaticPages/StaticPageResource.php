@@ -13,6 +13,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Resource;
@@ -39,8 +40,12 @@ final class StaticPageResource extends Resource
                 TextInput::make('title')
                     ->required(),
                 TextInput::make('slug')
+                    ->hidden(fn (StaticPage $record) => $record->slug === 'landing-page')
                     ->visibleOn('edit')
                     ->required(),
+                RichEditor::make('content')
+                    ->hidden(fn (StaticPage $record) => $record->slug === 'landing-page')
+                    ->helperText('Skip if not a content page'),
             ]);
     }
 
@@ -52,7 +57,10 @@ final class StaticPageResource extends Resource
                 TextEntry::make('title')
                     ->inlineLabel(),
                 TextEntry::make('slug')
-                    ->inlineLabel(),
+                    ->inlineLabel().
+                TextEntry::make('content')
+                    ->inlineLabel()
+                    ->html(),
             ]);
     }
 
