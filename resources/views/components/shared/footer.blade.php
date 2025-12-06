@@ -18,13 +18,13 @@
                         Home
                     </a>
                 </li>
-                @foreach(\App\Models\StaticPage::query()->get() as $staticPage)
+                @foreach(\App\Models\StaticPage::query()->withGlobalScope('contentPage', new \App\Models\Scopes\ContentPageOnly())->get() as $staticPage)
                 <li>
                     <a
                         href="{{ route('page.view', $staticPage) }}"
                         @class([
                             "ml-4 md:ml-0 hover:underline text-neutral-300",
-                            request()->routeIs('page.view', ['staticPage' => $staticPage]) ? 'text-primary' : 'hover:text-primary'
+                            \Illuminate\Support\Facades\Route::named('page.view', $staticPage) ? 'text-primary' : 'hover:text-primary'
                         ])
                     >
                         {{ $staticPage->title }}

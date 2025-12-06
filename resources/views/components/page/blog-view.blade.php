@@ -21,16 +21,21 @@
                     <h1 class="mb-2 text-3xl font-extrabold leading-tight text-primary lg:mb-6 lg:text-4xl">
                         {{ $blog->title }}
                     </h1>
-                    <div>
+                    <div class="flex flex-row gap-2">
                         @foreach($blog->categories as $category)
-                            <a href="#" class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded mr-2">
+                            <a href="#" class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded">
                                 {{ $category->name }}
                             </a>
                         @endforeach
+                        <div>·</div>
+                        <div>{{ $blog->minutes_read_text }}</div>
                     </div>
                 </header>
                 {!! $blog->content !!}
             </article>
         </div>
     </main>
+    @push('seo')
+        {!! seo()->for($blog) !!}
+    @endpush
 </x-layouts.app>
