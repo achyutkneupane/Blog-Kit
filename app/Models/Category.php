@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
+use RalphJSmit\Laravel\SEO\Models\SEO;
 
 /**
  * @property int $id
@@ -21,7 +22,8 @@ use Illuminate\Support\Carbon;
  * @property-read BlogCategory|null $pivot
  * @property-read Collection<int, Blog> $blogs
  * @property-read int|null $blogs_count
- * @property-read SeoDetail|null $seo
+ * @property-read SEO $seo
+ * @property-read SeoDetail|null $seoDetails
  *
  * @method static Builder<static>|Category findSimilarSlugs(string $attribute, array $config, string $slug)
  * @method static Builder<static>|Category newModelQuery()

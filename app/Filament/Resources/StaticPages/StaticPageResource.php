@@ -40,11 +40,11 @@ final class StaticPageResource extends Resource
                 TextInput::make('title')
                     ->required(),
                 TextInput::make('slug')
-                    ->hidden(fn (StaticPage $record) => $record->slug === 'landing-page')
+                    ->hidden(fn (StaticPage $staticPage): bool => $staticPage->slug === 'landing-page')
                     ->visibleOn('edit')
                     ->required(),
                 RichEditor::make('content')
-                    ->hidden(fn (StaticPage $record) => $record->slug === 'landing-page')
+                    ->hidden(fn (StaticPage $staticPage): bool => $staticPage->slug === 'landing-page')
                     ->helperText('Skip if not a content page'),
             ]);
     }

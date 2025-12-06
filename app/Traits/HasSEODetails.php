@@ -22,7 +22,7 @@ trait HasSEODetails
         parent::boot();
 
         static::created(function ($model): void {
-            $siteSettings = app(SiteSettings::class);
+            $siteSettings = resolve(SiteSettings::class);
 
             $model->seoDetails()->create([
                 'meta_title' => $model->title ?? $model->name,

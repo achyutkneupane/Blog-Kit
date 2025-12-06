@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
+use RalphJSmit\Laravel\SEO\Models\SEO;
 use Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
@@ -41,7 +42,11 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property-read int|null $categories_count
  * @property-read MediaCollection<int, Media> $media
  * @property-read int|null $media_count
- * @property-read SeoDetail|null $seo
+ * @property-read int $minutes_read
+ * @property-read string $minutes_read_text
+ * @property-read SEO $seo
+ * @property-read SeoDetail|null $seoDetails
+ * @property-read string $url
  * @property-read Collection<int, View> $views
  * @property-read int|null $views_count
  *
@@ -113,7 +118,7 @@ class Blog extends MediaModel implements Viewable
     protected function minutesRead(): Attribute
     {
         return Attribute::make(
-            get: fn (): int => max(1, (int) ceil(str_word_count(strip_tags($this->content)) / 200)),
+            get: fn (): int => max(1, (int) ceil(str_word_count(strip_tags($this->content ?? '')) / 200)),
         );
     }
 
