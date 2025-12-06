@@ -17,6 +17,8 @@ return new class extends Migration
             $blueprint->id();
             $blueprint->string('title');
             $blueprint->string('slug')->unique();
+            $blueprint->longText('content')
+                ->nullable();
             $blueprint->timestamps();
         });
     }
