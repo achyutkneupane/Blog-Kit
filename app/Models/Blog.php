@@ -29,13 +29,15 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property string $slug
  * @property string $description
  * @property string $content
- * @property int $blog_category_id
- * @property int $user_id
- * @property string|null $published_at
+ * @property int|null $user_id
+ * @property bool $is_featured
+ * @property Carbon|null $published_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read User $author
- * @property-read Category|null $category
+ * @property-read User|null $author
+ * @property-read BlogCategory|null $pivot
+ * @property-read Collection<int, Category> $categories
+ * @property-read int|null $categories_count
  * @property-read MediaCollection<int, Media> $media
  * @property-read int|null $media_count
  * @property-read SeoDetail|null $seo
@@ -48,11 +50,11 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @method static Builder<static>|Blog orderByUniqueViews(string $direction = 'desc', $period = null, ?string $collection = null, string $as = 'unique_views_count')
  * @method static Builder<static>|Blog orderByViews(string $direction = 'desc', ?Period $period = null, ?string $collection = null, bool $unique = false, string $as = 'views_count')
  * @method static Builder<static>|Blog query()
- * @method static Builder<static>|Blog whereBlogCategoryId($value)
  * @method static Builder<static>|Blog whereContent($value)
  * @method static Builder<static>|Blog whereCreatedAt($value)
  * @method static Builder<static>|Blog whereDescription($value)
  * @method static Builder<static>|Blog whereId($value)
+ * @method static Builder<static>|Blog whereIsFeatured($value)
  * @method static Builder<static>|Blog wherePublishedAt($value)
  * @method static Builder<static>|Blog whereSlug($value)
  * @method static Builder<static>|Blog whereTitle($value)
