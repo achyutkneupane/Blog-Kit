@@ -116,7 +116,7 @@ final class AppServiceProvider extends ServiceProvider
                 ])
         );
 
-        Router::macro('named', function ($name, $parameters) {
+        Router::macro('named', function ($name, $parameters): bool {
             return url()->current() === route($name, $parameters);
         });
     }
