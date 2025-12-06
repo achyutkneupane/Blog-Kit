@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Models;
 
 use AchyutN\LaravelHelpers\Traits\HasTheSlug;
+use App\Models\Scopes\ContentPageOnly;
 use App\Traits\HasSEODetails;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
@@ -31,8 +33,14 @@ use Illuminate\Support\Carbon;
  *
  * @mixin \Eloquent
  */
+#[ScopedBy(ContentPageOnly::class)]
 final class StaticPage extends Model
 {
     use HasSEODetails;
     use HasTheSlug;
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 }
