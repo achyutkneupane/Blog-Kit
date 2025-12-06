@@ -1,12 +1,13 @@
 <article class="p-6 bg-white rounded-lg border border-neutral-200 shadow-md">
     <div class="flex justify-between items-center mb-5 text-neutral-500">
-      <div>
-          @foreach($blog->categories as $category)
-              <a href="#" class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded mr-2">
-                  {{ $category->name }}
-              </a>
-          @endforeach
-      </div>
+        <div>
+            @foreach($blog->categories as $category)
+                <a href="#"
+                   class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded mr-2">
+                    {{ $category->name }}
+                </a>
+            @endforeach
+        </div>
         <span class="text-sm">
             {{ $blog->published_at->diffForHumans() }}
         </span>

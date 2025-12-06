@@ -24,6 +24,9 @@
     --color-primary-800: #9b1611;
     --color-primary-900: #7d1511;
     --color-primary-950: #430707;
+
+    --tw-format-links: var(--color-primary);
+    --tw-format-invert-links: var(--color-primary-300);
 }
 
 @layer components {
@@ -32,5 +35,13 @@
         @apply mx-auto;
         @apply max-w-screen-xl;
         @apply px-4 lg:px-0;
+    }
+}
+
+@layer utilities {
+    .format {
+        :where(a):not(:where([class~="not-format"] *)) {
+            @apply text-primary;
+        }
     }
 }
