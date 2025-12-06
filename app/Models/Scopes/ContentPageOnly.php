@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models\Scopes;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -16,6 +18,7 @@ class ContentPageOnly implements Scope
         if (filament()->isServing()) {
             return;
         }
+
         $builder->whereNotNull('content');
     }
 }

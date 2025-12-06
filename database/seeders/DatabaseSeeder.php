@@ -46,11 +46,11 @@ final class DatabaseSeeder extends Seeder
             ]);
         }
 
-        StaticPage::create([
+        StaticPage::query()->create([
             'title' => 'Home',
             'slug' => 'landing-page',
         ]);
-        StaticPage::create([
+        StaticPage::query()->create([
             'title' => 'About Us',
             'slug' => 'about-us',
             'content' => implode('', [
