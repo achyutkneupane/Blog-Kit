@@ -30,10 +30,13 @@ final class SEOForm
             Section::make('Open Graph')
                 ->schema([
                     TextInput::make('og_title')
+                        ->label('OG Title')
                         ->maxLength(255),
                     Textarea::make('og_description')
+                        ->label('OG Description')
                         ->maxLength(255),
                     FileUpload::make('og_image')
+                        ->label('OG Image')
                         ->image()
                         ->imageEditor()
                         ->imageCropAspectRatio('4:3')
@@ -48,6 +51,7 @@ final class SEOForm
                         ])
                         ->helperText('Leave empty to use the featured image'),
                     TextInput::make('og_url')
+                        ->label('OG URL')
                         ->helperText('Leave empty to use default URL')
                         ->url(),
                 ])
