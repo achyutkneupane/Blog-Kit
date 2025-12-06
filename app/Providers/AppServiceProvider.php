@@ -16,6 +16,7 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
@@ -114,5 +115,9 @@ final class AppServiceProvider extends ServiceProvider
                     'style' => 'overflow-y: scroll; max-height: 600px;',
                 ])
         );
+
+        Router::macro('named', function ($name, $parameters) {
+            return url()->current() === route($name, $parameters);
+        });
     }
 }

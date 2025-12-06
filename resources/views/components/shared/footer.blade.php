@@ -24,7 +24,7 @@
                         href="{{ route('page.view', $staticPage) }}"
                         @class([
                             "ml-4 md:ml-0 hover:underline text-neutral-300",
-                            request()->routeIs('page.view', ['staticPage' => $staticPage]) ? 'text-primary' : 'hover:text-primary'
+                            \Illuminate\Support\Facades\Route::named('page.view', $staticPage) ? 'text-primary' : 'hover:text-primary'
                         ])
                     >
                         {{ $staticPage->title }}

@@ -33,7 +33,7 @@
                         href="{{ route('page.view', $staticPage) }}"
                         @class([
                             "block py-2 px-3 text-white rounded-sm md:bg-transparent md:p-0",
-                            request()->routeIs('page.view', ['staticPage' => $staticPage]) ? 'md:text-primary bg-primary md:bg-transparent' : 'md:hover:text-primary/80 md:hover:bg-transparent'
+                            \Illuminate\Support\Facades\Route::named('page.view', $staticPage) ? 'md:text-primary bg-primary md:bg-transparent' : 'md:hover:text-primary/80 md:hover:bg-transparent'
                         ])
                     >
                         {{ $staticPage->title }}
