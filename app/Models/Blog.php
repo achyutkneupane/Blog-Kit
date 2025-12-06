@@ -109,4 +109,20 @@ class Blog extends MediaModel implements Viewable
             get: fn (): string => route('blog.view', $this),
         );
     }
+
+    protected function minutesRead(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): int => max(1, (int) ceil(str_word_count(strip_tags($this->content)) / 200)),
+        );
+    }
+
+    protected function minutesReadText(): Attribute
+    {
+        $singular = $this->minutes_read <= 1;
+
+        return Attribute::make(
+            get: fn (): string => $this->minutes_read.' min'.($singular ? '' : 's').' read',
+        );
+    }
 }
