@@ -27,7 +27,7 @@
                         Home
                     </a>
                 </li>
-                @foreach(\App\Models\StaticPage::query()->get() as $staticPage)
+                @foreach(\App\Models\StaticPage::query()->withGlobalScope('contentPage', new \App\Models\Scopes\ContentPageOnly())->get() as $staticPage)
                 <li>
                     <a
                         href="{{ route('page.view', $staticPage) }}"
