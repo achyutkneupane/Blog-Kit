@@ -37,7 +37,8 @@ trait HasSEODetails
      */
     public function seoDetails(): MorphOne
     {
-        return $this->morphOne(SeoDetail::class, 'seoable');
+        return $this->morphOne(SeoDetail::class, 'seoable')
+            ->withoutGlobalScopes();
     }
 
     public function getDynamicSEOData(): SEOData
@@ -46,7 +47,7 @@ trait HasSEODetails
         $seo = $this->seoDetails;
 
         $og_image = $siteSettings->og_image;
-        $og_image_link = $og_image ? asset('storage/'.$og_image) : null;
+        $og_image_link = $og_image ? 'storage/'.$og_image : null;
 
         return new SEOData(
             title: sprintf('%s | %s', $seo->meta_title ?? $this->title, $siteSettings->name),
@@ -61,7 +62,7 @@ trait HasSEODetails
                     '@context' => 'https://schema.org',
                     '@type' => 'BlogPosting',
                     'headline' => $seo->meta_title ?? $this->title,
-                    'description' => $seo->meta_description ?? $this->description,
+                    'description' => $seo->og_description ?? $this->description,
                     'url' => $seo->canonical ?? $this->url,
                     'thumbnailUrl' => $seo->og_image ? '/storage/'.$seo->og_image : $og_image_link,
                     'articleSection' => $this->categories ? implode(', ', $this->categories->pluck('name')->toArray()) : 'General',

@@ -11,4 +11,7 @@
             </article>
         </div>
     </main>
+    @push('seo')
+        {!! seo()->for($staticPage) !!}
+    @endpush
 </x-layouts.app>
