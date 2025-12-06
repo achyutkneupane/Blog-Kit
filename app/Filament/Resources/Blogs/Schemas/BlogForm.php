@@ -10,6 +10,7 @@ use App\Models\Blog;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
@@ -41,10 +42,29 @@ class BlogForm
                             )
                             ->required(),
                     ]),
-                Textarea::make('description')
-                    ->label('Excerpt')
-                    ->required()
-                    ->columnSpanFull(),
+                Grid::make()
+                    ->columnSpanFull()
+                    ->components([
+                        Textarea::make('description')
+                            ->label('Excerpt')
+                            ->required(),
+                        SpatieMediaLibraryFileUpload::make('cover')
+                            ->label('Cover Image')
+                            ->collection('cover')
+                            ->image()
+                            ->required()
+                            ->preserveFilenames()
+                            ->imageEditor()
+                            ->imageCropAspectRatio('4:3')
+                            ->openable()
+                            ->previewable()
+                            ->downloadable()
+                            ->deletable()
+                            ->rules([
+                                'required',
+                                'dimensions:ratio=4/3',
+                            ]),
+                    ]),
                 RichEditor::make('content')
                     ->required()
                     ->columnSpanFull(),
