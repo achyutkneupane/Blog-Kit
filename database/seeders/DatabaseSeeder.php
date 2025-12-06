@@ -46,13 +46,15 @@ final class DatabaseSeeder extends Seeder
             ]);
         }
 
-        StaticPage::query()->create([
-            'title' => 'Home',
+        StaticPage::query()->firstOrCreate([
             'slug' => 'landing-page',
+        ], [
+            'title' => 'Home',
         ]);
-        StaticPage::query()->create([
-            'title' => 'About Us',
+        StaticPage::query()->firstOrCreate([
             'slug' => 'about-us',
+        ], [
+            'title' => 'About Us',
             'content' => implode('', [
                 '<p>Welcome to the Blog Kit! This is a simple starter kit for building a blog using Laravel and Tailwind CSS.</p>',
                 '<p>The pages are SEO optimized and responsive. The process is simple: create a new laravel project using the starter kit, set up your database, change the page designs as you like, and start writing blog posts!</p>',
