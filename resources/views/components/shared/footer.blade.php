@@ -6,12 +6,17 @@
                     {{ $settings->name }}
                 </span>
             </a>
-            <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-neutral-50 sm:mb-0">
+            <ul class="flex flex-wrap md:flex-col items-center md:items-start mt-4 md:mt-0 mb-6 text-sm font-medium text-neutral-50 sm:mb-0">
                 <li>
-                    <a href="{{ route('landing-page') }}" class="hover:underline text-primary me-4 md:me-6">Homepage</a>
-                </li>
-                <li>
-                    <a href="#" class="hover:underline me-4 md:me-6">About</a>
+                    <a
+                        href="{{ route('landing-page') }}"
+                        @class([
+                            "hover:underline text-neutral-300",
+                            request()->routeIs('landing-page') ? 'text-primary' : 'hover:text-primary'
+                        ])
+                    >
+                        Home
+                    </a>
                 </li>
             </ul>
         </div>

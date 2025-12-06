@@ -17,10 +17,17 @@
         <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
             <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium rounded-base bg-neutral-700 md:bg-transparent space-y-1 md:space-y-0 space-x-0 md:space-x-8 md:flex-row md:mt-0 md:border-0">
                 <li>
-                    <a href="#" class="block py-2 px-3 text-white bg-primary rounded-sm md:bg-transparent md:text-primary md:p-0" aria-current="page">Home</a>
-                </li>
-                <li>
-                    <a href="#" class="block py-2 px-3 text-white rounded hover:bg-primary/20 md:hover:bg-transparent md:border-0 md:hover:text-primary/80 md:p-0">About</a>
+                    <a
+                        href="{{ route('landing-page') }}"
+                        @class([
+//                            "block py-2 px-3 text-white bg-primary rounded-sm md:bg-transparent md:p-0",
+//                            request()->routeIs('landing-page') ? 'md:text-primary' : 'md:hover:text-primary/80 md:hover:bg-transparent'
+                            "block py-2 px-3 text-white rounded-sm md:bg-transparent md:p-0",
+                            request()->routeIs('landing-page') ? 'md:text-primary bg-primary md:bg-transparent' : 'md:hover:text-primary/80 md:hover:bg-transparent'
+                        ])
+                    >
+                        Home
+                    </a>
                 </li>
             </ul>
         </div>
