@@ -19,6 +19,14 @@ class SchemasResourceInfolistSchemaClassGenerator extends BaseSchemasResourceInf
         $components = $this->getInfolistComponents($model, $exceptColumns);
         $this->importUnlessPartial(Section::class);
 
+        foreach ($components as &$component) {
+            $lines = explode(PHP_EOL, $component);
+            foreach ($lines as &$line) {
+                $line = '        '.$line;
+            }
+            $component = implode(PHP_EOL, $lines);
+        }
+
         if (empty($components)) {
             $recordTitleAttribute = $this->getRecordTitleAttribute();
 
@@ -37,11 +45,11 @@ class SchemasResourceInfolistSchemaClassGenerator extends BaseSchemasResourceInf
 
         return new Literal(<<<PHP
             {$this->simplifyFqn(Section::class)}::make()
-                ->columns()
-                ->columnSpanFull()
-                ->components([
+                        ->columns()
+                        ->columnSpanFull()
+                        ->components([
                     {$componentsString}
-                ]),
+                        ]),
             PHP);
     }
 }
