@@ -9,7 +9,6 @@ use App\Enums\UserRole;
 use App\Filament\Commands\FileGenerators\Resources\ResourceClassGenerator;
 use App\Filament\Commands\FileGenerators\Resources\ResourceInfolistSchemaClassGenerator;
 use App\Filament\Commands\FileGenerators\Resources\ResourceTableClassGenerator;
-use App\Filament\Commands\FileGenerators\Resources\SchemasResourceInfolistSchemaClassGenerator;
 use App\Models\Scopes\LowerRoleOnly;
 use App\Models\User;
 use App\Settings\SiteSettings;

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Traits\HasSEODetails;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -56,7 +55,6 @@ use Illuminate\Support\Carbon;
  */
 final class SeoDetail extends Model
 {
-    use HasSEODetails;
     public function seoable(): MorphTo
     {
         return $this->morphTo('seoable');
