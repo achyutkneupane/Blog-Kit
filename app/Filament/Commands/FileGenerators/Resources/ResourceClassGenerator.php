@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Commands\FileGenerators\Resources;
 
+use App\Traits\HasSEODetails;
 use Filament\Commands\FileGenerators\Resources\ResourceClassGenerator as BaseResourceClassGenerator;
 use Filament\Pages\Enums\SubNavigationPosition;
 use Filament\Resources\Pages\Page;
@@ -12,6 +13,8 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Literal;
+use ReflectionClass;
+use ReflectionException;
 
 class ResourceClassGenerator extends BaseResourceClassGenerator
 {
@@ -51,7 +54,9 @@ class ResourceClassGenerator extends BaseResourceClassGenerator
     {
         parent::addMethodsToClass($class);
 
-        $this->generateSEOPage();
+        if ($this->modelHasSEO()) {
+            $this->generateSEOPage();
+        }
 
         if ($this->isSimple()) {
             return;
@@ -107,5 +112,16 @@ class ResourceClassGenerator extends BaseResourceClassGenerator
             'hasViewOperation' => $this->hasViewOperation(),
             'isSoftDeletable' => $this->isSoftDeletable(),
         ]));
+    }
+
+    private function modelHasSEO(): bool
+    {
+        try {
+            $modelReflection = new ReflectionClass($this->modelFqn);
+
+            return in_array(HasSEODetails::class, $modelReflection->getTraitNames(), true);
+        } catch (ReflectionException $exception) {
+            return false;
+        }
     }
 }
