@@ -18,6 +18,22 @@ use ReflectionException;
 
 class ResourceClassGenerator extends BaseResourceClassGenerator
 {
+    public function getPageRoutes(): array
+    {
+        $routes = parent::getPageRoutes();
+
+        if ($this->modelHasSEO()) {
+            $seoFqn = $this->generateSEOPage();
+
+            $routes['seo'] = [
+                'path' => '/{record}/seo',
+                'class' => $seoFqn,
+            ];
+        }
+
+        return $routes;
+    }
+
     protected function addNavigationIconPropertyToClass(ClassType $class): void
     {
         parent::addNavigationIconPropertyToClass($class);
@@ -54,10 +70,6 @@ class ResourceClassGenerator extends BaseResourceClassGenerator
     {
         parent::addMethodsToClass($class);
 
-        if ($this->modelHasSEO()) {
-            $this->generateSEOPage();
-        }
-
         if ($this->isSimple()) {
             return;
         }
@@ -70,12 +82,25 @@ class ResourceClassGenerator extends BaseResourceClassGenerator
         $this->namespace->addUse($viewPage);
         $this->namespace->addUse($editPage);
 
-        $methodBody = <<<PHP
+        if ($this->modelHasSEO()) {
+            $seoPage = array_key_exists('seo', $this->getPageRoutes()) ? $this->getPageRoutes()['seo']['class'] : null;
+            $this->namespace->addUse($seoPage);
+
+            $methodBody = <<<PHP
+                return \$page->generateNavigationItems([
+                    {$this->simplifyFqn($viewPage)}::class,
+                    {$this->simplifyFqn($editPage)}::class,
+                    {$this->simplifyFqn($seoPage)}::class,
+                ]);
+                PHP;
+        } else {
+            $methodBody = <<<PHP
                 return \$page->generateNavigationItems([
                     {$this->simplifyFqn($viewPage)}::class,
                     {$this->simplifyFqn($editPage)}::class,
                 ]);
                 PHP;
+        }
 
         $method = $class->addMethod('getRecordSubNavigation')
             ->setPublic()
@@ -97,7 +122,7 @@ class ResourceClassGenerator extends BaseResourceClassGenerator
         $filesystem->put($path, (($contents instanceof FileGenerator) ? $contents->generate() : $contents));
     }
 
-    private function generateSEOPage(): void
+    private function generateSEOPage(): string
     {
         $modelBasename = class_basename($this->modelFqn);
         $singularModelBasename = Str::singular($modelBasename);
@@ -105,13 +130,16 @@ class ResourceClassGenerator extends BaseResourceClassGenerator
         $directory = str_replace('\\', '/', app()->basePath().'/'.str_replace('App\\', 'app/', $namespace));
 
         $path = "{$directory}/Pages/Manage{$singularModelBasename}SEO.php";
+        $fqn = "{$namespace}\\Pages\\Manage{$singularModelBasename}SEO";
 
         $this->writeFile($path, app(ResourceSEOPageClassGenerator::class, [
-            'fqn' => "{$namespace}\\Pages\\Manage{$singularModelBasename}SEO",
+            'fqn' => $fqn,
             'resourceFqn' => $this->fqn,
             'hasViewOperation' => $this->hasViewOperation(),
             'isSoftDeletable' => $this->isSoftDeletable(),
         ]));
+
+        return $fqn;
     }
 
     private function modelHasSEO(): bool
