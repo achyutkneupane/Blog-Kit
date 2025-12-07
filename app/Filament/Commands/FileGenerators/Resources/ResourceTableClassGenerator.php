@@ -30,10 +30,10 @@ class ResourceTableClassGenerator extends BaseResourceTableClassGenerator
     private function modelHasSEO(): bool
     {
         try {
-            $modelReflection = new ReflectionClass($this->modelFqn);
+            $reflectionClass = new ReflectionClass($this->modelFqn);
 
-            return in_array(HasSEODetails::class, $modelReflection->getTraitNames(), true);
-        } catch (ReflectionException $exception) {
+            return in_array(HasSEODetails::class, $reflectionClass->getTraitNames(), true);
+        } catch (ReflectionException $reflectionException) {
             return false;
         }
     }

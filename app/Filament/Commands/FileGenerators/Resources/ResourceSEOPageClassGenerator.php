@@ -40,7 +40,7 @@ class ResourceSEOPageClassGenerator extends ClassGenerator
 
         return [
             $this->getResourceFqn(),
-            ...(($extendsBasename === class_basename($this->getFqn())) ? [$extends => "Base{$extendsBasename}"] : [$extends]),
+            ...(($extendsBasename === class_basename($this->getFqn())) ? [$extends => 'Base' . $extendsBasename] : [$extends]),
         ];
     }
 

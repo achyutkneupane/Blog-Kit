@@ -113,7 +113,7 @@ class ResourceClassGenerator extends BaseResourceClassGenerator
 
     protected function writeFile(string $path, string|FileGenerator $contents): void
     {
-        $filesystem = app(Filesystem::class);
+        $filesystem = resolve(Filesystem::class);
 
         $filesystem->ensureDirectoryExists(
             pathinfo($path, PATHINFO_DIRNAME),
@@ -129,10 +129,10 @@ class ResourceClassGenerator extends BaseResourceClassGenerator
         $namespace = $this->extractNamespace($this->getFqn());
         $directory = str_replace('\\', '/', app()->basePath().'/'.str_replace('App\\', 'app/', $namespace));
 
-        $path = "{$directory}/Pages/Manage{$singularModelBasename}SEO.php";
-        $fqn = "{$namespace}\\Pages\\Manage{$singularModelBasename}SEO";
+        $path = sprintf('%s/Pages/Manage%sSEO.php', $directory, $singularModelBasename);
+        $fqn = sprintf('%s\Pages\Manage%sSEO', $namespace, $singularModelBasename);
 
-        $this->writeFile($path, app(ResourceSEOPageClassGenerator::class, [
+        $this->writeFile($path, resolve(ResourceSEOPageClassGenerator::class, [
             'fqn' => $fqn,
             'resourceFqn' => $this->fqn,
             'hasViewOperation' => $this->hasViewOperation(),
@@ -145,10 +145,10 @@ class ResourceClassGenerator extends BaseResourceClassGenerator
     private function modelHasSEO(): bool
     {
         try {
-            $modelReflection = new ReflectionClass($this->modelFqn);
+            $reflectionClass = new ReflectionClass($this->modelFqn);
 
-            return in_array(HasSEODetails::class, $modelReflection->getTraitNames(), true);
-        } catch (ReflectionException $exception) {
+            return in_array(HasSEODetails::class, $reflectionClass->getTraitNames(), true);
+        } catch (ReflectionException $reflectionException) {
             return false;
         }
     }
