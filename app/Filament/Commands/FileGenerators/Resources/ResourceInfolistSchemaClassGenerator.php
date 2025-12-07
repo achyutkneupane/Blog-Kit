@@ -2,13 +2,13 @@
 
 namespace App\Filament\Commands\FileGenerators\Resources;
 
-use Filament\Commands\FileGenerators\Resources\Schemas\ResourceInfolistSchemaClassGenerator as BaseSchemasResourceInfolistSchemaClassGenerator;
+use Filament\Commands\FileGenerators\Resources\Schemas\ResourceInfolistSchemaClassGenerator as BaseResourceInfolistSchemaClassGenerator;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;
 use Illuminate\Database\Eloquent\Model;
 use Nette\PhpGenerator\Literal;
 
-class SchemasResourceInfolistSchemaClassGenerator extends BaseSchemasResourceInfolistSchemaClassGenerator
+class ResourceInfolistSchemaClassGenerator extends BaseResourceInfolistSchemaClassGenerator
 {
     /**
      * @param  ?class-string<Model>  $model
