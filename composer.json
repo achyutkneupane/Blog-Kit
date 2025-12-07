@@ -78,7 +78,7 @@
         ],
         "lint": [
             "rector",
-            "pint"
+            "pint --config=pint.json"
         ]
     },
     "extra": {
