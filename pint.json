@@ -55,7 +55,7 @@
         "strict_comparison": true,
         "visibility_required": true
     },
-    "exclude": [
-        "app/Filament/Commands/FileGenerators/Resources/SchemasResourceInfolistSchemaClassGenerator.php"
+    "notName": [
+        "*Generator.php"
     ]
 }
