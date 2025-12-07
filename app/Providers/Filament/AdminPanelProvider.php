@@ -6,6 +6,7 @@ namespace App\Providers\Filament;
 
 use AchyutN\FilamentLogViewer\FilamentLogViewer;
 use App\Enums\UserRole;
+use App\Filament\Commands\FileGenerators\Resources\ResourceClassGenerator;
 use App\Filament\Commands\FileGenerators\Resources\SchemasResourceInfolistSchemaClassGenerator;
 use App\Models\Scopes\LowerRoleOnly;
 use App\Models\User;
@@ -16,6 +17,7 @@ use DutchCodingCompany\FilamentDeveloperLogins\FilamentDeveloperLoginsPlugin;
 use Exception;
 use Filament\Actions\Action;
 use Filament\Commands\FileGenerators\Resources\Schemas\ResourceInfolistSchemaClassGenerator as BaseSchemasResourceInfolistSchemaClassGenerator;
+use Filament\Commands\FileGenerators\Resources\ResourceClassGenerator as BaseResourceClassGenerator;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -139,5 +141,6 @@ final class AdminPanelProvider extends PanelProvider
         parent::register();
 
         $this->app->bind(BaseSchemasResourceInfolistSchemaClassGenerator::class, SchemasResourceInfolistSchemaClassGenerator::class);
+        $this->app->bind(BaseResourceClassGenerator::class, ResourceClassGenerator::class);
     }
 }
