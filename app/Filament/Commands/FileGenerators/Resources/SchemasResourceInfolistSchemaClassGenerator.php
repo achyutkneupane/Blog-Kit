@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Commands\FileGenerators\Resources;
 
 use Filament\Commands\FileGenerators\Resources\Schemas\ResourceInfolistSchemaClassGenerator as BaseSchemasResourceInfolistSchemaClassGenerator;
@@ -14,7 +16,7 @@ class SchemasResourceInfolistSchemaClassGenerator extends BaseSchemasResourceInf
      * @param  ?class-string<Model>  $model
      * @param  array<string>  $exceptColumns
      */
-    public function outputInfolistComponents(?string $model = null, array $exceptColumns = []): string
+    public function outputInfolistComponents(?string $model = null, array $exceptColumns = []): string|Literal
     {
         $components = $this->getInfolistComponents($model, $exceptColumns);
         $this->importUnlessPartial(Section::class);
@@ -24,10 +26,11 @@ class SchemasResourceInfolistSchemaClassGenerator extends BaseSchemasResourceInf
             foreach ($lines as &$line) {
                 $line = '        '.$line;
             }
+
             $component = implode(PHP_EOL, $lines);
         }
 
-        if (empty($components)) {
+        if ($components === []) {
             $recordTitleAttribute = $this->getRecordTitleAttribute();
 
             if (blank($recordTitleAttribute)) {
