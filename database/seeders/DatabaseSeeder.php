@@ -17,30 +17,34 @@ final class DatabaseSeeder extends Seeder
     public function run(): void
     {
         if (app()->isLocal()) {
-            User::factory()->create([
-                'name' => 'Blog Developer',
+            User::firstOrCreate([
                 'email' => 'developer@test.com',
+            ], [
+                'name' => 'Blog Developer',
                 'role' => UserRole::Developer,
                 'password' => bcrypt('password'),
             ]);
 
-            User::factory()->create([
-                'name' => 'Blog Admin',
+            User::firstOrCreate([
                 'email' => 'admin@test.com',
+            ], [
+                'name' => 'Blog Admin',
                 'role' => UserRole::Admin,
                 'password' => bcrypt('password'),
             ]);
 
-            User::factory()->create([
-                'name' => 'Blog Writer',
+            User::firstOrCreate([
                 'email' => 'writer@test.com',
+            ], [
+                'name' => 'Blog Writer',
                 'role' => UserRole::Writer,
                 'password' => bcrypt('password'),
             ]);
 
-            User::factory()->create([
-                'name' => 'Blog User',
+            User::firstOrCreate([
                 'email' => 'user@test.com',
+            ], [
+                'name' => 'Blog User',
                 'role' => UserRole::User,
                 'password' => bcrypt('password'),
             ]);
