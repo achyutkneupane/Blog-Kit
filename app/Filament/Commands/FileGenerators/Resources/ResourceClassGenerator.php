@@ -17,11 +17,8 @@ class ResourceClassGenerator extends BaseResourceClassGenerator
         parent::addNavigationIconPropertyToClass($class);
 
         $navigationIcon = $class->getProperty('navigationIcon');
+        $property = $navigationIcon->setValue(new Literal('Heroicon::RectangleStack'));
 
-        $property = $navigationIcon->setValue(new Literal('Heroicon::RectangleStack'))
-            ->setProtected()
-            ->setStatic()
-            ->setType('string|BackedEnum|null');
         $this->configureNavigationIconProperty($property);
 
         $property = $class->addProperty('activeNavigationIcon', new Literal('Heroicon::OutlinedRectangleStack'))
@@ -77,7 +74,5 @@ class ResourceClassGenerator extends BaseResourceClassGenerator
             ->setBody($methodBody);
         $method->addParameter('page')
             ->setType(Page::class);
-
-        $this->configureInfolistMethod($method);
     }
 }
