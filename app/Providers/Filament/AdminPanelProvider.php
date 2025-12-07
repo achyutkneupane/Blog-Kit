@@ -136,6 +136,8 @@ final class AdminPanelProvider extends PanelProvider
 
     public function register(): void
     {
+        parent::register();
+
         $this->app->bind(BaseSchemasResourceInfolistSchemaClassGenerator::class, SchemasResourceInfolistSchemaClassGenerator::class);
     }
 }
