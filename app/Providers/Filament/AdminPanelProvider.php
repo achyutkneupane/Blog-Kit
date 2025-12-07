@@ -6,6 +6,7 @@ namespace App\Providers\Filament;
 
 use AchyutN\FilamentLogViewer\FilamentLogViewer;
 use App\Enums\UserRole;
+use App\Filament\Commands\FileGenerators\Resources\SchemasResourceInfolistSchemaClassGenerator;
 use App\Models\Scopes\LowerRoleOnly;
 use App\Models\User;
 use App\Settings\SiteSettings;
@@ -35,6 +36,7 @@ use Joaopaulolndev\FilamentEditProfile\FilamentEditProfilePlugin;
 use Joaopaulolndev\FilamentEditProfile\Pages\EditProfilePage;
 use pxlrbt\FilamentEnvironmentIndicator\EnvironmentIndicatorPlugin;
 use Spatie\LaravelSettings\Settings;
+use Filament\Commands\FileGenerators\Resources\Schemas\ResourceInfolistSchemaClassGenerator as BaseSchemasResourceInfolistSchemaClassGenerator;
 
 final class AdminPanelProvider extends PanelProvider
 {
@@ -130,5 +132,10 @@ final class AdminPanelProvider extends PanelProvider
             ->databaseTransactions()
             ->unsavedChangesAlerts()
             ->spa();
+    }
+
+    public function register(): void
+    {
+        $this->app->bind(BaseSchemasResourceInfolistSchemaClassGenerator::class, SchemasResourceInfolistSchemaClassGenerator::class);
     }
 }
