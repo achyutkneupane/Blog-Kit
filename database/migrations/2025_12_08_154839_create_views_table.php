@@ -41,12 +41,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $this->schema->create($this->table, function (Blueprint $table): void {
-            $table->bigIncrements('id');
-            $table->morphs('viewable');
-            $table->text('visitor')->nullable();
-            $table->string('collection')->nullable();
-            $table->timestamp('viewed_at')->useCurrent();
+        $this->schema->create($this->table, function (Blueprint $blueprint): void {
+            $blueprint->bigIncrements('id');
+            $blueprint->morphs('viewable');
+            $blueprint->text('visitor')->nullable();
+            $blueprint->string('collection')->nullable();
+            $blueprint->timestamp('viewed_at')->useCurrent();
         });
     }
 
