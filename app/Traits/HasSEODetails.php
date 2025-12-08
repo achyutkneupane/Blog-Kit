@@ -51,25 +51,34 @@ trait HasSEODetails
 
         $og_image = $siteSettings->og_image;
         $og_image_link = $og_image ? 'storage/'.$og_image : null;
+        $coverImage = $this->hasMedia('cover') ? $this->getFirstMedia('cover') : null;
+        $fallbackOGImage = $coverImage ? 'storage/'.$coverImage->getPathRelativeToRoot('original') : $og_image_link;
+
+        $title = $seo->meta_title ?? $this->title;
+        $description = $seo->meta_description ?? $this->description;
+        $url = $seo->canonical ?? $this->url;
+        $category = $this->categories ? implode(', ', $this->categories->pluck('name')->toArray()) : 'General';
+        $publishedAt = $this->published_at ? $this->published_at->toDateString() : $this->created_at->toDateString();
+        $image = $seo->og_image ? '/storage/'.$seo->og_image : $fallbackOGImage;
 
         return new SEOData(
-            title: sprintf('%s | %s', $seo->meta_title ?? $this->title, $siteSettings->name),
-            description: $seo->meta_description ?? $this->description,
+            title: sprintf('%s | %s', $title, $siteSettings->name),
+            description: $description,
             author: $seo->author ?? $seo->publisher ?? $siteSettings->name,
-            image: $seo->og_image ? '/storage/'.$seo->og_image : $og_image_link,
-            url: $seo->canonical ?? $this->url,
-            section: $this->categories ? implode(', ', $this->categories->pluck('name')->toArray()) : 'General',
+            image: $image,
+            url: $url,
+            section: $category,
             tags: $seo->meta_keywords,
             schema: SchemaCollection::make()
                 ->add(fn (): array => [
                     '@context' => 'https://schema.org',
                     '@type' => 'BlogPosting',
-                    'headline' => $seo->meta_title ?? $this->title,
-                    'description' => $seo->og_description ?? $this->description,
-                    'url' => $seo->canonical ?? $this->url,
-                    'thumbnailUrl' => $seo->og_image ? '/storage/'.$seo->og_image : $og_image_link,
-                    'articleSection' => $this->categories ? implode(', ', $this->categories->pluck('name')->toArray()) : 'General',
-                    'datePublished' => $this->published_at ? $this->published_at->toDateString() : $this->created_at->toDateString(),
+                    'headline' => $title,
+                    'description' => $description,
+                    'url' => $url,
+                    'thumbnailUrl' => $image,
+                    'articleSection' => $category,
+                    'datePublished' => $publishedAt,
                     'inLanguage' => 'en',
                     'author' => [
                         [
@@ -84,18 +93,18 @@ trait HasSEODetails
                         ],
                     ],
                 ])
-                ->addArticle(function (ArticleSchema $articleSchema) use ($seo): ArticleSchema {
-                    return $articleSchema->markup(function (Collection $markup) use ($seo): Collection {
+                ->addArticle(function (ArticleSchema $articleSchema) use ($title, $description, $url, $publishedAt): ArticleSchema {
+                    return $articleSchema->markup(function (Collection $markup) use ($title, $description, $url, $publishedAt): Collection {
                         return $markup
-                            ->put('headline', $seo->meta_title ?? $this->title)
-                            ->put('description', $seo->meta_description ?? $this->description)
-                            ->put('url', $seo->canonical ?? $this->url)
-                            ->put('datePublished', $this->published_at ? $this->published_at->toDateString() : $this->created_at->toDateString());
+                            ->put('headline', $title)
+                            ->put('description', $description)
+                            ->put('url', $url)
+                            ->put('datePublished', $publishedAt);
                     });
                 }),
             type: 'article',
             robots: app()->isLocal() ? 'noindex, nofollow' : implode(', ', $seo->robots ?? ['index', 'follow']),
-            openGraphTitle: $seo->og_title ?? $seo->meta_title ?? $this->title
+            openGraphTitle: $seo->og_title ?? $title
         );
     }
 }
