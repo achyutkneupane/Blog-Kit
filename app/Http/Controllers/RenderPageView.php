@@ -16,6 +16,8 @@ class RenderPageView extends Controller
      */
     public function __invoke(Request $request, StaticPage $staticPage): View|Factory
     {
+        views($staticPage)->record();
+
         return view('components.page.page-view', compact('staticPage'));
     }
 }
