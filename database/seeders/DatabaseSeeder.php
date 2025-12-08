@@ -17,7 +17,7 @@ final class DatabaseSeeder extends Seeder
     public function run(): void
     {
         if (app()->isLocal()) {
-            User::firstOrCreate([
+            User::query()->firstOrCreate([
                 'email' => 'developer@test.com',
             ], [
                 'name' => 'Blog Developer',
@@ -25,7 +25,7 @@ final class DatabaseSeeder extends Seeder
                 'password' => bcrypt('password'),
             ]);
 
-            User::firstOrCreate([
+            User::query()->firstOrCreate([
                 'email' => 'admin@test.com',
             ], [
                 'name' => 'Blog Admin',
@@ -33,7 +33,7 @@ final class DatabaseSeeder extends Seeder
                 'password' => bcrypt('password'),
             ]);
 
-            User::firstOrCreate([
+            User::query()->firstOrCreate([
                 'email' => 'writer@test.com',
             ], [
                 'name' => 'Blog Writer',
@@ -41,7 +41,7 @@ final class DatabaseSeeder extends Seeder
                 'password' => bcrypt('password'),
             ]);
 
-            User::firstOrCreate([
+            User::query()->firstOrCreate([
                 'email' => 'user@test.com',
             ], [
                 'name' => 'Blog User',
