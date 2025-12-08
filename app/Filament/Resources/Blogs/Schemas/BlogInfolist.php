@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Blogs\Schemas;
 
 use Filament\Infolists\Components\IconEntry;
+use Filament\Infolists\Components\SpatieMediaLibraryImageEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
@@ -38,9 +39,17 @@ class BlogInfolist
                             ->since()
                             ->dateTimeTooltip()
                             ->placeholder('Draft'),
-                        TextEntry::make('description')
-                            ->label('Excerpt')
-                            ->columnSpanFull(),
+                        Grid::make()
+                            ->columnSpanFull()
+                            ->components([
+                                TextEntry::make('description')
+                                    ->label('Excerpt'),
+                                SpatieMediaLibraryImageEntry::make('cover')
+                                    ->label('Cover Image')
+                                    ->imageWidth('50%')
+                                    ->imageHeight('100%')
+                                    ->collection('cover'),
+                            ]),
                         TextEntry::make('content')
                             ->html()
                             ->columnSpanFull(),
