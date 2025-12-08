@@ -51,7 +51,8 @@ trait HasSEODetails
 
         $og_image = $siteSettings->og_image;
         $og_image_link = $og_image ? 'storage/'.$og_image : null;
-        $coverImage = $this->hasMedia('cover') ? $this->getFirstMedia('cover') : null;
+        $modelIsMedia = method_exists($this, 'hasMedia') && $this->hasMedia('cover');
+        $coverImage = $modelIsMedia ? $this->getFirstMedia('cover') : null;
         $fallbackOGImage = $coverImage ? 'storage/'.$coverImage->getPathRelativeToRoot('original') : $og_image_link;
 
         $title = $seo->meta_title ?? $this->title;
