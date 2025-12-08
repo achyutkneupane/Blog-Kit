@@ -1,4 +1,4 @@
-<section class="container-xl bg-white w-full z-20 top-0 start-0 min-h-[72px] my-6 px-2 lg:px-8 rounded-base border-2 border-neutral-200 backdrop-blur-sm shadow-sm shadow-neutral-200">
+<section class="container-xl bg-white w-full z-20 top-0 start-0 min-h-[72px] my-6 px-2 lg:px-8 rounded-base border-2 border-neutral-200 shadow-sm shadow-neutral-200">
     <div class="grid gap-8 lg:grid-cols-12 py-6 lg:py-12 px-4 lg:px-0">
         <div class="mr-auto place-self-center md:col-span-7 order-2 lg:order-1">
             <h1 class="max-w-2xl mb-4 text-4xl font-extrabold md:text-5xl xl:text-6xl text-primary">
