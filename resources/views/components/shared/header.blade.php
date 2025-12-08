@@ -1,4 +1,4 @@
-<nav class="container-xl bg-white/60 sticky w-full z-20 top-0 start-0 min-h-[72px] mt-4 px-4 rounded-base border-2 border-neutral-200 backdrop-blur-sm shadow-sm shadow-neutral-200">
+<nav class="container-xl bg-white/80 sticky w-full z-20 top-0 start-0 min-h-[72px] mt-4 px-4 rounded-base border-2 border-neutral-200 backdrop-blur-sm shadow-sm shadow-neutral-200">
     <div class=" flex flex-wrap items-center justify-between py-4">
         <a href="{{ route('landing-page') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
             <span class="self-center text-3xl text-primary font-semibold whitespace-nowrap">
