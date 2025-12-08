@@ -16,6 +16,7 @@ class RenderBlogView extends Controller
      */
     public function __invoke(Request $request, Blog $blog): View|Factory
     {
+        views($blog)->record();
         return view('components.page.blog-view', compact('blog'));
     }
 }

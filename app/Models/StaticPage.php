@@ -6,6 +6,8 @@ namespace App\Models;
 
 use AchyutN\LaravelHelpers\Traits\HasTheSlug;
 use App\Traits\HasSEODetails;
+use CyrildeWit\EloquentViewable\Contracts\Viewable;
+use CyrildeWit\EloquentViewable\InteractsWithViews;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
@@ -37,10 +39,11 @@ use RalphJSmit\Laravel\SEO\Models\SEO;
  *
  * @mixin \Eloquent
  */
-final class StaticPage extends Model
+final class StaticPage extends Model implements Viewable
 {
     use HasSEODetails;
     use HasTheSlug;
+    use InteractsWithViews;
 
     public function getRouteKeyName(): string
     {
