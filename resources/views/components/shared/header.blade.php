@@ -1,7 +1,7 @@
-<nav class="bg-neutral-900 sticky w-full z-20 top-0 start-0 min-h-[72px]">
-    <div class="container-xl flex flex-wrap items-center justify-between py-4">
+<nav class="container-xl bg-white/80 sticky w-full z-20 top-0 start-0 min-h-[72px] mt-4 px-4 rounded-base border-2 border-neutral-200 backdrop-blur-sm shadow-sm shadow-neutral-200">
+    <div class=" flex flex-wrap items-center justify-between py-4">
         <a href="{{ route('landing-page') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <span class="self-center text-3xl text-neutral-50 font-semibold whitespace-nowrap">
+            <span class="self-center text-3xl text-primary font-semibold whitespace-nowrap">
                 {{ $settings->name }}
             </span>
         </a>
@@ -20,7 +20,7 @@
                     <a
                         href="{{ route('landing-page') }}"
                         @class([
-                            "block py-2 px-3 text-white rounded-sm md:bg-transparent md:p-0",
+                            "block py-2 px-3 text-neutral-600 rounded-sm md:bg-transparent md:p-0",
                             request()->routeIs('landing-page') ? 'md:text-primary bg-primary md:bg-transparent' : 'md:hover:text-primary/80 md:hover:bg-transparent'
                         ])
                     >
@@ -32,7 +32,7 @@
                     <a
                         href="{{ route('page.view', $staticPage) }}"
                         @class([
-                            "block py-2 px-3 text-white rounded-sm md:bg-transparent md:p-0",
+                            "block py-2 px-3 text-neutral-600 rounded-sm md:bg-transparent md:p-0",
                             \Illuminate\Support\Facades\Route::named('page.view', $staticPage) ? 'md:text-primary bg-primary md:bg-transparent' : 'md:hover:text-primary/80 md:hover:bg-transparent'
                         ])
                     >

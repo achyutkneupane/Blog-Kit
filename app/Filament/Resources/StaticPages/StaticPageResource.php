@@ -73,6 +73,11 @@ final class StaticPageResource extends Resource
                     ->searchable(),
                 TextColumn::make('slug')
                     ->searchable(),
+                TextColumn::make('views_count')
+                    ->label('Views')
+                    ->counts('views')
+                    ->badge()
+                    ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

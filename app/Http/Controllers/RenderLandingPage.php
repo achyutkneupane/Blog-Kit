@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\StaticPage;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -18,6 +19,14 @@ class RenderLandingPage extends Controller
     {
         $featured = Blog::whereIsFeatured(1)->get();
         $latest = Blog::query()->except($featured)->orderBy('published_at', 'desc')->get();
+
+        $landingPage = StaticPage::query()
+            ->whereSlug('landing-page')
+            ->first();
+
+        if ($landingPage) {
+            views($landingPage)->record();
+        }
 
         return view('components.page.landing-page', compact('featured', 'latest'));
     }

@@ -27,11 +27,9 @@
     @vite(["resources/js/app.js", "resources/css/app.css"])
     @stack('styles')
 </head>
-<body class="text-white font-sans">
+<body class="text-white font-sans bg-neutral-100 container-xl">
     <x-shared.header />
-    <div class="container-xl">
-        {{ $slot }}
-    </div>
+    {{ $slot }}
     <x-shared.footer />
 
     @stack('scripts')

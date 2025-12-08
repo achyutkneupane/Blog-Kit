@@ -31,6 +31,11 @@ class BlogsTable
                     ->since()
                     ->dateTimeTooltip()
                     ->sortable(),
+                TextColumn::make('views_count')
+                    ->label('Views')
+                    ->counts('views')
+                    ->badge()
+                    ->sortable(),
             ])
             ->filters([
                 //
