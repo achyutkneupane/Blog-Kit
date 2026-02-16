@@ -17,6 +17,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -56,6 +57,23 @@ final class StaticPageResource extends Resource
                     ->visible(fn (Get $get): bool => in_array($get('type'), [PageType::IndexPage, PageType::PageWithForm]))
                     ->columnSpanFull()
                     ->label('Route Name'),
+                SpatieMediaLibraryFileUpload::make('cover')
+                    ->label('Cover Image')
+                    ->collection('cover')
+                    ->image()
+                    ->required()
+                    ->preserveFilenames()
+                    ->imageEditor()
+                    ->imageAspectRatio('4:3')
+                    ->automaticallyCropImagesToAspectRatio()
+                    ->openable()
+                    ->previewable()
+                    ->downloadable()
+                    ->deletable()
+                    ->rules([
+                        'required',
+                        'dimensions:ratio=4/3',
+                    ]),
                 TagsInput::make('tags')
                     ->columnSpanFull(),
                 Textarea::make('description')

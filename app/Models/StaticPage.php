@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AchyutN\LaravelHelpers\Models\MediaModel;
 use AchyutN\LaravelHelpers\Traits\HasTheSlug;
 use AchyutN\LaravelSEO\Contracts\HasMarkup;
 use AchyutN\LaravelSEO\Data\Breadcrumb;
@@ -60,7 +61,7 @@ use Illuminate\Support\Carbon;
  *
  * @mixin \Eloquent
  */
-final class StaticPage extends Model implements HasMarkup, Viewable
+final class StaticPage extends MediaModel implements HasMarkup, Viewable
 {
     use HasTheSlug;
     use InteractsWithSEO;
@@ -109,6 +110,11 @@ final class StaticPage extends Model implements HasMarkup, Viewable
         }
 
         return route('page.view', $this);
+    }
+
+    public function imageValue(): ?string
+    {
+        return $this->getLastMediaUrl('cover');
     }
 
     /** @return array<Breadcrumb> */

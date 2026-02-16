@@ -137,6 +137,11 @@ class Blog extends MediaModel implements HasMarkup, Viewable
         return $this->categories()->first()?->getAttribute('name');
     }
 
+    public function imageValue(): ?string
+    {
+        return $this->getLastMediaUrl('cover');
+    }
+
     /** @return array<Breadcrumb> */
     public function breadcrumbs(): array
     {
