@@ -114,7 +114,7 @@ final class StaticPage extends MediaModel implements HasMarkup, Viewable
 
     public function imageValue(): ?string
     {
-        return $this->getLastMediaUrl('cover');
+        return $this->hasMedia('cover') ? $this->getLastMediaUrl('cover') : null;
     }
 
     /** @return array<Breadcrumb> */
