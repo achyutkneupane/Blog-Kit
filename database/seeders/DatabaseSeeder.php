@@ -63,7 +63,7 @@ final class DatabaseSeeder extends Seeder
         ]);
 
         StaticPage::query()->firstOrCreate([
-            'name' => 'post',
+            'name' => 'blog',
             'type' => PageType::IndexPage,
         ], [
             'title' => 'Blogs',
