@@ -1,4 +1,4 @@
-# Filament v4 Blog Kit
+# Filament v5 Blog Kit
 
 [![Lint & Test PR](https://github.com/achyutkneupane/blog-kit/actions/workflows/tests.yml/badge.svg)](https://github.com/achyutkneupane/blog-kit/actions/workflows/tests.yml)
 

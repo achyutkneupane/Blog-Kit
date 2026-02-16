@@ -2,7 +2,7 @@
     "$schema": "https://getcomposer.org/schema.json",
     "name": "achyutn/blog-kit",
     "type": "project",
-    "description": "The starter kit for the Laravel framework with Filament v4 as Admin Panel and blog support.",
+    "description": "The starter kit for the Laravel framework with Filament v5 as Admin Panel and blog support.",
     "keywords": [
         "laravel",
         "framework",
