@@ -19,6 +19,7 @@ return new class extends Migration
             $blueprint->string('slug');
             $blueprint->text('description');
             $blueprint->longText('content');
+            $blueprint->json('tags');
             $blueprint->foreignIdFor(User::class)
                 ->nullable()
                 ->constrained()

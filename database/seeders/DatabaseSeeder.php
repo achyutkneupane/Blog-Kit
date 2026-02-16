@@ -76,6 +76,8 @@ final class DatabaseSeeder extends Seeder
             'type' => PageType::ContentPage,
         ], [
             'title' => 'About Us',
+            'description' => sprintf('Learn more about %s and our mission to provide quality content to the Laravel community.', $siteSettings->name),
+            'tags' => ['about', 'blog', 'laravel'],
             'content' => implode('', [
                 '<p>Welcome to the Blog Kit! This is a simple starter kit for building a blog using Laravel and Tailwind CSS.</p>',
                 '<p>The pages are SEO optimized and responsive. The process is simple: create a new laravel project using the starter kit, set up your database, change the page designs as you like, and start writing blog posts!</p>',

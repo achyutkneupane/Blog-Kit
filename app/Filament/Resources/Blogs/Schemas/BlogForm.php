@@ -11,6 +11,7 @@ use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
@@ -68,6 +69,10 @@ class BlogForm
                 RichEditor::make('content')
                     ->required()
                     ->columnSpanFull(),
+                TagsInput::make('tags')
+                    ->label('Tags')
+                    ->columnSpanFull()
+                    ->required(),
                 Group::make([
                     ToggleButtons::make('publish')
                         ->label('Publish')

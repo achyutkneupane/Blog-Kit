@@ -7,6 +7,7 @@ namespace App\Models;
 use AchyutN\LaravelHelpers\Models\MediaModel;
 use AchyutN\LaravelHelpers\Traits\HasTheSlug;
 use AchyutN\LaravelSEO\Contracts\HasMarkup;
+use AchyutN\LaravelSEO\Data\Breadcrumb;
 use AchyutN\LaravelSEO\Schemas\BlogSchema;
 use AchyutN\LaravelSEO\Traits\InteractsWithSEO;
 use App\Models\Scopes\LowerRoleOnly;
@@ -105,11 +106,54 @@ class Blog extends MediaModel implements HasMarkup, Viewable
         return 'slug';
     }
 
+    public function authorValue(): ?string
+    {
+        /** @phpstan-var string|null */
+        return $this->author?->getAttribute('name');
+    }
+
+    public function authorUrlValue(): string
+    {
+        return route('landing-page');
+    }
+
+    public function publisherValue(): ?string
+    {
+        /** @phpstan-var string|null */
+        return config('app.name');
+    }
+
+    public function publisherUrlValue(): string
+    {
+        return route('landing-page');
+    }
+
+    public function urlValue(): ?string
+    {
+        return $this->url;
+    }
+
+    public function categoryValue(): ?string
+    {
+        return $this->categories()->first()?->getAttribute('name');
+    }
+
+    /** @return array<Breadcrumb> */
+    public function breadcrumbs(): array
+    {
+        return [
+            new Breadcrumb('Home', route('landing-page')),
+            new Breadcrumb('Blogs', route('blog.index')),
+            new Breadcrumb($this->getTitleValue(), $this->getURLValue()),
+        ];
+    }
+
     protected function casts(): array
     {
         return [
             'published_at' => 'datetime',
             'is_featured' => 'boolean',
+            'tags' => 'array',
         ];
     }
 

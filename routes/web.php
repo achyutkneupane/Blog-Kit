@@ -10,5 +10,13 @@ Route::get('/', RenderLandingPage::class)
     ->name('landing-page');
 Route::get('/page/{staticPage}', RenderPageView::class)
     ->name('page.view');
-Route::get('/blog/{blog}', RenderBlogView::class)
-    ->name('blog.view');
+
+Route::group([
+    'prefix' => '/blog',
+    'as' => 'blog.',
+], function (): void {
+    Route::get('/', RenderBlogView::class)
+        ->name('index');
+    Route::get('/{blog}', RenderBlogView::class)
+        ->name('view');
+});
