@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use AchyutN\LaravelHelpers\Traits\HasTheSlug;
+use AchyutN\LaravelSEO\Traits\InteractsWithSEO;
 use App\Traits\HasSEODetails;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -40,7 +41,7 @@ use RalphJSmit\Laravel\SEO\Models\SEO;
  */
 class Category extends Model
 {
-    use HasSEODetails;
+    use InteractsWithSEO;
     use HasTheSlug;
 
     public string $sluggableColumn = 'name';

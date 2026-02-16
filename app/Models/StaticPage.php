@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace App\Models;
 
 use AchyutN\LaravelHelpers\Traits\HasTheSlug;
+use AchyutN\LaravelSEO\Contracts\HasMarkup;
+use AchyutN\LaravelSEO\Schemas\PageSchema;
+use AchyutN\LaravelSEO\Traits\InteractsWithSEO;
 use App\Traits\HasSEODetails;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
 use CyrildeWit\EloquentViewable\InteractsWithViews;
@@ -39,11 +42,12 @@ use RalphJSmit\Laravel\SEO\Models\SEO;
  *
  * @mixin \Eloquent
  */
-final class StaticPage extends Model implements Viewable
+final class StaticPage extends Model implements Viewable, HasMarkup
 {
-    use HasSEODetails;
+    use InteractsWithSEO;
     use HasTheSlug;
     use InteractsWithViews;
+    use PageSchema;
 
     public function getRouteKeyName(): string
     {

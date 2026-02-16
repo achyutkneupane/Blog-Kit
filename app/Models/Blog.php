@@ -6,9 +6,12 @@ namespace App\Models;
 
 use AchyutN\LaravelHelpers\Models\MediaModel;
 use AchyutN\LaravelHelpers\Traits\HasTheSlug;
+use AchyutN\LaravelSEO\Contracts\HasMarkup;
+use AchyutN\LaravelSEO\Schemas\BlogSchema;
+use AchyutN\LaravelSEO\Traits\InteractsWithSEO;
 use App\Models\Scopes\LowerRoleOnly;
 use App\Models\Scopes\PublishedScope;
-use App\Traits\HasSEODetails;
+use App\Traits\HasReadTime;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
 use CyrildeWit\EloquentViewable\InteractsWithViews;
 use CyrildeWit\EloquentViewable\Support\Period;
@@ -72,10 +75,12 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @mixin \Eloquent
  */
 #[ScopedBy(PublishedScope::class)]
-class Blog extends MediaModel implements Viewable
+class Blog extends MediaModel implements HasMarkup, Viewable
 {
-    use HasSEODetails;
+    use BlogSchema;
+    use HasReadTime;
     use HasTheSlug;
+    use InteractsWithSEO;
     use InteractsWithViews;
 
     /** @return BelongsToMany<Category> */
@@ -112,22 +117,6 @@ class Blog extends MediaModel implements Viewable
     {
         return Attribute::make(
             get: fn (): string => route('blog.view', $this),
-        );
-    }
-
-    protected function minutesRead(): Attribute
-    {
-        return Attribute::make(
-            get: fn (): int => max(1, (int) ceil(str_word_count(strip_tags($this->content ?? '')) / 200)),
-        );
-    }
-
-    protected function minutesReadText(): Attribute
-    {
-        $singular = $this->minutes_read <= 1;
-
-        return Attribute::make(
-            get: fn (): string => $this->minutes_read.' min'.($singular ? '' : 's').' read',
         );
     }
 }

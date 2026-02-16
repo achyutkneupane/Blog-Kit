@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "28c414b255340761c37b93c2495ba629",
+    "content-hash": "52a19f814e8870652f64b854498cbda9",
     "packages": [
         {
             "name": "achyutn/filament-log-viewer",
@@ -170,6 +170,90 @@
                 }
             ],
             "time": "2025-07-05T10:15:28+00:00"
+        },
+        {
+            "name": "achyutn/laravel-seo",
+            "version": "v1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/achyutkneupane/laravel-seo.git",
+                "reference": "9313983eea6b4f6ed7a12c8f9f7193522e970a37"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/achyutkneupane/laravel-seo/zipball/9313983eea6b4f6ed7a12c8f9f7193522e970a37",
+                "reference": "9313983eea6b4f6ed7a12c8f9f7193522e970a37",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2",
+                "ralphjsmit/laravel-seo": "^1.7"
+            },
+            "require-dev": {
+                "larastan/larastan": "^3.8",
+                "laravel/pint": "^1.26",
+                "orchestra/testbench": "^10.8",
+                "pestphp/pest": "^3.8",
+                "pestphp/pest-plugin-laravel": "^3.2",
+                "pestphp/pest-plugin-livewire": "^3",
+                "phpstan/phpstan": "^2.1",
+                "rector/rector": "^2.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "AchyutN\\LaravelSEO\\SEOProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "AchyutN\\LaravelSEO\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "achyutkneupane",
+                    "email": "achyutkneupane@gmail.com",
+                    "homepage": "https://achyut.com.np",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "An opinionated Laravel package to manage SEO easily.",
+            "keywords": [
+                "Sitemap",
+                "laravel",
+                "search",
+                "seo"
+            ],
+            "support": {
+                "issues": "https://github.com/achyutkneupane/laravel-seo/issues",
+                "source": "https://github.com/achyutkneupane/laravel-seo/tree/v1.4.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/achyutkneupane",
+                    "type": "github"
+                },
+                {
+                    "url": "https://buymeacoffee.com/achyutn",
+                    "type": "other"
+                },
+                {
+                    "url": "https://buymemomo.com/achyut",
+                    "type": "other"
+                },
+                {
+                    "url": "https://www.patreon.com/Achyut",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2026-02-03T10:50:24+00:00"
         },
         {
             "name": "anourvalar/eloquent-serialize",
@@ -13758,5 +13842,5 @@
         "php": "^8.3"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
