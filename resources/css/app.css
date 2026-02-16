@@ -1,14 +1,12 @@
 @import "tailwindcss";
-@import "flowbite/src/themes/default";
-@plugin "flowbite/plugin";
-@source "../../node_modules/flowbite";
-@plugin "flowbite-typography";
+@plugin "@tailwindcss/typography";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
     --color-primary: #fc6a3e;
@@ -33,7 +31,7 @@
     .container-xl {
         @apply w-full;
         @apply mx-auto;
-        @apply max-w-screen-xl;
+        @apply max-w-7xl;
         @apply px-4 lg:px-0;
     }
 }
