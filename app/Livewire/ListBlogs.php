@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Livewire;
 
+use App\Enums\PageType;
 use App\Models\Blog;
 use App\Models\Category;
+use App\Models\StaticPage;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -51,6 +53,11 @@ class ListBlogs extends Component
             ->orderBy('published_at', 'desc')
             ->get();
 
-        return view('livewire.list-blogs');
+        $staticPage = StaticPage::query()
+            ->whereType(PageType::IndexPage)
+            ->whereName('blog')
+            ->first();
+
+        return view('livewire.list-blogs', compact('staticPage'));
     }
 }

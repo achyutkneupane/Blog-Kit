@@ -10,7 +10,6 @@ use AchyutN\LaravelSEO\Data\Breadcrumb;
 use AchyutN\LaravelSEO\Schemas\PageSchema;
 use AchyutN\LaravelSEO\Traits\InteractsWithSEO;
 use App\Enums\PageType;
-use App\Traits\HasSEODetails;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
 use CyrildeWit\EloquentViewable\InteractsWithViews;
 use Illuminate\Database\Eloquent\Builder;
@@ -44,10 +43,10 @@ use RalphJSmit\Laravel\SEO\Models\SEO;
  *
  * @mixin \Eloquent
  */
-final class StaticPage extends Model implements Viewable, HasMarkup
+final class StaticPage extends Model implements HasMarkup, Viewable
 {
-    use InteractsWithSEO;
     use HasTheSlug;
+    use InteractsWithSEO;
     use InteractsWithViews;
     use PageSchema;
 
@@ -55,15 +54,6 @@ final class StaticPage extends Model implements Viewable, HasMarkup
     {
         return 'slug';
     }
-
-    protected function url(): Attribute
-    {
-        return Attribute::make(
-            get: fn (): string => route('page.view', $this),
-        );
-    }
-
-
 
     public function categoryValue(): string
     {
@@ -101,7 +91,7 @@ final class StaticPage extends Model implements Viewable, HasMarkup
             return route(sprintf('%s.index', $this->name));
         }
 
-        return null;
+        return route('page.view', $this);
     }
 
     /** @return array<Breadcrumb> */
@@ -119,11 +109,18 @@ final class StaticPage extends Model implements Viewable, HasMarkup
         ];
     }
 
+    protected function url(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): string => route('page.view', $this),
+        );
+    }
+
     protected function casts(): array
     {
         return [
             'type' => PageType::class,
-            'tags' => 'array'
+            'tags' => 'array',
         ];
     }
 }

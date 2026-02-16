@@ -93,6 +93,9 @@
                 @endforelse
             </div>
         </div>
-
     </div>
 </main>
+
+@push('seo')
+    {!! seo()->for($staticPage) !!}
+@endpush
