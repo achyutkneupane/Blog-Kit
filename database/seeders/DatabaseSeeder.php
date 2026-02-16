@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
+use App\Enums\PageType;
 use App\Enums\UserRole;
 use App\Models\StaticPage;
 use App\Models\User;
+use App\Settings\SiteSettings;
 use Illuminate\Database\Seeder;
 
 final class DatabaseSeeder extends Seeder
@@ -14,8 +16,9 @@ final class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
-    public function run(): void
-    {
+    public function run(
+        SiteSettings $siteSettings
+    ): void {
         if (app()->isLocal()) {
             User::query()->firstOrCreate([
                 'email' => 'developer@test.com',
@@ -52,11 +55,25 @@ final class DatabaseSeeder extends Seeder
 
         StaticPage::query()->firstOrCreate([
             'slug' => 'landing-page',
+            'type' => PageType::LandingPage,
         ], [
             'title' => 'Home',
+            'description' => $siteSettings->description,
+            'tags' => ['blogs', 'kit', 'laravel'],
         ]);
+
+        StaticPage::query()->firstOrCreate([
+            'name' => 'post',
+            'type' => PageType::IndexPage,
+        ], [
+            'title' => 'Blogs',
+            'description' => sprintf('Explore all blogs published in %s', $siteSettings->name),
+            'tags' => ['blogs', 'articles', 'posts'],
+        ]);
+
         StaticPage::query()->firstOrCreate([
             'slug' => 'about-us',
+            'type' => PageType::ContentPage,
         ], [
             'title' => 'About Us',
             'content' => implode('', [

@@ -18,6 +18,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Components\TextEntry;
@@ -43,6 +44,7 @@ final class StaticPageResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return $schema
+            ->columns(1)
             ->components([
                 TextInput::make('title')
                     ->required(),
@@ -55,6 +57,8 @@ final class StaticPageResource extends Resource
                     ->visible(fn (Get $get): bool => in_array($get('type'), [PageType::IndexPage, PageType::PageWithForm]))
                     ->columnSpanFull()
                     ->label('Route Name'),
+                TagsInput::make('tags')
+                    ->columnSpanFull(),
                 Textarea::make('description')
                     ->columnSpanFull(),
                 RichEditor::make('content')

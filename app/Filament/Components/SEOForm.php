@@ -64,9 +64,6 @@ final class SEOForm
                     TagsInput::make('robots'),
                     TextInput::make('author'),
                     TextInput::make('publisher'),
-                    CodeEditor::make('schema')
-                        ->language(Language::Json)
-                        ->columnSpanFull(),
                 ])
                 ->columns(),
         ];

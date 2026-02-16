@@ -6,8 +6,10 @@ namespace App\Models;
 
 use AchyutN\LaravelHelpers\Traits\HasTheSlug;
 use AchyutN\LaravelSEO\Contracts\HasMarkup;
+use AchyutN\LaravelSEO\Data\Breadcrumb;
 use AchyutN\LaravelSEO\Schemas\PageSchema;
 use AchyutN\LaravelSEO\Traits\InteractsWithSEO;
+use App\Enums\PageType;
 use App\Traits\HasSEODetails;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
 use CyrildeWit\EloquentViewable\InteractsWithViews;
@@ -59,5 +61,69 @@ final class StaticPage extends Model implements Viewable, HasMarkup
         return Attribute::make(
             get: fn (): string => route('page.view', $this),
         );
+    }
+
+
+
+    public function categoryValue(): string
+    {
+        return $this->type->getLabel();
+    }
+
+    public function authorValue(): ?string
+    {
+        /** @phpstan-var string|null */
+        return config('app.name');
+    }
+
+    public function authorUrlValue(): string
+    {
+        return route('landing-page');
+    }
+
+    public function publisherValue(): ?string
+    {
+        return $this->getAuthorValue();
+    }
+
+    public function publisherUrlValue(): ?string
+    {
+        return $this->getAuthorUrlValue();
+    }
+
+    public function urlValue(): ?string
+    {
+        if ($this->type === PageType::LandingPage) {
+            return route('landing-page');
+        }
+
+        if ($this->type === PageType::IndexPage) {
+            return route(sprintf('%s.index', $this->name));
+        }
+
+        return null;
+    }
+
+    /** @return array<Breadcrumb> */
+    public function breadcrumbs(): array
+    {
+        if ($this->type === PageType::LandingPage) {
+            return [
+                new Breadcrumb($this->getTitleValue(), $this->getURLValue()),
+            ];
+        }
+
+        return [
+            new Breadcrumb('Home', route('landing-page')),
+            new Breadcrumb($this->getTitleValue(), $this->getURLValue()),
+        ];
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'type' => PageType::class,
+            'tags' => 'array'
+        ];
     }
 }
