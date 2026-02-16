@@ -8,6 +8,8 @@ use App\Enums\PageType;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\StaticPage;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -39,18 +41,18 @@ class ListBlogs extends Component
         $this->selectedCategories = [];
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         $this->blogs = Blog::query()
-            ->when($this->search, function ($query) {
+            ->when($this->search, function ($query): void {
                 $query->where('title', 'like', '%'.$this->search.'%');
             })
-            ->when($this->selectedCategories, function ($query) {
-                $query->whereHas('categories', function ($q) {
+            ->when($this->selectedCategories, function ($query): void {
+                $query->whereHas('categories', function ($q): void {
                     $q->whereIn('categories.id', $this->selectedCategories);
                 });
             })
-            ->orderBy('published_at', 'desc')
+            ->latest('published_at')
             ->get();
 
         $staticPage = StaticPage::query()

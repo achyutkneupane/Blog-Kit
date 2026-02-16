@@ -7,39 +7,56 @@ namespace App\Models;
 use AchyutN\LaravelHelpers\Traits\HasTheSlug;
 use AchyutN\LaravelSEO\Contracts\HasMarkup;
 use AchyutN\LaravelSEO\Data\Breadcrumb;
+use AchyutN\LaravelSEO\Models\SEO;
 use AchyutN\LaravelSEO\Schemas\PageSchema;
 use AchyutN\LaravelSEO\Traits\InteractsWithSEO;
 use App\Enums\PageType;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
 use CyrildeWit\EloquentViewable\InteractsWithViews;
+use CyrildeWit\EloquentViewable\Support\Period;
+use CyrildeWit\EloquentViewable\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
-use RalphJSmit\Laravel\SEO\Models\SEO;
 
 /**
  * @property int $id
  * @property string $title
  * @property string $slug
+ * @property string|null $description
  * @property string|null $content
+ * @property string|null $name
+ * @property PageType $type
+ * @property array<array-key, mixed>|null $tags
+ * @property string|null $deleted_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read SEO $seo
- * @property-read SeoDetail|null $seoDetails
+ * @property-read SEO|null $seo
  * @property-read string $url
+ * @property-read Collection<int, View> $views
+ * @property-read int|null $views_count
  *
  * @method static Builder<static>|StaticPage findSimilarSlugs(string $attribute, array $config, string $slug)
  * @method static Builder<static>|StaticPage newModelQuery()
  * @method static Builder<static>|StaticPage newQuery()
+ * @method static Builder<static>|StaticPage orderByUniqueViews(string $direction = 'desc', $period = null, ?string $collection = null, string $as = 'unique_views_count')
+ * @method static Builder<static>|StaticPage orderByViews(string $direction = 'desc', ?Period $period = null, ?string $collection = null, bool $unique = false, string $as = 'views_count')
  * @method static Builder<static>|StaticPage query()
  * @method static Builder<static>|StaticPage whereContent($value)
  * @method static Builder<static>|StaticPage whereCreatedAt($value)
+ * @method static Builder<static>|StaticPage whereDeletedAt($value)
+ * @method static Builder<static>|StaticPage whereDescription($value)
  * @method static Builder<static>|StaticPage whereId($value)
+ * @method static Builder<static>|StaticPage whereName($value)
  * @method static Builder<static>|StaticPage whereSlug($value)
+ * @method static Builder<static>|StaticPage whereTags($value)
  * @method static Builder<static>|StaticPage whereTitle($value)
+ * @method static Builder<static>|StaticPage whereType($value)
  * @method static Builder<static>|StaticPage whereUpdatedAt($value)
  * @method static Builder<static>|StaticPage withUniqueSlugConstraints(Model $model, string $attribute, array $config, string $slug)
+ * @method static Builder<static>|StaticPage withViewsCount(?Period $period = null, ?string $collection = null, bool $unique = false, string $as = 'views_count')
  *
  * @mixin \Eloquent
  */
@@ -81,7 +98,7 @@ final class StaticPage extends Model implements HasMarkup, Viewable
         return $this->getAuthorUrlValue();
     }
 
-    public function urlValue(): ?string
+    public function urlValue(): string
     {
         if ($this->type === PageType::LandingPage) {
             return route('landing-page');

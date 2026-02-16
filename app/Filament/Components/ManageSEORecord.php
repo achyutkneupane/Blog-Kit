@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Filament\Components;
 
 use AchyutN\LaravelSEO\Models\SEO;
-use App\Models\SeoDetail;
 use BackedEnum;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Schemas\Schema;

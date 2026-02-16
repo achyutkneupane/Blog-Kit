@@ -8,7 +8,6 @@ use App\Enums\PageType;
 use App\Filament\Components\SEOAction;
 use App\Filament\Resources\StaticPages\Pages\ManageStaticPages;
 use App\Filament\Resources\StaticPages\Pages\ManageStaticPageSEO;
-use App\Models\Page;
 use App\Models\StaticPage;
 use BackedEnum;
 use Filament\Actions\Action;
@@ -79,9 +78,9 @@ final class StaticPageResource extends Resource
                             ->prefixAction(
                                 Action::make('preview')
                                     ->color(Color::Green)
-                                    ->visible(fn (StaticPage $page): bool => $page->getURLValue() !== null)
+                                    ->visible(fn (StaticPage $staticPage): bool => $staticPage->getURLValue() !== null)
                                     ->icon(Heroicon::ArrowTopRightOnSquare)
-                                    ->url(fn (StaticPage $page): ?string => $page->getURLValue())
+                                    ->url(fn (StaticPage $staticPage): ?string => $staticPage->getURLValue())
                                     ->openUrlInNewTab()
                             ),
                         TextEntry::make('type')
@@ -90,14 +89,14 @@ final class StaticPageResource extends Resource
                             ->badge(),
                         TextEntry::make('name')
                             ->columnSpanFull()
-                            ->visible(fn (StaticPage $page): bool => in_array($page->type, [PageType::IndexPage, PageType::PageWithForm]))
+                            ->visible(fn (StaticPage $staticPage): bool => in_array($staticPage->type, [PageType::IndexPage, PageType::PageWithForm]))
                             ->label('Route Name'),
                         TextEntry::make('description')
                             ->placeholder('-')
                             ->columnSpanFull(),
                         TextEntry::make('content')
                             ->markdown()
-                            ->visible(fn (StaticPage $page): bool => $page->type === PageType::ContentPage)
+                            ->visible(fn (StaticPage $staticPage): bool => $staticPage->type === PageType::ContentPage)
                             ->columnSpanFull(),
                     ]),
             ]);
