@@ -1,19 +1,46 @@
-<section class="container-xl bg-white w-full z-20 top-0 start-0 min-h-[72px] my-6 px-2 lg:px-8 rounded-base border-2 border-neutral-200 shadow-sm shadow-neutral-200">
-    <div class="grid gap-8 lg:grid-cols-12 py-6 lg:py-12 px-4 lg:px-0">
-        <div class="mr-auto place-self-center md:col-span-7 order-2 lg:order-1">
-            <h1 class="max-w-2xl mb-4 text-4xl font-extrabold md:text-5xl xl:text-6xl text-primary">
-                Laravel Blog Kit
-            </h1>
-            <p class="max-w-2xl mb-6 font-light text-neutral-500 lg:mb-8 md:text-lg lg:text-xl">
-                A SEO-friendly, customizable, and easy-to-use Laravel starter kit for building blogging platforms. It comes with Filament v4 as the admin panel and uses tailwind with Flowbite for the frontend.
-            </p>
-            <a href="https://github.com/achyutkneupane/Blog-Kit" class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-primary hover:bg-primary-500 focus:ring-4 focus:ring-primary-300">
-                Get started
-                <svg class="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-            </a>
-        </div>
-        <div class="lg:mt-0 md:col-span-5 flex order-1 lg:order-2">
-            <img src="https://hamrocdn.com/mhykONU_Vi2F" alt="Screenshot Image" class="rounded-base border-2 border-primary-200 shadow-sm shadow-primary" />
+<section class="container-xl relative overflow-hidden my-8 lg:my-12">
+    <div class="bg-white/60 backdrop-blur-sm border border-neutral-200/60 rounded-[2.5rem] shadow-xl shadow-neutral-100/50">
+        <div class="grid gap-12 lg:grid-cols-12 py-12 lg:py-20 px-6 lg:px-16 items-center">
+
+            <div class="lg:col-span-7 order-2 lg:order-1 text-center lg:text-left">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider mb-6">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                    </span>
+                    Powered by Filament
+                </div>
+
+                <h1 class="mb-6 text-5xl font-black tracking-tight md:text-6xl xl:text-7xl text-neutral-900 leading-[1.1]">
+                    Laravel <span class="text-primary italic">Blog Kit</span>
+                </h1>
+
+                <p class="max-w-2xl mx-auto lg:mx-0 mb-10 font-medium text-neutral-500 md:text-lg lg:text-xl leading-relaxed">
+                    A SEO-friendly, customizable, and easy-to-use Laravel starter kit for building blogging platforms. It comes with Filament v4 as the admin panel and uses tailwind with Flowbite for the frontend.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                    <a href="https://github.com/achyutkneupane/Blog-Kit" class="group inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white rounded-2xl bg-primary shadow-lg shadow-primary/30 hover:bg-primary-500 hover:-translate-y-1 transition-all duration-300">
+                        Get started
+                        <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 order-1 lg:order-2">
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-linear-to-r from-primary to-primary-300 rounded-4xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+
+                    <div class="relative bg-white rounded-4xl p-2 border border-neutral-100 shadow-2xl">
+                        <img
+                            src="https://hamrocdn.com/mhykONU_Vi2F"
+                            alt="Screenshot Image"
+                            class="rounded-3xl w-full h-auto object-cover transform transition duration-500 group-hover:scale-[1.02]"
+                        />
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>

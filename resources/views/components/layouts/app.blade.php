@@ -26,6 +26,7 @@
 
     @vite(["resources/js/app.js", "resources/css/app.css"])
     @stack('styles')
+    @livewireStyles
 </head>
 <body class="text-white font-sans bg-neutral-100 container-xl">
     <x-shared.header />
@@ -33,7 +34,7 @@
     <x-shared.footer />
 
     @stack('scripts')
-    <script src="//cdn.jsdelivr.net/npm/flowbite@4/dist/flowbite.min.js"></script>
+    @livewireScripts
     {!! $siteSettings->footer_scripts !!}
 </body>
 </html>
