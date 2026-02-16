@@ -17,25 +17,38 @@ use Awcodes\Gravatar\GravatarProvider;
 use DutchCodingCompany\FilamentDeveloperLogins\FilamentDeveloperLoginsPlugin;
 use Exception;
 use Filament\Actions\Action;
+use Filament\Actions\CreateAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Commands\FileGenerators\Resources\ResourceClassGenerator as BaseResourceClassGenerator;
 use Filament\Commands\FileGenerators\Resources\Schemas\ResourceInfolistSchemaClassGenerator as BaseSchemasResourceInfolistSchemaClassGenerator;
 use Filament\Commands\FileGenerators\Resources\Schemas\ResourceTableClassGenerator as BaseResourceTableClassGenerator;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Infolists\Components\ImageEntry;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
+use Filament\Schemas\Schema;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\Width;
 use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 use Filament\Widgets\AccountWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
+use Illuminate\Routing\Router;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\URL;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Joaopaulolndev\FilamentEditProfile\FilamentEditProfilePlugin;
 use Joaopaulolndev\FilamentEditProfile\Pages\EditProfilePage;
@@ -145,5 +158,92 @@ final class AdminPanelProvider extends PanelProvider
         $this->app->bind(BaseSchemasResourceInfolistSchemaClassGenerator::class, ResourceInfolistSchemaClassGenerator::class);
         $this->app->bind(BaseResourceClassGenerator::class, ResourceClassGenerator::class);
         $this->app->bind(BaseResourceTableClassGenerator::class, ResourceTableClassGenerator::class);
+    }
+
+    /**
+     * Bootstrap any application services.
+     */
+    public function boot(): void
+    {
+        Table::configureUsing(
+            fn (Table $table): Table => $table
+                ->defaultNumberLocale('en_NP')
+                ->defaultCurrency('NPR')
+                ->defaultDateDisplayFormat('F j, Y')
+                ->defaultTimeDisplayFormat('g:i A')
+                ->defaultDateTimeDisplayFormat('F j, Y, g:i A')
+                ->deferFilters(false)
+                ->deferColumnManager(false)
+        );
+
+        Schema::configureUsing(
+            fn (Schema $schema): Schema => $schema
+                ->defaultNumberLocale('en_NP')
+                ->defaultCurrency('NPR')
+                ->defaultDateDisplayFormat('F j, Y')
+                ->defaultTimeDisplayFormat('g:i A')
+                ->defaultDateTimeDisplayFormat('F j, Y, g:i A')
+        );
+
+        if (app()->environment('production')) {
+            URL::useOrigin(config('app.url'));
+            URL::forceScheme('https');
+        }
+
+        TextEntry::configureUsing(
+            fn (TextEntry $textEntry): TextEntry => $textEntry
+                ->placeholder('N/A')
+        );
+
+        TextColumn::configureUsing(
+            fn (TextColumn $textColumn): TextColumn => $textColumn
+                ->placeholder('N/A')
+        );
+
+        FileUpload::configureUsing(
+            fn (FileUpload $fileUpload): FileUpload => $fileUpload
+                ->preserveFilenames()
+                ->disk('public')
+                ->helperText('Please keep the aspect ratio in mind since cropping may occur. Press the pencil icon to edit the image after uploading.')
+                ->visibility('public')
+        );
+
+        ImageColumn::configureUsing(
+            fn (ImageColumn $imageColumn): ImageColumn => $imageColumn
+                ->disk('public')
+                ->visibility('public')
+        );
+
+        ImageEntry::configureUsing(
+            fn (ImageEntry $imageEntry): ImageEntry => $imageEntry
+                ->disk('public')
+                ->visibility('public')
+        );
+
+        CreateAction::configureUsing(
+            fn (CreateAction $createAction): CreateAction => $createAction
+                ->slideOver()
+        );
+
+        EditAction::configureUsing(
+            fn (EditAction $editAction): EditAction => $editAction
+                ->slideOver()
+        );
+
+        ViewAction::configureUsing(
+            fn (ViewAction $viewAction): ViewAction => $viewAction
+                ->slideOver()
+        );
+
+        RichEditor::configureUsing(
+            fn (RichEditor $richEditor): RichEditor => $richEditor
+                ->extraInputAttributes([
+                    'style' => 'overflow-y: scroll; max-height: 600px;',
+                ])
+        );
+
+        Router::macro('named', function ($name, $parameters): bool {
+            return url()->current() === route($name, $parameters);
+        });
     }
 }

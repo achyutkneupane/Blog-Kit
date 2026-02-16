@@ -1,34 +1,53 @@
-<article class="p-6 bg-white rounded-lg border border-neutral-200 shadow-md">
-    <div class="flex justify-between items-center mb-5 text-neutral-500">
-        <div>
+<article class="group relative flex flex-col h-full bg-white border border-neutral-200/70 rounded-3xl p-6 shadow-xs hover:shadow-xl hover:shadow-neutral-200/40 transition-all duration-300">
+
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+        <div class="flex flex-wrap gap-2">
             @foreach($blog->categories as $category)
-                <a href="#"
-                   class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded mr-2">
+                <span class="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-primary bg-primary/10 rounded-full border border-primary/5">
                     {{ $category->name }}
-                </a>
+                </span>
             @endforeach
         </div>
-        <span class="text-sm">
-            {{ $blog->published_at->diffForHumans() }}
-        </span>
+
+        <div class="flex items-center text-xs font-semibold text-neutral-400 bg-neutral-50 px-2 py-1 rounded-lg">
+            <svg class="w-3.5 h-3.5 mr-1.5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            {{ $blog->minutes_read_text }}
+        </div>
     </div>
-    <h2 class="mb-2 text-2xl font-bold tracking-tight text-primary">
-        <a href="{{ route('blog.view', $blog) }}">
+
+    <h2 class="mb-3 text-2xl font-black tracking-tight text-neutral-900 group-hover:text-primary transition-colors duration-200">
+        <a href="{{ route('blog.view', $blog) }}" class="after:absolute after:inset-0">
             {{ $blog->title }}
         </a>
     </h2>
-    <p class="mb-5 font-light text-neutral-500">
+
+    <p class="mb-6 text-neutral-500 line-clamp-3 text-sm leading-relaxed font-medium">
         {{ $blog->description }}
     </p>
-    <div class="flex justify-between items-center">
-        <div class="flex items-center space-x-4">
-            <span class="font-medium text-neutral-800">
-              {{ $blog->author->name }}
-          </span>
+
+    <div class="mt-auto pt-6 border-t border-neutral-100 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 rounded-full bg-linear-to-br from-neutral-200 to-neutral-100 flex items-center justify-center text-[10px] font-bold text-neutral-500 border border-neutral-200">
+                {{ substr($blog->author->name, 0, 1) }}
+            </div>
+            <div class="flex flex-col">
+                <span class="text-sm font-bold text-neutral-900 leading-none mb-1">
+                    {{ $blog->author->name }}
+                </span>
+                <span class="text-[11px] font-medium text-neutral-400">
+                    {{ $blog->published_at->format('M d, Y') }}
+                </span>
+            </div>
         </div>
-        <a href="{{ route('blog.view', $blog) }}" class="inline-flex items-center font-medium text-primary-600 hover:underline">
-            Read more
-            <svg class="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-        </a>
+
+        <div class="relative z-10">
+             <span class="text-primary group-hover:translate-x-1 inline-flex items-center transition-transform duration-200">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+            </span>
+        </div>
     </div>
 </article>

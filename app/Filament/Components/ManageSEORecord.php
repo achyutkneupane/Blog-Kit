@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Components;
 
-use App\Models\SeoDetail;
+use AchyutN\LaravelSEO\Models\SEO;
 use BackedEnum;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Schemas\Schema;
@@ -22,8 +22,8 @@ class ManageSEORecord extends EditRecord
 
     public function mount(int|string $record): void
     {
-        $this->record = $this->resolveRecord($record)->load('seoDetails');
-        $this->form->fill($this->record?->seoDetails?->toArray() ?? []);
+        $this->record = $this->resolveRecord($record)->load('seo');
+        $this->form->fill($this->record?->seo?->toArray() ?? []);
     }
 
     public function form(Schema $schema): Schema
@@ -40,7 +40,7 @@ class ManageSEORecord extends EditRecord
 
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
-        SeoDetail::query()->updateOrCreate([
+        SEO::query()->updateOrCreate([
             'seoable_id' => $record->getKey(),
             'seoable_type' => $record->getMorphClass(),
         ], $data);

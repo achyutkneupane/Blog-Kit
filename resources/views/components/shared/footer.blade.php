@@ -1,53 +1,56 @@
-<footer class="container-xl bg-white w-full z-20 top-0 start-0 min-h-[72px] my-6 px-2 rounded-base border-2 border-neutral-200 shadow-sm shadow-neutral-200">
-    <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
-        <div class="sm:flex sm:items-center sm:justify-between">
-            <a href="{{ route('landing-page') }}" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
-                <span class="text-heading self-center text-2xl font-semibold whitespace-nowrap">
-                    {{ $settings->name }}
-                </span>
-            </a>
+<footer class="container-xl mt-16 mb-8">
+    <div class="bg-white/70 backdrop-blur-md border border-neutral-200/60 rounded-[2.5rem] shadow-sm px-8 py-10">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
 
-            <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-body sm:mb-0">
-                <li>
-                    <a
-                        href="{{ route('landing-page') }}"
-                        @class([
-                            "hover:underline me-4 md:me-6",
-                            request()->routeIs('landing-page') ? 'text-primary' : 'hover:text-primary'
-                        ])
-                    >
-                        Home
-                    </a>
-                </li>
+            <div class="max-w-xs">
+                <a href="{{ route('landing-page') }}" class="group flex items-center space-x-2">
+                    <span class="text-2xl font-black tracking-tight text-neutral-900 group-hover:text-primary transition-colors">
+                        {{ $settings->name }}
+                    </span>
+                </a>
+                <p class="mt-4 text-sm text-neutral-500 leading-relaxed">
+                    A modern blogging foundation built with the TALL stack, designed for speed and SEO.
+                </p>
+            </div>
 
-                @foreach(
-                    \App\Models\StaticPage::query()
-                        ->withGlobalScope('contentPage', new \App\Models\Scopes\ContentPageOnly())
-                        ->get() as $staticPage
-                )
+            <nav>
+                <ul class="flex flex-wrap gap-x-8 gap-y-4 text-sm font-bold text-neutral-600">
                     <li>
-                        <a
-                            href="{{ route('page.view', $staticPage) }}"
-                            @class([
-                                "hover:underline me-4 md:me-6",
-                                \Illuminate\Support\Facades\Route::named('page.view', $staticPage) ? 'text-primary' : 'hover:text-primary'
-                            ])
-                        >
-                            {{ $staticPage->title }}
+                        <a href="{{ route('landing-page') }}"
+                           class="transition-colors {{ request()->routeIs('landing-page') ? 'text-primary' : 'hover:text-primary' }}">
+                            Home
                         </a>
                     </li>
-                @endforeach
-            </ul>
+                    @foreach(\App\Models\StaticPage::query()->withGlobalScope('contentPage', new \App\Models\Scopes\ContentPageOnly())->get() as $staticPage)
+                        <li>
+                            <a href="{{ route('page.view', $staticPage) }}"
+                               class="transition-colors {{ \Illuminate\Support\Facades\Route::named('page.view', $staticPage) ? 'text-primary' : 'hover:text-primary' }}">
+                                {{ $staticPage->title }}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </nav>
         </div>
 
-        <hr class="my-6 border-default sm:mx-auto lg:my-8">
+        <div class="my-8 h-px w-full bg-linear-to-r from-transparent via-neutral-200 to-transparent"></div>
 
-        <span class="block text-sm text-body sm:text-center">
-            © {{ now()->format('Y') }}
-            <a href="https://github.com/achyutkneupane/Blog-Kit" target="_blank" class="hover:underline">
-                {{ $settings->name }}
-            </a>.
-            All Rights Reserved.
-        </span>
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="text-sm text-neutral-500 font-medium">
+                © {{ now()->format('Y') }}
+                <a href="https://github.com/achyutkneupane/Blog-Kit" target="_blank" class="text-neutral-900 hover:text-primary underline decoration-primary/30 underline-offset-4">
+                    {{ $settings->name }}
+                </a>.
+                All Rights Reserved.
+            </div>
+
+            <div class="flex items-center gap-3">
+                <span class="text-[10px] uppercase tracking-widest font-bold text-neutral-400">Built with</span>
+                <div class="flex items-center gap-2">
+                    <span class="px-2 py-1 rounded-md bg-primary/10 text-primary text-xs font-bold border border-primary/20">Laravel {{ \Composer\InstalledVersions::getPrettyVersion('laravel/framework') }}</span>
+                    <span class="px-2 py-1 rounded-md bg-neutral-100 text-neutral-600 text-xs font-bold border border-neutral-200">Filament {{ \Composer\InstalledVersions::getPrettyVersion('filament/filament') }}</span>
+                </div>
+            </div>
+        </div>
     </div>
 </footer>

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Components;
 
-use Filament\Forms\Components\CodeEditor;
-use Filament\Forms\Components\CodeEditor\Enums\Language;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
@@ -64,9 +62,6 @@ final class SEOForm
                     TagsInput::make('robots'),
                     TextInput::make('author'),
                     TextInput::make('publisher'),
-                    CodeEditor::make('schema')
-                        ->language(Language::Json)
-                        ->columnSpanFull(),
                 ])
                 ->columns(),
         ];

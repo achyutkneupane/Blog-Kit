@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Models;
 
 use AchyutN\LaravelHelpers\Traits\HasTheSlug;
-use App\Traits\HasSEODetails;
+use AchyutN\LaravelSEO\Models\SEO;
+use AchyutN\LaravelSEO\Traits\InteractsWithSEO;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
-use RalphJSmit\Laravel\SEO\Models\SEO;
 
 /**
  * @property int $id
@@ -22,8 +22,7 @@ use RalphJSmit\Laravel\SEO\Models\SEO;
  * @property-read BlogCategory|null $pivot
  * @property-read Collection<int, Blog> $blogs
  * @property-read int|null $blogs_count
- * @property-read SEO $seo
- * @property-read SeoDetail|null $seoDetails
+ * @property-read SEO|null $seo
  *
  * @method static Builder<static>|Category findSimilarSlugs(string $attribute, array $config, string $slug)
  * @method static Builder<static>|Category newModelQuery()
@@ -40,8 +39,8 @@ use RalphJSmit\Laravel\SEO\Models\SEO;
  */
 class Category extends Model
 {
-    use HasSEODetails;
     use HasTheSlug;
+    use InteractsWithSEO;
 
     public string $sluggableColumn = 'name';
 

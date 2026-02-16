@@ -39,6 +39,10 @@ class BlogInfolist
                             ->since()
                             ->dateTimeTooltip()
                             ->placeholder('Draft'),
+                        TextEntry::make('tags')
+                            ->label('Tags')
+                            ->columnSpanFull()
+                            ->badge(),
                         Grid::make()
                             ->columnSpanFull()
                             ->components([

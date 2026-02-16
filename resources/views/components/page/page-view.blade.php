@@ -1,16 +1,30 @@
 <x-layouts.app>
-    <main class="container-xl bg-white w-full z-20 top-0 start-0 min-h-[72px] my-6 py-8 lg:py-16 px-4 antialiased rounded-base border-2 border-neutral-200 shadow-sm shadow-neutral-200">
-        <div class="flex justify-between px-4 container-xl">
-            <article class="mx-auto w-full format format-sm sm:format-base max-w-full">
-                <header class="mb-4 lg:mb-6 not-format">
-                    <h1 class="mb-2 text-3xl font-extrabold leading-tight text-primary lg:mb-6 lg:text-4xl text-center">
+    <main class="container-xl relative my-12 antialiased">
+        <div class="bg-white/70 backdrop-blur-md border border-neutral-200/60 rounded-[2.5rem] shadow-xs overflow-hidden">
+
+            <div class="px-6 py-12 lg:py-20 border-b border-neutral-100/80">
+                <header class="max-w-6xl mx-auto text-center">
+                    <h1 class="text-4xl lg:text-6xl font-black tracking-tighter text-neutral-900 leading-tight">
                         {{ $staticPage->title }}
                     </h1>
                 </header>
-                {!! $staticPage->content !!}
-            </article>
+            </div>
+
+            <div class="px-6 py-12 lg:px-16 lg:py-20">
+                <article class="mx-auto w-full max-w-6xl prose prose-neutral prose-lg lg:prose-xl
+                    prose-headings:font-black prose-headings:tracking-tight prose-headings:text-neutral-900
+                    prose-a:text-primary prose-a:font-bold prose-a:no-underline hover:prose-a:underline
+                    prose-img:rounded-4xl prose-img:shadow-xl
+                    prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:italic prose-blockquote:bg-neutral-50 prose-blockquote:py-1 prose-blockquote:px-8 prose-blockquote:rounded-r-2xl
+                    prose-strong:text-neutral-900">
+
+                    {!! $staticPage->content !!}
+
+                </article>
+            </div>
         </div>
     </main>
+
     @push('seo')
         {!! seo()->for($staticPage) !!}
     @endpush

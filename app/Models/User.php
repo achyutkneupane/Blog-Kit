@@ -32,6 +32,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $deleted_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property-read string $avatar
  * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  *

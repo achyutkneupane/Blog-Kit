@@ -1,38 +1,50 @@
 <x-layouts.app>
-    <main class="container-xl bg-white w-full z-20 top-0 start-0 min-h-[72px] my-6 py-8 lg:py-16 px-4 antialiased rounded-base border-2 border-neutral-200 shadow-sm shadow-neutral-200">
-        <div class="flex justify-between px-4 container-xl">
-            <article class="mx-auto w-full format format-sm sm:format-base max-w-full">
-                <header class="mb-4 lg:mb-6 not-format">
-                    <address class="flex items-center mb-6 not-italic">
-                        <div class="inline-flex items-center mr-3 text-sm text-neutral-900">
-                            <img class="mr-4 w-16 h-16 rounded-full" src="{{ $blog->author->avatar }}" alt="{{ $blog->author->name }}">
-                            <div>
-                                <a href="#" rel="author" class="text-xl font-bold text-primary">
-                                    {{ $blog->author->name }}
-                                </a>
-                                <p class="text-base text-neutral-500">
-                                    <time pubdate="" datetime="{{ $blog->published_at->toDateString() }}" title="{{ $blog->published_at->toFormattedDateString() }}">
-                                        {{ $blog->published_at->toFormattedDateString() }}
-                                    </time>
-                                </p>
+    <main class="container-xl relative my-16 antialiased">
+        <div class="bg-white/70 backdrop-blur-md border border-neutral-200/60 rounded-[2.5rem] shadow-sm overflow-hidden">
+            <div class="px-6 py-10 lg:px-8 lg:py-16 border-b border-neutral-100/80">
+                <header class="max-w-6xl mx-auto">
+
+                    <div class="flex items-center gap-4 mb-8">
+                        <img class="w-14 h-14 rounded-2xl object-cover ring-4 ring-primary/5 shadow-sm" src="{{ $blog->author->avatar }}" alt="{{ $blog->author->name }}">
+                        <div class="flex flex-col">
+                        <span class="text-lg font-black text-neutral-900 leading-tight">
+                            {{ $blog->author->name }}
+                        </span>
+                            <div class="flex items-center gap-2 text-sm font-medium text-neutral-400">
+                                <time datetime="{{ $blog->published_at->toDateString() }}">
+                                    {{ $blog->published_at->toFormattedDateString() }}
+                                </time>
+                                <span>•</span>
+                                <span class="text-primary/80">{{ $blog->minutes_read_text }}</span>
                             </div>
                         </div>
-                    </address>
-                    <h1 class="mb-2 text-3xl font-extrabold leading-tight text-primary lg:mb-6 lg:text-4xl">
+                    </div>
+
+                    <h1 class="text-4xl lg:text-5xl font-black tracking-tight text-neutral-900 leading-[1.15] mb-6">
                         {{ $blog->title }}
                     </h1>
-                    <div class="flex flex-row gap-2">
+
+                    <div class="flex flex-wrap gap-2">
                         @foreach($blog->categories as $category)
-                            <a href="#" class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded">
+                            <a href="#" class="px-3 py-1 text-xs font-bold uppercase tracking-widest text-primary bg-primary/10 rounded-lg transition-colors hover:bg-primary/20">
                                 {{ $category->name }}
                             </a>
                         @endforeach
-                        <div>·</div>
-                        <div>{{ $blog->minutes_read_text }}</div>
                     </div>
                 </header>
-                {!! $blog->content !!}
-            </article>
+            </div>
+
+            <div class="px-6 py-12 lg:px-16 lg:py-20">
+                <article class="mx-auto w-full max-w-6xl prose prose-neutral prose-lg lg:prose-xl
+                prose-headings:font-black prose-headings:tracking-tight prose-headings:text-neutral-900
+                prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+                prose-img:rounded-3xl prose-img:shadow-lg
+                prose-blockquote:border-primary prose-blockquote:bg-primary/5 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:rounded-r-2xl">
+
+                    {!! $blog->content !!}
+
+                </article>
+            </div>
         </div>
     </main>
     @push('seo')
