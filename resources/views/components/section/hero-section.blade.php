@@ -16,7 +16,7 @@
                 </h1>
 
                 <p class="max-w-2xl mx-auto lg:mx-0 mb-10 font-medium text-neutral-500 md:text-lg lg:text-xl leading-relaxed">
-                    A SEO-friendly, customizable, and easy-to-use Laravel starter kit for building blogging platforms. It comes with Filament v4 as the admin panel and uses tailwind with Flowbite for the frontend.
+                    A SEO-friendly, customizable, and easy-to-use Laravel starter kit for building blogging platforms. It comes with Filament v5 as the admin panel and uses tailwind with Flowbite for the frontend.
                 </p>
 
                 <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
