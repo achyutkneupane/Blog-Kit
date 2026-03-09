@@ -35,7 +35,7 @@ final class AppServiceProvider extends ServiceProvider
             return $user->role === UserRole::Developer;
         });
 
-        if (app()->environment('production')) {
+        if (app()->isProduction()) {
             URL::useOrigin(config('app.url'));
             URL::forceScheme('https');
         }
