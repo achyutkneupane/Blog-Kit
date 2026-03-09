@@ -25,8 +25,7 @@
         "joaopaulolndev/filament-edit-profile": "^3.0",
         "laravel/framework": "^12.22",
         "laravel/pulse": "^1.4",
-        "laravel/tinker": "^2.10.1",
-        "ralphjsmit/laravel-seo": "^1.7"
+        "laravel/tinker": "^2.10.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.16",
