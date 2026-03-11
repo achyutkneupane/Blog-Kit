@@ -3,7 +3,7 @@
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
 
             <div class="max-w-xs">
-                <a href="{{ route('landing-page') }}" class="group flex items-center space-x-2">
+                <a href="{{ route('landing-page') }}" class="group flex items-center space-x-2" wire:navigate.hover>
                     <span class="text-2xl font-black tracking-tight text-neutral-900 group-hover:text-primary transition-colors">
                         {{ $settings->name }}
                     </span>
@@ -17,13 +17,16 @@
                 <ul class="flex flex-wrap gap-x-8 gap-y-4 text-sm font-bold text-neutral-600">
                     <li>
                         <a href="{{ route('landing-page') }}"
-                           class="transition-colors {{ request()->routeIs('landing-page') ? 'text-primary' : 'hover:text-primary' }}">
+                           class="transition-colors {{ request()->routeIs('landing-page') ? 'text-primary' : 'hover:text-primary' }}"
+                           wire:navigate.hover
+                        >
                             Home
                         </a>
                     </li>
                     @foreach(\App\Models\StaticPage::query()->withGlobalScope('contentPage', new \App\Models\Scopes\ContentPageOnly())->get() as $staticPage)
                         <li>
                             <a href="{{ route('page.view', $staticPage) }}"
+                               wire:navigate.hover
                                class="transition-colors {{ \Illuminate\Support\Facades\Route::named('page.view', $staticPage) ? 'text-primary' : 'hover:text-primary' }}">
                                 {{ $staticPage->title }}
                             </a>

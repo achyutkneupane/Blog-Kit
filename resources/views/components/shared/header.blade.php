@@ -5,7 +5,7 @@
     <div class="bg-white/70 backdrop-blur-md border border-neutral-200/60 rounded-xl shadow-sm px-6 py-3 transition-all duration-300">
         <div class="flex flex-wrap items-center justify-between">
 
-            <a href="{{ route('landing-page') }}" class="flex items-center group">
+            <a href="{{ route('landing-page') }}" class="flex items-center group" wire:navigate.hover>
                 <span class="self-center text-2xl font-bold tracking-tight text-neutral-900 group-hover:text-primary transition-colors">
                     {{ $settings->name }}
                 </span>
@@ -35,6 +35,7 @@
                 <ul class="flex flex-row space-x-8 font-medium">
                     <li>
                         <a href="{{ route('landing-page') }}"
+                           wire:navigate.hover
                            class="relative py-2 text-sm transition-colors {{ request()->routeIs('landing-page') ? 'text-primary' : 'text-neutral-600 hover:text-primary' }} group">
                             Home
                             <span class="absolute inset-x-0 -bottom-1 h-0.5 bg-primary transform scale-x-0 transition-transform duration-200 group-hover:scale-x-100 {{ request()->routeIs('landing-page') ? 'scale-x-100' : '' }}"></span>
@@ -43,6 +44,7 @@
                     @foreach(\App\Models\StaticPage::query()->withGlobalScope('contentPage', new \App\Models\Scopes\ContentPageOnly())->get() as $staticPage)
                         <li>
                             <a href="{{ route('page.view', $staticPage) }}"
+                               wire:navigate.hover
                                class="relative py-2 text-sm transition-colors {{ request()->routeIs('page.view', $staticPage) ? 'text-primary' : 'text-neutral-600 hover:text-primary' }} group">
                                 {{ $staticPage->title }}
                                 <span class="absolute inset-x-0 -bottom-1 h-0.5 bg-primary transform scale-x-0 transition-transform duration-200 group-hover:scale-x-100 {{ \Illuminate\Support\Facades\Route::named('page.view', $staticPage) ? 'scale-x-100' : '' }}"></span>
@@ -66,6 +68,7 @@
         >
             <div class="flex flex-col space-y-1 border-t border-neutral-100 pt-4">
                 <a href="{{ route('landing-page') }}"
+                   wire:navigate.hover
                    class="flex items-center px-4 py-3 text-base font-medium rounded-xl {{ request()->routeIs('landing-page') ? 'bg-primary/10 text-primary' : 'text-neutral-600 hover:bg-neutral-50' }}">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
                     Home
@@ -73,6 +76,7 @@
 
                 @foreach(\App\Models\StaticPage::query()->withGlobalScope('contentPage', new \App\Models\Scopes\ContentPageOnly())->get() as $staticPage)
                     <a href="{{ route('page.view', $staticPage) }}"
+                       wire:navigate.hover
                        class="flex items-center px-4 py-3 text-base font-medium rounded-xl {{ \Illuminate\Support\Facades\Route::named('page.view', $staticPage) ? 'bg-primary/10 text-primary' : 'text-neutral-600 hover:bg-neutral-50' }}">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                         {{ $staticPage->title }}

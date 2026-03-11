@@ -12,7 +12,7 @@
     ])>
         @forelse($blogs as $blog)
             <div class="group transform transition-all duration-300 hover:-translate-y-2">
-                <x-shared.blog-component :blog="$blog" />
+                <livewire:components::single-blog :$blog />
             </div>
         @empty
             <div class="flex flex-col items-center justify-center py-20 px-6 bg-neutral-50/50 border-2 border-dashed border-neutral-200 rounded-[2.5rem]">

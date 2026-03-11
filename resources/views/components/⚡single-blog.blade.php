@@ -1,5 +1,14 @@
-<article class="group relative flex flex-col h-full bg-white border border-neutral-200/70 rounded-3xl p-6 shadow-xs hover:shadow-xl hover:shadow-neutral-200/40 transition-all duration-300">
+<?php
 
+use Livewire\Component;
+
+new class extends Component
+{
+    public \App\Models\Blog $blog;
+};
+?>
+
+<article class="group relative flex flex-col h-full bg-white border border-neutral-200/70 rounded-3xl p-6 shadow-xs hover:shadow-xl hover:shadow-neutral-200/40 transition-all duration-300">
     <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
         <div class="flex flex-wrap gap-2">
             @foreach($blog->categories as $category)
@@ -18,7 +27,7 @@
     </div>
 
     <h2 class="mb-3 text-2xl font-black tracking-tight text-neutral-900 group-hover:text-primary transition-colors duration-200">
-        <a href="{{ route('blog.view', $blog) }}" class="after:absolute after:inset-0">
+        <a href="{{ route('blog.view', $blog) }}" class="after:absolute after:inset-0" wire:navigate.hover>
             {{ $blog->title }}
         </a>
     </h2>

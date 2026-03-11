@@ -148,7 +148,7 @@ new class extends Component {
         <div class="flex-1">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 @forelse($blogs as $blog)
-                    <x-shared.blog-component :blog="$blog"/>
+                    <livewire:components::single-blog :$blog />
                 @empty
                     <div class="col-span-full py-20 text-center">
                         <div class="bg-neutral-50 rounded-[2.5rem] py-12 border-2 border-dashed border-neutral-200">
