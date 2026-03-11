@@ -6,15 +6,13 @@ use App\Http\Controllers\RenderBlogView;
 use App\Http\Controllers\RenderLandingPage;
 use App\Http\Controllers\RenderPageView;
 
-Route::get('/', RenderLandingPage::class)
-    ->name('landing-page');
-Route::get('/page/{staticPage}', RenderPageView::class)
-    ->name('page.view');
+Route::livewire('/', 'pages::landing-page')->name('landing-page');
+Route::livewire('/page/{staticPage}', 'pages::page-view')->name('page.view');
 
 Route::group([
     'prefix' => '/blog',
     'as' => 'blog.',
 ], function (): void {
     Route::livewire('/', 'pages::list-blogs')->name('index');
-    Route::get('/{blog}', RenderBlogView::class)->name('view');
+    Route::livewire('/{blog}', 'pages::blog-view')->name('view');
 });
