@@ -5,7 +5,6 @@ use App\Enums\PageType;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\StaticPage;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Url;

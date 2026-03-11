@@ -2,7 +2,6 @@
 
 use App\Enums\PageType;
 use App\Models\StaticPage;
-use Illuminate\Http\RedirectResponse;
 use Livewire\Component;
 
 new class extends Component {

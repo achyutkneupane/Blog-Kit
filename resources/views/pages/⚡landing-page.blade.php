@@ -8,7 +8,9 @@ use Livewire\Component;
 
 new class extends Component {
     public Collection $featured;
+
     public Collection $latest;
+
     public ?StaticPage $landingPage = null;
 
     public function mount(): void

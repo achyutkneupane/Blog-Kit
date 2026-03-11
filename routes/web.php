@@ -2,10 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\RenderBlogView;
-use App\Http\Controllers\RenderLandingPage;
-use App\Http\Controllers\RenderPageView;
-
 Route::livewire('/', 'pages::landing-page')->name('landing-page');
 Route::livewire('/page/{staticPage}', 'pages::page-view')->name('page.view');
 
