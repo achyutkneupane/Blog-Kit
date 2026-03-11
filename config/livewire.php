@@ -32,7 +32,8 @@ return [
     */
 
     'component_namespaces' => [
-        'layouts' => resource_path('views/components/layouts'),
+        'layouts' => resource_path('views/layouts'),
+        'components' => resource_path('views/components'),
         'pages' => resource_path('views/pages'),
     ],
 
@@ -71,7 +72,7 @@ return [
     */
 
     'make_command' => [
-        'type' => 'class', // Options: 'sfc', 'mfc', 'class'
+        'type' => 'sfc', // Options: 'sfc', 'mfc', 'class'
         'emoji' => true, // Options: true, false
         'with' => [
             'js' => false,
@@ -196,7 +197,7 @@ return [
 
     'navigate' => [
         'show_progress_bar' => true,
-        'progress_bar_color' => '#2299dd',
+        'progress_bar_color' => '#fc6a3e',
     ],
 
     /*

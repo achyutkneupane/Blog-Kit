@@ -1,3 +1,70 @@
+<?php
+
+use Livewire\Component;
+use App\Enums\PageType;
+use App\Models\Blog;
+use App\Models\Category;
+use App\Models\StaticPage;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Collection;
+use Livewire\Attributes\Url;
+
+new class extends Component {
+    /** @var Collection<Category> */
+    public Collection $categories;
+
+    /** @var Collection<Blog> */
+    public Collection $blogs;
+
+    /* @var StaticPage|null */
+    public ?StaticPage $staticPage = null;
+
+    #[Url]
+    public string $search = '';
+
+    #[Url]
+    public array $selectedCategories = [];
+
+    public function mount(): void
+    {
+        $this->categories = Category::query()
+            ->orderBy('name')
+            ->get();
+
+        $this->staticPage = StaticPage::query()
+            ->whereType(PageType::IndexPage)
+            ->whereName('blog')
+            ->first();
+
+        views($this->staticPage)
+            ->record();
+    }
+
+    public function resetFilters(): void
+    {
+        $this->search = '';
+        $this->selectedCategories = [];
+    }
+
+    public function render(): View
+    {
+        $this->blogs = Blog::query()
+            ->when($this->search, function ($query): void {
+                $query->where('title', 'like', '%'.$this->search.'%');
+            })
+            ->when($this->selectedCategories, function ($query): void {
+                $query->whereHas('categories', function ($q): void {
+                    $q->whereIn('categories.id', $this->selectedCategories);
+                });
+            })
+            ->latest('published_at')
+            ->get();
+
+        return $this->view();
+    }
+};
+?>
+
 <main class="container-xl relative my-12 antialiased">
     <div class="flex flex-col lg:flex-row gap-8">
 
@@ -80,7 +147,7 @@
         <div class="flex-1">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 @forelse($blogs as $blog)
-                    <x-shared.blog-component :blog="$blog"/>
+                    <livewire:components::single-blog :$blog />
                 @empty
                     <div class="col-span-full py-20 text-center">
                         <div class="bg-neutral-50 rounded-[2.5rem] py-12 border-2 border-dashed border-neutral-200">
