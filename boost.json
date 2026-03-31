@@ -1,0 +1,15 @@
+{
+    "agents": [
+        "copilot"
+    ],
+    "guidelines": true,
+    "packages": [
+        "filament/filament",
+        "barryvdh/laravel-debugbar"
+    ],
+    "skills": [
+        "pulse-development",
+        "pest-testing",
+        "tailwindcss-development"
+    ]
+}
