@@ -3,13 +3,9 @@
         "copilot"
     ],
     "guidelines": true,
-    "herd_mcp": true,
-    "mcp": true,
-    "nightwatch_mcp": false,
     "packages": [
         "filament/filament"
     ],
-    "sail": false,
     "skills": [
         "pulse-development",
         "pest-testing",
