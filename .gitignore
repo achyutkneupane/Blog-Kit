@@ -26,3 +26,13 @@ Thumbs.db
 /storage/debugbar/*
 
 bootstrap/ssr/*
+
+.github/instructions/*
+.github/skills/*
+boost.json
+.agents/skills/*
+GEMINI.md
+CLAUDE.md
+opencode.json
+AGENTS.md
+.claude

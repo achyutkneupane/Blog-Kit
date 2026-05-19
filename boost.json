@@ -1,15 +1,31 @@
 {
     "agents": [
-        "copilot"
+        "phpstorm-copilot",
+        "opencode",
+        "claude_code",
+        "antigravity"
     ],
     "guidelines": true,
+    "mcp": true,
+    "nightwatch_mcp": false,
     "packages": [
         "filament/filament",
-        "barryvdh/laravel-debugbar"
+        "barryvdh/laravel-debugbar",
+        "revolution/laravel-boost-phpstorm-copilot"
     ],
+    "sail": false,
     "skills": [
+        "laravel-best-practices",
         "pulse-development",
         "pest-testing",
-        "tailwindcss-development"
+        "tailwindcss-development",
+        "caveman",
+        "eloquent-best-practices",
+        "filament-log-viewer-development",
+        "laravel-expert",
+        "spatie-javascript",
+        "spatie-laravel-php",
+        "spatie-security",
+        "ui-ux-pro-max"
     ]
 }
