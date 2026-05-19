@@ -5,13 +5,16 @@
         "claude_code",
         "antigravity"
     ],
+    "cloud": false,
     "guidelines": true,
     "mcp": true,
     "nightwatch_mcp": false,
     "packages": [
         "filament/filament",
         "barryvdh/laravel-debugbar",
-        "revolution/laravel-boost-phpstorm-copilot"
+        "revolution/laravel-boost-phpstorm-copilot",
+        "achyutn/filament-log-viewer",
+        "achyutn/laravel-seo"
     ],
     "sail": false,
     "skills": [
@@ -19,9 +22,11 @@
         "pulse-development",
         "pest-testing",
         "tailwindcss-development",
+        "filament-log-viewer-development",
+        "laravel-seo",
+        "debug-using-debugbar",
         "caveman",
         "eloquent-best-practices",
-        "filament-log-viewer-development",
         "laravel-expert",
         "spatie-javascript",
         "spatie-laravel-php",
