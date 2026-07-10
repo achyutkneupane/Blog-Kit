@@ -41,9 +41,5 @@ final class AppServiceProvider extends ServiceProvider
             URL::useOrigin(config('app.url'));
             URL::forceScheme('https');
         }
-
-        if (app()->isLocal()) {
-            Boost::registerAgent('antigravity', AntigravityAgent::class);
-        }
     }
 }
