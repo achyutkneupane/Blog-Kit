@@ -76,9 +76,9 @@ final class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->brandName(fn () => $this->settings->name)
-            ->brandLogo(fn () => $this->settings->logo ? '/'.$this->settings->logo : null)
+            ->brandLogo(fn (): ?string => $this->settings->logo ? '/'.$this->settings->logo : null)
             ->brandLogoHeight('3rem')
-            ->favicon(fn () => $this->settings->favicon ? '/'.$this->settings->favicon : null)
+            ->favicon(fn (): ?string => $this->settings->favicon ? '/'.$this->settings->favicon : null)
             ->login()
             ->colors([
                 'primary' => Color::hex('#fc6a3e'),
