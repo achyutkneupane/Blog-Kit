@@ -26,7 +26,8 @@
         "joaopaulolndev/filament-edit-profile": "^3.0",
         "laravel/framework": "^13.0",
         "laravel/pulse": "^1.7",
-        "laravel/tinker": "^3.0"
+        "laravel/tinker": "^3.0",
+        "livewire/livewire": "^4.3"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^4.2",
