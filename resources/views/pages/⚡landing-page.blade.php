@@ -57,10 +57,6 @@ new class extends Component
     <x-section.hero-section/>
     <x-shared.blog-list title="Featured Blogs" :blogs="$featured"/>
     <x-shared.blog-list title="Latest Blogs" :blogs="$latest"/>
-
-    @if ($faqs->isNotEmpty())
-        <x-section.faq-section :faqs="$faqs" />
-    @endif
 </div>
 
 @push('seo')

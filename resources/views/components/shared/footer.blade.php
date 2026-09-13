@@ -25,10 +25,10 @@
                     </li>
                     @foreach(\App\Models\StaticPage::query()->withGlobalScope('contentPage', new \App\Models\Scopes\ContentPageOnly())->get() as $staticPage)
                         <li>
-                            <a href="{{ route('page.view', $staticPage) }}"
+                            <a href="{{ $staticPage->getURLValue() }}"
                                wire:navigate.hover
-                               class="transition-colors {{ \Illuminate\Support\Facades\Route::named('page.view', $staticPage) ? 'text-primary' : 'hover:text-primary' }}">
-                                {{ $staticPage->title }}
+                               class="transition-colors {{ request()->url() === $staticPage->getURLValue() ? 'text-primary' : 'hover:text-primary' }}">
+                                {{ $staticPage->type === \App\Enums\PageType::Faq ? 'FAQ' : $staticPage->title }}
                             </a>
                         </li>
                     @endforeach

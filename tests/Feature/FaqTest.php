@@ -71,12 +71,20 @@ it('includes the faq page in the sitemap', function (): void {
     expect($content)->toContain(route('faq.view'));
 });
 
-it('shows faqs with schema on the homepage', function (): void {
+it('emits faq schema on the homepage without rendering the faq section', function (): void {
     $content = (string) $this->get(route('landing-page'))->getContent();
 
-    expect($content)->toContain('What is Blog Kit?')
-        ->and($content)->toContain('"@type":"FAQPage"')
-        ->and($content)->toContain('href="'.route('faq.view').'"');
+    expect($content)->toContain('"@type":"FAQPage"')
+        ->and($content)->not->toContain('x-data="{ open: 0 }"')
+        ->and($content)->not->toContain('View all FAQs');
+});
+
+it('labels the faq page as FAQ in the navigation', function (): void {
+    $content = (string) $this->get(route('landing-page'))->getContent();
+
+    expect($content)->toMatch('/>\s*FAQ\s*<\/a>/')
+        ->and($content)->toMatch('/>\s*FAQ\s*<span/')
+        ->and($content)->not->toMatch('/>\s*Frequently Asked Questions\s*<\/a>/');
 });
 
 it('manages faqs in the admin panel', function (): void {
