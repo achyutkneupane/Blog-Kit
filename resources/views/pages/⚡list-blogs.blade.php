@@ -145,6 +145,18 @@ new class extends Component {
         </aside>
 
         <div class="flex-1">
+            <header class="mb-8">
+                <h1 class="text-4xl font-black tracking-tight text-neutral-900">
+                    {{ $staticPage?->getTitleValue() ?? 'Blog' }}
+                </h1>
+
+                @if (filled($staticPage?->description))
+                    <p class="mt-3 text-neutral-500 leading-relaxed">
+                        {{ $staticPage->description }}
+                    </p>
+                @endif
+            </header>
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 @forelse($blogs as $blog)
                     <livewire:components::single-blog :$blog />

@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Enums\PageType;
 use App\Enums\UserRole;
+use App\Models\Blog;
 use App\Models\Faq;
 use App\Models\StaticPage;
 use App\Models\User;
@@ -76,6 +77,39 @@ final class DatabaseSeeder extends Seeder
                 'bio' => 'Reads, comments, and shares the articles published with Blog Kit.',
                 'website' => 'https://laravel-news.com',
             ]);
+
+            $article = Blog::query()->updateOrCreate([
+                'slug' => 'building-an-seo-friendly-blog-with-laravel',
+            ], [
+                'title' => 'Building an SEO-Friendly Blog with Laravel',
+                'description' => 'A practical walkthrough of Blog Kit: content models, metadata, structured data, author profiles, and dynamic Open Graph images.',
+                'tags' => ['laravel', 'seo', 'tutorial'],
+                'user_id' => $writer->getKey(),
+                'published_at' => now()->subDays(3),
+                'content' => implode('', [
+                    '<p>Blog Kit gives you a production-ready Laravel blog foundation so you can focus on writing instead of rebuilding metadata, sitemaps, and admin tooling.</p>',
+                    '<h2>What is included</h2>',
+                    '<ul>',
+                    '<li>Filament admin with per-record SEO controls</li>',
+                    '<li>Livewire pages with server-rendered metadata</li>',
+                    '<li>Generated Open Graph images and author profiles</li>',
+                    '<li>Sitemap, robots, llms.txt, and ai.txt endpoints</li>',
+                    '</ul>',
+                    '<h2>Publishing workflow</h2>',
+                    '<p>Write your article, set a cover image, assign a category and tags, then publish. Metadata, schema, and social cards update automatically.</p>',
+                ]),
+            ]);
+
+            $article->seo()->updateOrCreate([
+                'model_id' => $article->getKey(),
+                'model_type' => $article->getMorphClass(),
+            ], [
+                'meta_title' => $article->title,
+                'meta_description' => $article->description,
+                'og_title' => $article->title,
+                'og_description' => $article->description,
+                'robots' => ['index', 'follow'],
+            ]);
         }
 
         $applySeo = function (
@@ -95,7 +129,7 @@ final class DatabaseSeeder extends Seeder
             ]);
         };
 
-        $landingPage = StaticPage::query()->firstOrCreate([
+        $landingPage = StaticPage::query()->updateOrCreate([
             'slug' => 'landing-page',
             'type' => PageType::LandingPage,
         ], [
@@ -110,12 +144,12 @@ final class DatabaseSeeder extends Seeder
             'A production-ready Laravel blog starter kit with Filament admin, Livewire pages, SEO tooling, and dynamic social cards. Launch your blog in minutes.',
         );
 
-        $blogIndex = StaticPage::query()->firstOrCreate([
+        $blogIndex = StaticPage::query()->updateOrCreate([
             'name' => 'blog',
             'type' => PageType::IndexPage,
         ], [
-            'title' => 'Blog',
-            'description' => sprintf('Explore all blogs published in %s', $siteSettings->name),
+            'title' => 'Laravel Blog',
+            'description' => 'Guides, tutorials and updates for building fast, SEO-friendly Laravel blogs.',
             'tags' => ['blogs', 'articles', 'posts'],
         ]);
 
@@ -125,18 +159,18 @@ final class DatabaseSeeder extends Seeder
             'Read Laravel guides, TALL stack tutorials, and product updates from the Blog Kit team. Practical articles on building fast, SEO-friendly blogs.',
         );
 
-        $aboutPage = StaticPage::query()->firstOrCreate([
+        $aboutPage = StaticPage::query()->updateOrCreate([
             'slug' => 'about-us',
             'type' => PageType::ContentPage,
         ], [
             'title' => 'About Us',
-            'description' => sprintf('Learn more about %s and our mission to provide quality content to the Laravel community.', $siteSettings->name),
+            'description' => 'Learn who is behind Blog Kit and why we built an open source Laravel starter kit for fast, SEO-friendly blogging.',
             'tags' => ['about', 'blog', 'laravel'],
             'content' => implode('', [
-                '<p>Welcome to the Blog Kit! This is a simple starter kit for building a blog using Laravel and Tailwind CSS.</p>',
-                '<p>The pages are SEO optimized and responsive. The process is simple: create a new laravel project using the starter kit, set up your database, change the page designs as you like, and start writing blog posts!</p>',
-                '<p>Feel free to contribute to the project on <a href="https://github.com/achyutkneupane/Blog-Kit">GitHub</a> or reach out to me on <a href="https://www.linkedin.com/in/achyutneupane">LinkedIn</a>.</p>',
-                '<p>Happy blogging!</p>',
+                '<p>Blog Kit is an open source Laravel starter kit for building SEO-friendly blogs with Filament, Livewire and Tailwind CSS.</p>',
+                '<p>It ships with per-record SEO controls, dynamic Open Graph images, author profiles, an FAQ system, and machine-readable discovery files for search and AI engines.</p>',
+                '<p>The pages are SEO optimized and responsive. The process is simple: create a new Laravel project using the starter kit, set up your database, change the page designs as you like, and start writing blog posts.</p>',
+                '<p>Read the <a href="https://laravel.com/docs">Laravel documentation</a>, explore <a href="https://livewire.laravel.com">Livewire</a> and <a href="https://filamentphp.com">Filament</a>, or review the source on <a href="https://github.com/achyutkneupane/Blog-Kit">GitHub</a>. Blog Kit is MIT licensed.</p>',
             ]),
         ]);
 
@@ -146,7 +180,7 @@ final class DatabaseSeeder extends Seeder
             'Learn who is behind Blog Kit and why we built an open source Laravel starter kit for fast, SEO-friendly blogging with the TALL stack.',
         );
 
-        $faqPage = StaticPage::query()->firstOrCreate([
+        $faqPage = StaticPage::query()->updateOrCreate([
             'slug' => 'faq',
             'type' => PageType::Faq,
         ], [
