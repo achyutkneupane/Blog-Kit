@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use AchyutN\LaravelSEO\Services\SitemapService as VendorSitemapService;
 use App\Http\Controllers\AiTxtController;
 use App\Http\Controllers\LlmsTxtController;
 use App\Http\Controllers\RobotsController;
 use App\Models\Blog;
 use App\Models\StaticPage;
+use App\Services\SitemapService;
 use App\Settings\SiteSettings;
 use App\Settings\SocialMediaSettings;
 use Illuminate\Support\Facades\Cache;
@@ -22,6 +24,11 @@ use RalphJSmit\Laravel\SEO\TagCollection;
 
 final class SeoServiceProvider extends ServiceProvider
 {
+    public function register(): void
+    {
+        $this->app->bind(VendorSitemapService::class, SitemapService::class);
+    }
+
     public function boot(): void
     {
         Route::get('/robots.txt', RobotsController::class)->name('robots');

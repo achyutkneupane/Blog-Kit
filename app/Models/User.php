@@ -190,6 +190,11 @@ final class User extends Authenticatable implements FilamentUser, HasMarkup, Has
         return 'profile';
     }
 
+    public function seoShouldIndex(): bool
+    {
+        return $this->blogs()->exists();
+    }
+
     /** @return array<int, Breadcrumb> */
     public function breadcrumbs(): array
     {

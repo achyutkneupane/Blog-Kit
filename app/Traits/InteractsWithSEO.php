@@ -57,9 +57,17 @@ trait InteractsWithSEO
         );
     }
 
+    /**
+     * Whether the model's page should be indexed by search engines.
+     */
+    public function seoShouldIndex(): bool
+    {
+        return true;
+    }
+
     private function resolveRobots(?SEO $seo = null): ?string
     {
-        if (app()->isLocal()) {
+        if (! $this->seoShouldIndex() || app()->isLocal()) {
             return 'noindex, nofollow';
         }
 
