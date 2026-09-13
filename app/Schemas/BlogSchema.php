@@ -30,7 +30,7 @@ trait BlogSchema
             'keywords' => $resolvedSEO->tags === [] ? null : implode(', ', $resolvedSEO->tags),
             'inLanguage' => 'en',
             'mainEntityOfPage' => $resolvedSEO->url,
-        ], static fn (mixed $value): bool => $value !== null && $value !== '' && $value !== []));
+        ], static fn (mixed $value): bool => ! in_array($value, [null, '', []], true)));
     }
 
     protected function blogSchemaType(): string

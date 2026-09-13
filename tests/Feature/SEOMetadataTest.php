@@ -83,7 +83,7 @@ it('emits twitter site and creator tags', function (): void {
 });
 
 it('derives the twitter handle from social settings when config is empty', function (): void {
-    config()->set('seo.twitter.@username', null);
+    config()->set('seo.twitter.@username');
 
     $settings = app(SocialMediaSettings::class);
     $settings->x = '@blogkitx';

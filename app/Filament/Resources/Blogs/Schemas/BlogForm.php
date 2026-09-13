@@ -87,7 +87,7 @@ class BlogForm
                 ])
                     ->columns()
                     ->columnSpanFull()
-                    ->hidden(fn (?Blog $blog): bool => $blog && $blog->published_at < now()),
+                    ->hidden(fn (?Blog $blog): bool => $blog instanceof Blog && $blog->published_at < now()),
                 ToggleButtons::make('is_featured')
                     ->label('Featured')
                     ->boolean()

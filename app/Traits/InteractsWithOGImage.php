@@ -124,7 +124,7 @@ trait InteractsWithOGImage
 
     protected function ogAbsoluteUrl(?string $url): ?string
     {
-        if (! filled($url)) {
+        if (blank($url)) {
             return null;
         }
 

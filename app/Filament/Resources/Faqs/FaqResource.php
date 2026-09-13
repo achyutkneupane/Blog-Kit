@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Faqs;
 
+use App\Filament\Resources\Faqs\Pages\ManageFaqs;
 use App\Models\Faq;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
@@ -104,7 +105,7 @@ class FaqResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageFaqs::route('/'),
+            'index' => ManageFaqs::route('/'),
         ];
     }
 }

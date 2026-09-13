@@ -55,9 +55,9 @@ final class SEOForm
                         ->helperText('Leave empty to use default URL')
                         ->url(),
                     View::make('filament.components.og-image-preview')
-                        ->visible(fn (?Model $record): bool => $record !== null && method_exists($record, 'ogImageUrl'))
+                        ->visible(fn (?Model $record): bool => $record instanceof Model && method_exists($record, 'ogImageUrl'))
                         ->viewData(fn (?Model $record): array => [
-                            'previewUrl' => $record !== null && method_exists($record, 'ogImageUrl') ? $record->ogImageUrl() : null,
+                            'previewUrl' => $record instanceof Model && method_exists($record, 'ogImageUrl') ? $record->ogImageUrl() : null,
                         ])
                         ->columnSpanFull(),
                 ])

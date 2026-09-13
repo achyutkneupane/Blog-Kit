@@ -8,6 +8,7 @@ use AchyutN\LaravelSEO\Models\SEO;
 use AchyutN\LaravelSEO\Services\SEOService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\LazyCollection;
 
 final class SitemapService
@@ -47,7 +48,7 @@ final class SitemapService
 
             $xml[] = '<url>';
             $xml[] = '<loc>'.htmlspecialchars($url, ENT_XML1, 'UTF-8').'</loc>';
-            if ($updatedAt) {
+            if ($updatedAt instanceof Carbon) {
                 $xml[] = '<lastmod>'.htmlspecialchars($updatedAt->toAtomString(), ENT_XML1, 'UTF-8').'</lastmod>';
             }
 
@@ -58,6 +59,7 @@ final class SitemapService
                 $xml[] = '<image:caption>'.htmlspecialchars($description ?? '', ENT_XML1, 'UTF-8').'</image:caption>';
                 $xml[] = '</image:image>';
             }
+
             $xml[] = '</url>';
         }
 

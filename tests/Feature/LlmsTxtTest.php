@@ -6,6 +6,7 @@ use App\Enums\PageType;
 use App\Models\Blog;
 use App\Models\StaticPage;
 use App\Models\User;
+use App\Settings\SiteSettings;
 
 beforeEach(function (): void {
     StaticPage::query()->create([
@@ -30,7 +31,7 @@ beforeEach(function (): void {
 });
 
 it('serves an llms file listing pages and published articles', function (): void {
-    $settings = app(App\Settings\SiteSettings::class);
+    $settings = app(SiteSettings::class);
 
     $response = $this->get('/llms.txt');
 

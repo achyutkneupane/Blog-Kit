@@ -51,9 +51,9 @@ trait InteractsWithSEO
             tags: $resolvedSEO->tags,
             schema: $schema,
             type: $this->seoType(),
+            site_name: config('seo.site_name'),
             robots: $this->resolveRobots($seo),
             openGraphTitle: $seo?->og_title ?? $resolvedSEO->title,
-            site_name: config('seo.site_name'),
         );
     }
 
@@ -65,7 +65,7 @@ trait InteractsWithSEO
         return true;
     }
 
-    private function resolveRobots(?SEO $seo = null): ?string
+    private function resolveRobots(?SEO $seo = null): string
     {
         if (! $this->seoShouldIndex() || app()->isLocal()) {
             return 'noindex, nofollow';

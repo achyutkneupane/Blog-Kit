@@ -16,7 +16,7 @@ beforeEach(function (): void {
     app()->instance(OGImageRenderer::class, $this->renderer);
 
     config()->set('og-image.enabled', true);
-    config()->set('og-image.default_image', null);
+    config()->set('og-image.default_image');
 
     $author = User::factory()->create();
 

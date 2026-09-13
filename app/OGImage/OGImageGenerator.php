@@ -14,9 +14,6 @@ final class OGImageGenerator
 {
     public function __construct(private OGImageRenderer $renderer) {}
 
-    /**
-     * @param  Model&HasOGImage  $model
-     */
     public function generate(Model&HasOGImage $model, bool $force = false): string
     {
         $disk = (string) config('og-image.disk');
@@ -48,17 +45,11 @@ final class OGImageGenerator
         });
     }
 
-    /**
-     * @param  Model&HasOGImage  $model
-     */
     public function pathFor(Model&HasOGImage $model): string
     {
         return trim((string) config('og-image.directory'), '/').'/'.$model->ogImageRelativePath();
     }
 
-    /**
-     * @param  Model&HasOGImage  $model
-     */
     public function deleteFor(Model&HasOGImage $model): void
     {
         $disk = (string) config('og-image.disk');
@@ -73,9 +64,6 @@ final class OGImageGenerator
         }
     }
 
-    /**
-     * @param  Model&HasOGImage  $model
-     */
     private function pruneStale(Model&HasOGImage $model, string $currentPath, string $disk): void
     {
         foreach ($this->staleFiles($model, dirname($currentPath), $disk) as $file) {
@@ -86,7 +74,6 @@ final class OGImageGenerator
     }
 
     /**
-     * @param  Model&HasOGImage  $model
      * @return array<int, string>
      */
     private function staleFiles(Model&HasOGImage $model, string $directory, string $disk): array
