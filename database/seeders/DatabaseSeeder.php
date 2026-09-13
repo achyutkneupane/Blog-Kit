@@ -53,25 +53,54 @@ final class DatabaseSeeder extends Seeder
             ]);
         }
 
-        StaticPage::query()->firstOrCreate([
+        $applySeo = function (
+            StaticPage $page,
+            string $title,
+            string $description,
+        ): void {
+            $page->seo()->updateOrCreate([
+                'model_id' => $page->getKey(),
+                'model_type' => $page->getMorphClass(),
+            ], [
+                'meta_title' => $title,
+                'meta_description' => $description,
+                'og_title' => $title,
+                'og_description' => $description,
+                'robots' => ['index', 'follow'],
+            ]);
+        };
+
+        $landingPage = StaticPage::query()->firstOrCreate([
             'slug' => 'landing-page',
             'type' => PageType::LandingPage,
         ], [
-            'title' => 'Home',
+            'title' => 'Laravel Blog Starter Kit',
             'description' => $siteSettings->description,
             'tags' => ['blogs', 'kit', 'laravel'],
         ]);
 
-        StaticPage::query()->firstOrCreate([
+        $applySeo(
+            $landingPage,
+            'Laravel Blog Starter Kit',
+            'A production-ready Laravel blog starter kit with Filament admin, Livewire pages, SEO tooling, and dynamic social cards. Launch your blog in minutes.',
+        );
+
+        $blogIndex = StaticPage::query()->firstOrCreate([
             'name' => 'blog',
             'type' => PageType::IndexPage,
         ], [
-            'title' => 'Blogs',
+            'title' => 'Blog',
             'description' => sprintf('Explore all blogs published in %s', $siteSettings->name),
             'tags' => ['blogs', 'articles', 'posts'],
         ]);
 
-        StaticPage::query()->firstOrCreate([
+        $applySeo(
+            $blogIndex,
+            'Laravel Blog: Guides, Tutorials & Updates',
+            'Read Laravel guides, TALL stack tutorials, and product updates from the Blog Kit team. Practical articles on building fast, SEO-friendly blogs.',
+        );
+
+        $aboutPage = StaticPage::query()->firstOrCreate([
             'slug' => 'about-us',
             'type' => PageType::ContentPage,
         ], [
@@ -85,5 +114,11 @@ final class DatabaseSeeder extends Seeder
                 '<p>Happy blogging!</p>',
             ]),
         ]);
+
+        $applySeo(
+            $aboutPage,
+            'About Blog Kit: Our Mission',
+            'Learn who is behind Blog Kit and why we built an open source Laravel starter kit for fast, SEO-friendly blogging with the TALL stack.',
+        );
     }
 }
