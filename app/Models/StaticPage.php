@@ -12,6 +12,8 @@ use AchyutN\LaravelSEO\Models\SEO;
 use AchyutN\LaravelSEO\Schemas\PageSchema;
 use AchyutN\LaravelSEO\Traits\InteractsWithSEO;
 use App\Enums\PageType;
+use App\OGImage\Contracts\HasOGImage;
+use App\Traits\InteractsWithOGImage;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
 use CyrildeWit\EloquentViewable\InteractsWithViews;
 use CyrildeWit\EloquentViewable\Support\Period;
@@ -61,9 +63,10 @@ use Illuminate\Support\Carbon;
  *
  * @mixin \Eloquent
  */
-final class StaticPage extends MediaModel implements HasMarkup, Viewable
+final class StaticPage extends MediaModel implements HasMarkup, HasOGImage, Viewable
 {
     use HasTheSlug;
+    use InteractsWithOGImage;
     use InteractsWithSEO;
     use InteractsWithViews;
     use PageSchema;
@@ -113,6 +116,11 @@ final class StaticPage extends MediaModel implements HasMarkup, Viewable
     }
 
     public function imageValue(): ?string
+    {
+        return $this->ogImageUrl() ?? ($this->hasMedia('cover') ? $this->getLastMediaUrl('cover') : null);
+    }
+
+    public function ogCoverImageUrl(): ?string
     {
         return $this->hasMedia('cover') ? $this->getLastMediaUrl('cover') : null;
     }

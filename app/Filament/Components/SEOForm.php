@@ -9,6 +9,8 @@ use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\View;
+use Illuminate\Database\Eloquent\Model;
 
 final class SEOForm
 {
@@ -47,11 +49,17 @@ final class SEOForm
                             'required',
                             'dimensions:ratio=4/3',
                         ])
-                        ->helperText('Leave empty to use the featured image'),
+                        ->helperText('Leave empty to use the auto-generated social card'),
                     TextInput::make('og_url')
                         ->label('OG URL')
                         ->helperText('Leave empty to use default URL')
                         ->url(),
+                    View::make('filament.components.og-image-preview')
+                        ->visible(fn (?Model $record): bool => $record !== null && method_exists($record, 'ogImageUrl'))
+                        ->viewData(fn (?Model $record): array => [
+                            'previewUrl' => $record !== null && method_exists($record, 'ogImageUrl') ? $record->ogImageUrl() : null,
+                        ])
+                        ->columnSpanFull(),
                 ])
                 ->columns(),
             Section::make('Advanced')

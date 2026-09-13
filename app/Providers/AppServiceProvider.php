@@ -6,6 +6,8 @@ namespace App\Providers;
 
 use App\Enums\UserRole;
 use App\Models\User;
+use App\OGImage\BrowsershotRenderer;
+use App\OGImage\OGImageRenderer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
@@ -19,7 +21,7 @@ final class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(OGImageRenderer::class, BrowsershotRenderer::class);
     }
 
     /**
