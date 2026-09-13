@@ -4,9 +4,14 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Http\Controllers\AiTxtController;
+use App\Http\Controllers\LlmsTxtController;
 use App\Http\Controllers\RobotsController;
+use App\Models\Blog;
+use App\Models\StaticPage;
 use App\Settings\SiteSettings;
 use App\Settings\SocialMediaSettings;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use RalphJSmit\Laravel\SEO\Facades\SEOManager;
@@ -20,6 +25,13 @@ final class SeoServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Route::get('/robots.txt', RobotsController::class)->name('robots');
+        Route::get('/llms.txt', LlmsTxtController::class)->name('llms');
+        Route::get('/ai.txt', AiTxtController::class)->name('ai');
+
+        foreach ([Blog::class, StaticPage::class] as $model) {
+            $model::saved(fn () => Cache::forget('seo:llms-txt'));
+            $model::deleted(fn () => Cache::forget('seo:llms-txt'));
+        }
 
         SEOManager::SEODataTransformer(function (SEOData $data): SEOData {
             $handle = $this->twitterHandle();
