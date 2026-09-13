@@ -1,6 +1,5 @@
 {
     "agents": [
-        "phpstorm-copilot",
         "opencode",
         "claude_code",
         "antigravity"
