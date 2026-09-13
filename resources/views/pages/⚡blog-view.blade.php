@@ -1,14 +1,39 @@
 <?php
 
+use App\Models\Blog;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 new class extends Component
 {
-    public \App\Models\Blog $blog;
+    public Blog $blog;
 
     public function mount(): void
     {
         views($this->blog)->record();
+    }
+
+    /** @return Collection<int, Blog> */
+    #[Computed]
+    public function related(): Collection
+    {
+        return Blog::query()
+            ->whereKeyNot($this->blog->getKey())
+            ->when(
+                $this->blog->categories->isNotEmpty(),
+                fn (Builder $query): Builder => $query->whereHas(
+                    'categories',
+                    fn (Builder $categoryQuery): Builder => $categoryQuery->whereIn(
+                        'categories.id',
+                        $this->blog->categories->pluck('id'),
+                    ),
+                ),
+            )
+            ->latest('published_at')
+            ->limit(3)
+            ->get();
     }
 };
 ?>
@@ -17,6 +42,10 @@ new class extends Component
     <div class="bg-white/70 backdrop-blur-md border border-neutral-200/60 rounded-[2.5rem] shadow-sm overflow-hidden">
         <div class="px-6 py-10 lg:px-8 lg:py-16 border-b border-neutral-100/80">
             <header class="max-w-6xl mx-auto">
+                <x-shared.breadcrumbs :items="collect($blog->breadcrumbs())->map(fn ($breadcrumb) => [
+                    'label' => $breadcrumb->getLabel(),
+                    'url' => $breadcrumb->getUrl(),
+                ])->all()" />
 
                 <div class="flex items-center gap-4 mb-8">
                     <img width="56" height="56" decoding="async" class="w-14 h-14 rounded-2xl object-cover ring-4 ring-primary/5 shadow-sm" src="{{ $blog->author->avatar }}" alt="{{ $blog->author->name }}">
@@ -40,7 +69,7 @@ new class extends Component
 
                 <div class="flex flex-wrap gap-2">
                     @foreach($blog->categories as $category)
-                        <a href="#" class="px-3 py-1 text-xs font-bold uppercase tracking-widest text-primary bg-primary/10 rounded-lg transition-colors hover:bg-primary/20">
+                        <a href="{{ route('blog.index', ['selectedCategories' => [$category->id]]) }}" wire:navigate.hover class="px-3 py-1 text-xs font-bold uppercase tracking-widest text-primary bg-primary/10 rounded-lg transition-colors hover:bg-primary/20">
                             {{ $category->name }}
                         </a>
                     @endforeach
@@ -72,6 +101,18 @@ new class extends Component
                 {!! $blog->content !!}
 
             </article>
+
+            @if ($this->related->isNotEmpty())
+                <section class="mx-auto mt-16 w-full max-w-6xl">
+                    <h2 class="text-2xl font-black tracking-tight text-neutral-900">Related Articles</h2>
+
+                    <div class="mt-6 grid gap-6 md:grid-cols-3">
+                        @foreach ($this->related as $relatedBlog)
+                            <livewire:components::single-blog :blog="$relatedBlog" :key="'related-'.$relatedBlog->getKey()" />
+                        @endforeach
+                    </div>
+                </section>
+            @endif
         </div>
     </div>
 </main>

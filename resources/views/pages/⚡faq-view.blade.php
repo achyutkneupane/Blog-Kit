@@ -46,6 +46,13 @@ new class extends Component
 <main class="container-xl relative my-16 antialiased">
     <div class="bg-white/70 backdrop-blur-md border border-neutral-200/60 rounded-[2.5rem] shadow-sm overflow-hidden">
         <div class="px-6 py-12 lg:py-16 border-b border-neutral-100/80">
+            <div class="mx-auto max-w-3xl">
+                <x-shared.breadcrumbs :items="[
+                    ['label' => 'Home', 'url' => route('landing-page')],
+                    ['label' => 'FAQ', 'url' => null],
+                ]" />
+            </div>
+
             <header class="max-w-3xl mx-auto text-center">
                 <h1 class="text-4xl lg:text-5xl font-black tracking-tight text-neutral-900 leading-tight">
                     {{ $staticPage?->title ?? 'Frequently Asked Questions' }}
