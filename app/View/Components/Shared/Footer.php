@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\View\Components\Shared;
 
 use App\Settings\SiteSettings;
+use App\Settings\SocialMediaSettings;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -15,7 +16,8 @@ class Footer extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public SiteSettings $settings
+        public SiteSettings $settings,
+        public SocialMediaSettings $social,
     ) {
         //
     }

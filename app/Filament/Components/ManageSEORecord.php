@@ -41,8 +41,8 @@ class ManageSEORecord extends EditRecord
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
         SEO::query()->updateOrCreate([
-            'seoable_id' => $record->getKey(),
-            'seoable_type' => $record->getMorphClass(),
+            'model_id' => $record->getKey(),
+            'model_type' => $record->getMorphClass(),
         ], $data);
 
         return $record;

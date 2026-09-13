@@ -7,7 +7,7 @@
         use App\Models\StaticPage;
 
         $staticPages = StaticPage::query()
-                ->whereIn('type', [PageType::LandingPage, PageType::IndexPage, PageType::ContentPage, PageType::PageWithForm])
+                ->whereIn('type', [PageType::LandingPage, PageType::IndexPage, PageType::ContentPage, PageType::PageWithForm, PageType::Faq, PageType::Contact])
                 ->get();
     @endphp
     <div
@@ -58,7 +58,7 @@
                                wire:current.exact
                                class="relative py-2 text-sm transition-colors data-current:text-primary text-neutral-600 hover:text-primary group"
                             >
-                                {{ $staticPage->getTitleValue() }}
+                                {{ $staticPage->type === PageType::Faq ? 'FAQ' : $staticPage->getTitleValue() }}
                                 <span class="absolute inset-x-0 -bottom-1 h-0.5 bg-primary transform scale-x-0 transition-transform duration-200 group-hover:scale-x-100"></span>
                             </a>
                         </li>
@@ -90,14 +90,14 @@
                 </a>
 
                 @foreach(\App\Models\StaticPage::query()->withGlobalScope('contentPage', new \App\Models\Scopes\ContentPageOnly())->get() as $staticPage)
-                    <a href="{{ route('page.view', $staticPage) }}"
+                    <a href="{{ $staticPage->getURLValue() }}"
                        wire:navigate.hover
-                       class="flex items-center px-4 py-3 text-base font-medium rounded-xl {{ \Illuminate\Support\Facades\Route::named('page.view', $staticPage) ? 'bg-primary/10 text-primary' : 'text-neutral-600 hover:bg-neutral-50' }}">
+                       class="flex items-center px-4 py-3 text-base font-medium rounded-xl {{ request()->url() === $staticPage->getURLValue() ? 'bg-primary/10 text-primary' : 'text-neutral-600 hover:bg-neutral-50' }}">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                   d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
-                        {{ $staticPage->title }}
+                        {{ $staticPage->type === PageType::Faq ? 'FAQ' : $staticPage->title }}
                     </a>
                 @endforeach
 

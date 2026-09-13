@@ -25,16 +25,46 @@
                     </li>
                     @foreach(\App\Models\StaticPage::query()->withGlobalScope('contentPage', new \App\Models\Scopes\ContentPageOnly())->get() as $staticPage)
                         <li>
-                            <a href="{{ route('page.view', $staticPage) }}"
+                            <a href="{{ $staticPage->getURLValue() }}"
                                wire:navigate.hover
-                               class="transition-colors {{ \Illuminate\Support\Facades\Route::named('page.view', $staticPage) ? 'text-primary' : 'hover:text-primary' }}">
-                                {{ $staticPage->title }}
+                               class="transition-colors {{ request()->url() === $staticPage->getURLValue() ? 'text-primary' : 'hover:text-primary' }}">
+                                {{ $staticPage->type === \App\Enums\PageType::Faq ? 'FAQ' : $staticPage->title }}
                             </a>
                         </li>
                     @endforeach
                 </ul>
             </nav>
         </div>
+
+        @php
+            $profiles = array_filter([
+                'LinkedIn' => $social->linkedin,
+                'X' => $social->x,
+                'Facebook' => $social->facebook,
+                'Instagram' => $social->instagram,
+                'TikTok' => $social->tiktok,
+                'Medium' => $social->medium,
+                'YouTube' => $social->youtube,
+                'GitHub' => $social->github,
+            ], filled(...));
+        @endphp
+
+        @if ($profiles !== [])
+            <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2">
+                <span class="text-[10px] uppercase tracking-widest font-bold text-neutral-400">Follow</span>
+
+                @foreach ($profiles as $label => $url)
+                    <a
+                        href="{{ $url }}"
+                        rel="me noopener"
+                        target="_blank"
+                        class="text-sm font-bold text-neutral-600 transition-colors hover:text-primary"
+                    >
+                        {{ $label }}
+                    </a>
+                @endforeach
+            </div>
+        @endif
 
         <div class="my-8 h-px w-full bg-linear-to-r from-transparent via-neutral-200 to-transparent"></div>
 

@@ -18,6 +18,8 @@ final class SiteSettings extends Settings
 
     public ?string $og_image;
 
+    public ?string $contact_email;
+
     public ?string $header_scripts;
 
     public ?string $footer_scripts;

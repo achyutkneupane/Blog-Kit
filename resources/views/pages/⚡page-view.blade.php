@@ -22,6 +22,13 @@ new class extends Component {
     <div class="bg-white/70 backdrop-blur-md border border-neutral-200/60 rounded-[2.5rem] shadow-xs overflow-hidden">
 
         <div class="px-6 py-12 lg:py-20 border-b border-neutral-100/80">
+            <div class="mx-auto max-w-6xl">
+                <x-shared.breadcrumbs :items="collect($staticPage->breadcrumbs())->map(fn ($breadcrumb) => [
+                    'label' => $breadcrumb->getLabel(),
+                    'url' => $breadcrumb->getUrl(),
+                ])->all()" />
+            </div>
+
             <header class="max-w-6xl mx-auto text-center">
                 <h1 class="text-4xl lg:text-6xl font-black tracking-tighter text-neutral-900 leading-tight">
                     {{ $staticPage->title }}

@@ -9,11 +9,13 @@ use AchyutN\LaravelHelpers\Traits\HasTheSlug;
 use AchyutN\LaravelSEO\Contracts\HasMarkup;
 use AchyutN\LaravelSEO\Data\Breadcrumb;
 use AchyutN\LaravelSEO\Models\SEO;
-use AchyutN\LaravelSEO\Schemas\BlogSchema;
-use AchyutN\LaravelSEO\Traits\InteractsWithSEO;
 use App\Models\Scopes\LowerRoleOnly;
 use App\Models\Scopes\PublishedScope;
+use App\OGImage\Contracts\HasOGImage;
+use App\Schemas\BlogSchema;
 use App\Traits\HasReadTime;
+use App\Traits\InteractsWithOGImage;
+use App\Traits\InteractsWithSEO;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
 use CyrildeWit\EloquentViewable\InteractsWithViews;
 use CyrildeWit\EloquentViewable\Support\Period;
@@ -75,11 +77,12 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @mixin \Eloquent
  */
 #[ScopedBy(PublishedScope::class)]
-class Blog extends MediaModel implements HasMarkup, Viewable
+class Blog extends MediaModel implements HasMarkup, HasOGImage, Viewable
 {
     use BlogSchema;
     use HasReadTime;
     use HasTheSlug;
+    use InteractsWithOGImage;
     use InteractsWithSEO;
     use InteractsWithViews;
 
@@ -111,9 +114,11 @@ class Blog extends MediaModel implements HasMarkup, Viewable
         return $this->author?->getAttribute('name');
     }
 
-    public function authorUrlValue(): string
+    public function authorUrlValue(): ?string
     {
-        return route('landing-page');
+        return $this->author !== null
+            ? route('author.view', $this->author)
+            : route('landing-page');
     }
 
     public function publisherValue(): ?string
@@ -139,7 +144,18 @@ class Blog extends MediaModel implements HasMarkup, Viewable
 
     public function imageValue(): ?string
     {
+        return $this->ogImageUrl() ?? ($this->hasMedia('cover') ? $this->getLastMediaUrl('cover') : null);
+    }
+
+    public function ogCoverImageUrl(): ?string
+    {
         return $this->hasMedia('cover') ? $this->getLastMediaUrl('cover') : null;
+    }
+
+    public function ogAuthorAvatarUrl(): ?string
+    {
+        /** @phpstan-var string|null */
+        return $this->author?->getAttribute('avatar');
     }
 
     /** @return array<Breadcrumb> */

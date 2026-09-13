@@ -6,7 +6,7 @@ namespace App\Models;
 
 use AchyutN\LaravelHelpers\Traits\HasTheSlug;
 use AchyutN\LaravelSEO\Models\SEO;
-use AchyutN\LaravelSEO\Traits\InteractsWithSEO;
+use App\Traits\InteractsWithSEO;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;

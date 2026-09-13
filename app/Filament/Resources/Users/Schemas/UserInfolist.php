@@ -18,10 +18,16 @@ final class UserInfolist
         return $schema
             ->components([
                 TextEntry::make('name'),
+                TextEntry::make('slug'),
                 TextEntry::make('email')
                     ->label('Email address'),
                 TextEntry::make('role')
                     ->badge(),
+                TextEntry::make('job_title')
+                    ->label('Job title'),
+                TextEntry::make('website'),
+                TextEntry::make('bio')
+                    ->columnSpanFull(),
             ]);
     }
 }

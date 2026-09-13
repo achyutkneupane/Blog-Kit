@@ -6,15 +6,17 @@ use App\Models\Blog;
 use App\Models\Category;
 use App\Models\StaticPage;
 use Illuminate\Contracts\View\View;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
+use Livewire\WithPagination;
 
 new class extends Component {
+    use WithPagination;
+
     /** @var Collection<Category> */
     public Collection $categories;
-
-    /** @var Collection<Blog> */
-    public Collection $blogs;
 
     /* @var StaticPage|null */
     public ?StaticPage $staticPage = null;
@@ -40,15 +42,28 @@ new class extends Component {
             ->record();
     }
 
+    public function updatedSearch(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatedSelectedCategories(): void
+    {
+        $this->resetPage();
+    }
+
     public function resetFilters(): void
     {
         $this->search = '';
         $this->selectedCategories = [];
+        $this->resetPage();
     }
 
-    public function render(): View
+    /** @return LengthAwarePaginator<int, Blog> */
+    #[Computed]
+    public function blogs(): LengthAwarePaginator
     {
-        $this->blogs = Blog::query()
+        return Blog::query()
             ->when($this->search, function ($query): void {
                 $query->where('title', 'like', '%'.$this->search.'%');
             })
@@ -58,14 +73,22 @@ new class extends Component {
                 });
             })
             ->latest('published_at')
-            ->get();
+            ->paginate(9);
+    }
 
+    public function render(): View
+    {
         return $this->view();
     }
 };
 ?>
 
 <main class="container-xl relative my-12 antialiased">
+    <x-shared.breadcrumbs :items="[
+        ['label' => 'Home', 'url' => route('landing-page')],
+        ['label' => $staticPage?->getTitleValue() ?? 'Blog', 'url' => null],
+    ]" />
+
     <div class="flex flex-col lg:flex-row gap-8">
 
         <aside class="w-full lg:w-72 shrink-0">
@@ -137,7 +160,7 @@ new class extends Component {
                 <div class="mt-8 pt-6 border-t border-neutral-100">
                     <div class="p-4 bg-primary/5 rounded-2xl border border-primary/10">
                         <p class="text-xs font-medium text-neutral-500 leading-relaxed">
-                            Showing <span class="text-primary font-bold">{{ $blogs->count() }}</span> blogs tailored for you.
+                            Showing <span class="text-primary font-bold">{{ $this->blogs->total() }}</span> blogs tailored for you.
                         </p>
                     </div>
                 </div>
@@ -145,8 +168,20 @@ new class extends Component {
         </aside>
 
         <div class="flex-1">
+            <header class="mb-8">
+                <h1 class="text-4xl font-black tracking-tight text-neutral-900">
+                    {{ $staticPage?->getTitleValue() ?? 'Blog' }}
+                </h1>
+
+                @if (filled($staticPage?->description))
+                    <p class="mt-3 text-neutral-500 leading-relaxed">
+                        {{ $staticPage->description }}
+                    </p>
+                @endif
+            </header>
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                @forelse($blogs as $blog)
+                @forelse($this->blogs as $blog)
                     <livewire:components::single-blog :$blog />
                 @empty
                     <div class="col-span-full py-20 text-center">
@@ -159,6 +194,12 @@ new class extends Component {
                     </div>
                 @endforelse
             </div>
+
+            @if ($this->blogs->hasPages())
+                <div class="mt-10">
+                    {{ $this->blogs->links() }}
+                </div>
+            @endif
         </div>
     </div>
 </main>

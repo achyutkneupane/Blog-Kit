@@ -9,6 +9,24 @@ new class extends Component
 ?>
 
 <article class="group relative flex flex-col h-full bg-white border border-neutral-200/70 rounded-3xl p-6 shadow-xs hover:shadow-xl hover:shadow-neutral-200/40 transition-all duration-300">
+    <div class="relative mb-6 aspect-video w-full overflow-hidden rounded-2xl bg-neutral-100">
+        @if ($blog->medium_cover())
+            <img
+                src="{{ $blog->medium_cover() }}"
+                alt="{{ $blog->title }}"
+                width="300"
+                height="160"
+                loading="lazy"
+                decoding="async"
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            >
+        @else
+            <div class="cover-placeholder flex h-full w-full items-center justify-center bg-linear-to-br from-primary/15 via-neutral-100 to-neutral-200">
+                <span class="text-5xl font-black text-primary/30">{{ mb_substr($blog->title, 0, 1) }}</span>
+            </div>
+        @endif
+    </div>
+
     <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
         <div class="flex flex-wrap gap-2">
             @foreach($blog->categories as $category)
@@ -42,9 +60,9 @@ new class extends Component
                 {{ substr($blog->author->name, 0, 1) }}
             </div>
             <div class="flex flex-col">
-                <span class="text-sm font-bold text-neutral-900 leading-none mb-1">
+                <a href="{{ route('author.view', $blog->author) }}" wire:navigate.hover class="relative z-10 text-sm font-bold text-neutral-900 leading-none mb-1 transition-colors hover:text-primary">
                     {{ $blog->author->name }}
-                </span>
+                </a>
                 <span class="text-[11px] font-medium text-neutral-400">
                     {{ $blog->published_at->format('M d, Y') }}
                 </span>
