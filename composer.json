@@ -44,6 +44,7 @@
         "pestphp/pest-plugin-laravel": "^4.1",
         "php-debugbar/php-debugbar": "^3.6",
         "pxlrbt/filament-environment-indicator": "^3.1",
+        "rector/rector": "^2.6",
         "revolution/laravel-boost-phpstorm-copilot": "^2.0"
     },
     "autoload": {
