@@ -10,10 +10,10 @@ use AchyutN\LaravelSEO\Contracts\HasMarkup;
 use AchyutN\LaravelSEO\Data\Breadcrumb;
 use AchyutN\LaravelSEO\Models\SEO;
 use AchyutN\LaravelSEO\Schemas\PageSchema;
-use AchyutN\LaravelSEO\Traits\InteractsWithSEO;
 use App\Enums\PageType;
 use App\OGImage\Contracts\HasOGImage;
 use App\Traits\InteractsWithOGImage;
+use App\Traits\InteractsWithSEO;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
 use CyrildeWit\EloquentViewable\InteractsWithViews;
 use CyrildeWit\EloquentViewable\Support\Period;
@@ -74,6 +74,11 @@ final class StaticPage extends MediaModel implements HasMarkup, HasOGImage, View
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    public function seoType(): string
+    {
+        return 'website';
     }
 
     public function categoryValue(): string

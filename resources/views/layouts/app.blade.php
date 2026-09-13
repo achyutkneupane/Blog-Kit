@@ -11,9 +11,6 @@
         @if($siteSettings->favicon)
             <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/storage/'.$siteSettings->favicon) }}">
         @endif
-        @if(config('app.env') !== 'production')
-            <meta name="robots" content="noindex, nofollow">
-        @endif
 
         @stack('seo')
 
