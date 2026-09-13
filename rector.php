@@ -4,9 +4,16 @@ declare(strict_types=1);
 
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\CodeQuality\Rector\FuncCall\CompactToVariablesRector;
+use Rector\CodeQuality\Rector\Property\FixClassCaseSensitivityVarDocblockRector;
+use Rector\CodingStyle\Rector\Catch_\CatchExceptionNameMatchingTypeRector;
 use Rector\Config\RectorConfig;
+use Rector\Naming\Rector\Assign\RenameVariableToMatchMethodCallReturnTypeRector;
+use Rector\Naming\Rector\Class_\RenamePropertyToMatchTypeRector;
+use Rector\Naming\Rector\ClassMethod\RenameParamToMatchTypeRector;
 use Rector\Set\ValueObject\SetList;
 use Rector\ValueObject\PhpVersion;
+use RectorLaravel\Rector\ClassMethod\MakeModelAttributesAndScopesProtectedRector;
+use RectorLaravel\Rector\FuncCall\AppToResolveRector;
 use RectorLaravel\Set\LaravelLevelSetList;
 use RectorLaravel\Set\LaravelSetList;
 
@@ -28,6 +35,13 @@ return static function (RectorConfig $rectorConfig): void {
     // Skip specific rules
     $rectorConfig->skip([
         CompactToVariablesRector::class,
+        AppToResolveRector::class,
+        CatchExceptionNameMatchingTypeRector::class,
+        FixClassCaseSensitivityVarDocblockRector::class,
+        MakeModelAttributesAndScopesProtectedRector::class,
+        RenameParamToMatchTypeRector::class,
+        RenamePropertyToMatchTypeRector::class,
+        RenameVariableToMatchMethodCallReturnTypeRector::class,
     ]);
 
     // Enable caching for Rector
@@ -45,7 +59,6 @@ return static function (RectorConfig $rectorConfig): void {
         SetList::CODING_STYLE,
         SetList::DEAD_CODE,
         SetList::NAMING,
-        SetList::STRICT_BOOLEANS,
         SetList::TYPE_DECLARATION,
     ]);
 
