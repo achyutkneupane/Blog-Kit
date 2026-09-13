@@ -117,6 +117,10 @@ final class StaticPage extends MediaModel implements HasMarkup, HasOGImage, View
             return route(sprintf('%s.index', $this->name));
         }
 
+        if ($this->type === PageType::Faq) {
+            return route('faq.view');
+        }
+
         return route('page.view', $this);
     }
 

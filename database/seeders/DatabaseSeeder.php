@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Enums\PageType;
 use App\Enums\UserRole;
+use App\Models\Faq;
 use App\Models\StaticPage;
 use App\Models\User;
 use App\Settings\SiteSettings;
@@ -144,5 +145,65 @@ final class DatabaseSeeder extends Seeder
             'About Blog Kit: Our Mission',
             'Learn who is behind Blog Kit and why we built an open source Laravel starter kit for fast, SEO-friendly blogging with the TALL stack.',
         );
+
+        $faqPage = StaticPage::query()->firstOrCreate([
+            'slug' => 'faq',
+            'type' => PageType::Faq,
+        ], [
+            'title' => 'Frequently Asked Questions',
+            'name' => 'faq',
+            'description' => 'Answers to the most common questions about Blog Kit, from setup to publishing.',
+            'tags' => ['faq', 'help', 'support'],
+            'content' => '<p>Everything you need to know about Blog Kit, from setup to publishing.</p>',
+        ]);
+
+        $applySeo(
+            $faqPage,
+            'Frequently Asked Questions',
+            'Answers to the most common questions about Blog Kit: setup, publishing, SEO tooling, and customization options.',
+        );
+
+        $faqs = [
+            [
+                'question' => 'What is Blog Kit?',
+                'answer' => 'Blog Kit is an open source Laravel starter kit for building SEO-friendly blogs with Filament, Livewire, and Tailwind CSS.',
+                'sort_order' => 1,
+            ],
+            [
+                'question' => 'Do I need Node and Puppeteer?',
+                'answer' => 'Only for dynamic social cards. Open Graph image generation uses Browsershot and can be disabled with the OG_IMAGE_ENABLED environment variable.',
+                'sort_order' => 2,
+            ],
+            [
+                'question' => 'Which PHP and Laravel versions are supported?',
+                'answer' => 'Blog Kit targets PHP 8.3 or newer and Laravel 13, together with Livewire 4 and Filament 5.',
+                'sort_order' => 3,
+            ],
+            [
+                'question' => 'Can I customize the design?',
+                'answer' => 'Yes. Every public page is built with Tailwind CSS utilities and Livewire single file components, so you can restyle it without touching PHP.',
+                'sort_order' => 4,
+            ],
+            [
+                'question' => 'How do I add an author profile?',
+                'answer' => 'Give the user a bio, job title, and website in the admin panel. A slugged author page with Person schema is generated automatically.',
+                'sort_order' => 5,
+            ],
+            [
+                'question' => 'Is Blog Kit multilingual?',
+                'answer' => 'The content model and SEO tooling are locale ready, but only English routes ship by default. Add locale prefixes and hreflang when you need them.',
+                'sort_order' => 6,
+            ],
+        ];
+
+        foreach ($faqs as $faq) {
+            Faq::query()->updateOrCreate([
+                'question' => $faq['question'],
+            ], [
+                'answer' => $faq['answer'],
+                'sort_order' => $faq['sort_order'],
+                'is_active' => true,
+            ]);
+        }
     }
 }
