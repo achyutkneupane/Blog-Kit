@@ -19,7 +19,7 @@ new class extends Component
             <header class="max-w-6xl mx-auto">
 
                 <div class="flex items-center gap-4 mb-8">
-                    <img class="w-14 h-14 rounded-2xl object-cover ring-4 ring-primary/5 shadow-sm" src="{{ $blog->author->avatar }}" alt="{{ $blog->author->name }}">
+                    <img width="56" height="56" decoding="async" class="w-14 h-14 rounded-2xl object-cover ring-4 ring-primary/5 shadow-sm" src="{{ $blog->author->avatar }}" alt="{{ $blog->author->name }}">
                     <div class="flex flex-col">
                         <span class="text-lg font-black text-neutral-900 leading-tight">
                             {{ $blog->author->name }}
@@ -45,6 +45,20 @@ new class extends Component
                         </a>
                     @endforeach
                 </div>
+
+                @if ($blog->big_cover())
+                    <div class="mt-10 overflow-hidden rounded-3xl border border-neutral-100 shadow-sm">
+                        <img
+                            src="{{ $blog->big_cover() }}"
+                            alt="{{ $blog->title }}"
+                            width="800"
+                            height="420"
+                            fetchpriority="high"
+                            decoding="async"
+                            class="h-auto w-full object-cover"
+                        >
+                    </div>
+                @endif
             </header>
         </div>
 

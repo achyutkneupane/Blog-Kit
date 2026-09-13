@@ -34,7 +34,11 @@
                     <div class="relative bg-white rounded-4xl p-2 border border-neutral-100 shadow-2xl">
                         <img
                             src="https://hamrocdn.com/mhykONU_Vi2F"
-                            alt="Screenshot Image"
+                            alt="Blog Kit blog screenshot"
+                            width="3328"
+                            height="2006"
+                            fetchpriority="high"
+                            decoding="async"
                             class="rounded-3xl w-full h-auto object-cover transform transition duration-500 group-hover:scale-[1.02]"
                         />
                     </div>
