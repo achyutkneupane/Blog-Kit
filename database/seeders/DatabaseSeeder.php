@@ -197,6 +197,26 @@ final class DatabaseSeeder extends Seeder
             'Answers to the most common questions about Blog Kit: setup, publishing, SEO tooling, and customization options.',
         );
 
+        $contactPage = StaticPage::query()->updateOrCreate([
+            'slug' => 'contact',
+            'type' => PageType::Contact,
+        ], [
+            'title' => 'Contact',
+            'name' => 'contact',
+            'description' => 'Questions, feedback or partnership ideas? Get in touch with the Blog Kit team.',
+            'tags' => ['contact', 'support'],
+            'content' => sprintf(
+                '<p>Questions, feedback or partnership ideas? Email us at <a href="mailto:%1$s">%1$s</a> or open an issue on <a href="https://github.com/achyutkneupane/Blog-Kit/issues">GitHub</a>.</p>',
+                $siteSettings->contact_email ?? 'hello@blogkit.test',
+            ),
+        ]);
+
+        $applySeo(
+            $contactPage,
+            'Contact Blog Kit',
+            'Get in touch with the Blog Kit team for questions, feedback, or partnership ideas about the Laravel blog starter kit.',
+        );
+
         $faqs = [
             [
                 'question' => 'What is Blog Kit?',

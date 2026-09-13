@@ -35,6 +35,9 @@ final class ManageSiteSettings extends SettingsPage
             ->components([
                 TextInput::make('name'),
                 TextInput::make('description'),
+                TextInput::make('contact_email')
+                    ->label('Contact email')
+                    ->email(),
                 FileUpload::make('logo')
                     ->image()
                     ->disk('public')

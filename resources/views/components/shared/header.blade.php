@@ -7,7 +7,7 @@
         use App\Models\StaticPage;
 
         $staticPages = StaticPage::query()
-                ->whereIn('type', [PageType::LandingPage, PageType::IndexPage, PageType::ContentPage, PageType::PageWithForm, PageType::Faq])
+                ->whereIn('type', [PageType::LandingPage, PageType::IndexPage, PageType::ContentPage, PageType::PageWithForm, PageType::Faq, PageType::Contact])
                 ->get();
     @endphp
     <div

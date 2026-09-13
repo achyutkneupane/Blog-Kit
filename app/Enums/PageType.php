@@ -15,6 +15,7 @@ enum PageType: string implements HasColor, HasLabel
     case ContentPage = 'content_page';
     case PageWithForm = 'page_with_form';
     case Faq = 'faq';
+    case Contact = 'contact';
 
     public function getColor(): array
     {
@@ -24,6 +25,7 @@ enum PageType: string implements HasColor, HasLabel
             self::ContentPage => Color::Gray,
             self::PageWithForm => Color::Yellow,
             self::Faq => Color::Orange,
+            self::Contact => Color::Sky,
         };
     }
 
@@ -35,6 +37,7 @@ enum PageType: string implements HasColor, HasLabel
             self::ContentPage => 'Content Page',
             self::PageWithForm => 'Page with Form',
             self::Faq => 'FAQ Page',
+            self::Contact => 'Contact Page',
         };
     }
 }
