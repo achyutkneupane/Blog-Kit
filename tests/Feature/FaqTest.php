@@ -65,6 +65,12 @@ it('emits faq page schema on the faq page', function (): void {
         ->and($content)->toContain('rel="canonical" href="'.route('faq.view').'"');
 });
 
+it('renders faq questions as headings', function (): void {
+    $content = (string) $this->get(route('faq.view'))->getContent();
+
+    expect(mb_substr_count($content, '<h3'))->toBe(1);
+});
+
 it('includes the faq page in the sitemap', function (): void {
     $content = (string) $this->get('/sitemap.xml')->getContent();
 

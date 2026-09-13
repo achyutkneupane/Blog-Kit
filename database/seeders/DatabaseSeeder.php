@@ -220,32 +220,32 @@ final class DatabaseSeeder extends Seeder
         $faqs = [
             [
                 'question' => 'What is Blog Kit?',
-                'answer' => 'Blog Kit is an open source Laravel starter kit for building SEO-friendly blogs with Filament, Livewire, and Tailwind CSS.',
+                'answer' => 'Blog Kit is an open source Laravel starter kit for building SEO-friendly blogs with Filament, Livewire, and Tailwind CSS. It ships with content models, metadata controls, structured data, author profiles, and generated social cards, so you can launch a publication without rebuilding the foundations.',
                 'sort_order' => 1,
             ],
             [
                 'question' => 'Do I need Node and Puppeteer?',
-                'answer' => 'Only for dynamic social cards. Open Graph image generation uses Browsershot and can be disabled with the OG_IMAGE_ENABLED environment variable.',
+                'answer' => 'Only if you want the generated Open Graph cards. They are rendered with Browsershot through headless Chrome, so the server needs Node and Puppeteer. If you prefer to skip that dependency, set OG_IMAGE_ENABLED to false and the site falls back to uploaded or featured images.',
                 'sort_order' => 2,
             ],
             [
                 'question' => 'Which PHP and Laravel versions are supported?',
-                'answer' => 'Blog Kit targets PHP 8.3 or newer and Laravel 13, together with Livewire 4 and Filament 5.',
+                'answer' => 'Blog Kit targets PHP 8.3 or newer and Laravel 13, together with Livewire 4 and Filament 5. The test suite runs on SQLite and MySQL, and the stack tracks the latest framework releases. Check composer.json for the exact version constraints before installing it in production.',
                 'sort_order' => 3,
             ],
             [
                 'question' => 'Can I customize the design?',
-                'answer' => 'Yes. Every public page is built with Tailwind CSS utilities and Livewire single file components, so you can restyle it without touching PHP.',
+                'answer' => 'Yes. Every public page is built from Tailwind CSS utilities and Livewire single file components, so you can restyle layouts without touching PHP. Colors live as CSS custom properties and the admin panel has its own Filament theme. Edit or publish the Blade files to match your brand.',
                 'sort_order' => 4,
             ],
             [
                 'question' => 'How do I add an author profile?',
-                'answer' => 'Give the user a bio, job title, and website in the admin panel. A slugged author page with Person schema is generated automatically.',
+                'answer' => 'Open the user in the Filament admin panel and fill in the bio, job title, and website fields. Each user gets a slugged author page with Person and ProfilePage schema, links from every byline, a generated Open Graph card, and a sitemap entry once they publish an article.',
                 'sort_order' => 5,
             ],
             [
                 'question' => 'Is Blog Kit multilingual?',
-                'answer' => 'The content model and SEO tooling are locale ready, but only English routes ship by default. Add locale prefixes and hreflang when you need them.',
+                'answer' => 'The content model and SEO tooling are locale ready, but only English routes ship by default. To go multilingual, add locale prefixes to the routes, translate the static page content, and emit hreflang alternates through the SEO package. No database migrations are required for basic translations.',
                 'sort_order' => 6,
             ],
         ];

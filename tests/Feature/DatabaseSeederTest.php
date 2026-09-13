@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Enums\PageType;
 use App\Models\Blog;
+use App\Models\Faq;
 use App\Models\StaticPage;
 
 it('seeds seo friendly static pages', function (): void {
@@ -73,4 +74,19 @@ it('seeds a demo article only in local environments', function (): void {
         ->and(mb_strlen($post->description))->toBeGreaterThanOrEqual(120)
         ->and(mb_strlen($post->description))->toBeLessThanOrEqual(160)
         ->and($post->seo?->meta_description)->not->toBeNull();
+});
+
+it('seeds faq answers long enough for answer engines', function (): void {
+    $this->seed();
+
+    $answers = Faq::query()->pluck('answer');
+
+    expect($answers)->toHaveCount(6);
+
+    foreach ($answers as $answer) {
+        $words = str_word_count(strip_tags((string) $answer));
+
+        expect($words)->toBeGreaterThanOrEqual(40)
+            ->and($words)->toBeLessThanOrEqual(60);
+    }
 });
