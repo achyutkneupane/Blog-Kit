@@ -60,9 +60,9 @@ new class extends Component
                 {{ substr($blog->author->name, 0, 1) }}
             </div>
             <div class="flex flex-col">
-                <span class="text-sm font-bold text-neutral-900 leading-none mb-1">
+                <a href="{{ route('author.view', $blog->author) }}" wire:navigate.hover class="relative z-10 text-sm font-bold text-neutral-900 leading-none mb-1 transition-colors hover:text-primary">
                     {{ $blog->author->name }}
-                </span>
+                </a>
                 <span class="text-[11px] font-medium text-neutral-400">
                     {{ $blog->published_at->format('M d, Y') }}
                 </span>

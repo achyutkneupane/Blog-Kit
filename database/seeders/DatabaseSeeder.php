@@ -20,7 +20,7 @@ final class DatabaseSeeder extends Seeder
         SiteSettings $siteSettings
     ): void {
         if (app()->isLocal()) {
-            User::query()->firstOrCreate([
+            $developer = User::query()->firstOrCreate([
                 'email' => 'developer@test.com',
             ], [
                 'name' => 'Blog Developer',
@@ -28,7 +28,13 @@ final class DatabaseSeeder extends Seeder
                 'password' => bcrypt('password'),
             ]);
 
-            User::query()->firstOrCreate([
+            $developer->update([
+                'job_title' => 'Founder & Lead Developer',
+                'bio' => 'Maintainer of Blog Kit, building fast and SEO-friendly Laravel applications with the TALL stack.',
+                'website' => 'https://github.com/achyutkneupane',
+            ]);
+
+            $admin = User::query()->firstOrCreate([
                 'email' => 'admin@test.com',
             ], [
                 'name' => 'Blog Admin',
@@ -36,7 +42,13 @@ final class DatabaseSeeder extends Seeder
                 'password' => bcrypt('password'),
             ]);
 
-            User::query()->firstOrCreate([
+            $admin->update([
+                'job_title' => 'Managing Editor',
+                'bio' => 'Keeps the publication running: reviews drafts, schedules posts, and maintains the editorial calendar.',
+                'website' => 'https://laravelnepal.com',
+            ]);
+
+            $writer = User::query()->firstOrCreate([
                 'email' => 'writer@test.com',
             ], [
                 'name' => 'Blog Writer',
@@ -44,12 +56,24 @@ final class DatabaseSeeder extends Seeder
                 'password' => bcrypt('password'),
             ]);
 
-            User::query()->firstOrCreate([
+            $writer->update([
+                'job_title' => 'Staff Writer',
+                'bio' => 'Writes practical Laravel tutorials and TALL stack deep dives for the Blog Kit publication.',
+                'website' => 'https://laravel.com',
+            ]);
+
+            $reader = User::query()->firstOrCreate([
                 'email' => 'user@test.com',
             ], [
                 'name' => 'Blog User',
                 'role' => UserRole::User,
                 'password' => bcrypt('password'),
+            ]);
+
+            $reader->update([
+                'job_title' => 'Community Member',
+                'bio' => 'Reads, comments, and shares the articles published with Blog Kit.',
+                'website' => 'https://laravel-news.com',
             ]);
         }
 

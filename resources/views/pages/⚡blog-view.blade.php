@@ -21,9 +21,9 @@ new class extends Component
                 <div class="flex items-center gap-4 mb-8">
                     <img width="56" height="56" decoding="async" class="w-14 h-14 rounded-2xl object-cover ring-4 ring-primary/5 shadow-sm" src="{{ $blog->author->avatar }}" alt="{{ $blog->author->name }}">
                     <div class="flex flex-col">
-                        <span class="text-lg font-black text-neutral-900 leading-tight">
+                        <a href="{{ route('author.view', $blog->author) }}" wire:navigate.hover class="text-lg font-black text-neutral-900 leading-tight transition-colors hover:text-primary">
                             {{ $blog->author->name }}
-                        </span>
+                        </a>
                         <div class="flex items-center gap-2 text-sm font-medium text-neutral-400">
                             <time datetime="{{ $blog->published_at->toDateString() }}">
                                 {{ $blog->published_at->toFormattedDateString() }}

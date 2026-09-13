@@ -114,9 +114,11 @@ class Blog extends MediaModel implements HasMarkup, HasOGImage, Viewable
         return $this->author?->getAttribute('name');
     }
 
-    public function authorUrlValue(): string
+    public function authorUrlValue(): ?string
     {
-        return route('landing-page');
+        return $this->author !== null
+            ? route('author.view', $this->author)
+            : route('landing-page');
     }
 
     public function publisherValue(): ?string

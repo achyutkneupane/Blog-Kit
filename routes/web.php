@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 Route::livewire('/', 'pages::landing-page')->name('landing-page');
 Route::livewire('/page/{staticPage}', 'pages::page-view')->name('page.view');
+Route::livewire('/author/{user}', 'pages::author-view')->name('author.view');
 
 Route::group([
     'prefix' => '/blog',

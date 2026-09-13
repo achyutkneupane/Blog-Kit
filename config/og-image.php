@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Models\Blog;
 use App\Models\StaticPage;
+use App\Models\User;
 
 return [
 
@@ -51,6 +52,7 @@ return [
     'models' => [
         'blog' => Blog::class,
         'page' => StaticPage::class,
+        'author' => User::class,
     ],
 
     /*
