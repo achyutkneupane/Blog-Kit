@@ -31,3 +31,4 @@ bootstrap/ssr/*
 .github/skills/*
 boost.json
 .agents/skills/*
+AGENTS.md
