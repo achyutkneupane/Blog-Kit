@@ -4,12 +4,17 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use AchyutN\LaravelSEO\Models\SEO;
 use AchyutN\LaravelSEO\Services\SitemapService as VendorSitemapService;
 use App\Http\Controllers\AiTxtController;
+use App\Http\Controllers\LlmsBlogsTxtController;
 use App\Http\Controllers\LlmsTxtController;
 use App\Http\Controllers\RobotsController;
 use App\Models\Blog;
+use App\Models\Category;
+use App\Models\Faq;
 use App\Models\StaticPage;
+use App\Models\User;
 use App\Services\SitemapService;
 use App\Settings\SiteSettings;
 use App\Settings\SocialMediaSettings;
@@ -33,11 +38,17 @@ final class SeoServiceProvider extends ServiceProvider
     {
         Route::get('/robots.txt', RobotsController::class)->name('robots');
         Route::get('/llms.txt', LlmsTxtController::class)->name('llms');
+        Route::get('/llms-blogs.txt', LlmsBlogsTxtController::class)->name('llms.blogs');
         Route::get('/ai.txt', AiTxtController::class)->name('ai');
 
-        foreach ([Blog::class, StaticPage::class] as $model) {
-            $model::saved(fn () => Cache::forget('seo:llms-txt'));
-            $model::deleted(fn () => Cache::forget('seo:llms-txt'));
+        $forgetLlmsCache = function (): void {
+            Cache::forget('seo:llms-txt');
+            Cache::forget('seo:llms-blogs-txt');
+        };
+
+        foreach ([Blog::class, StaticPage::class, Category::class, User::class, Faq::class, SEO::class] as $model) {
+            $model::saved($forgetLlmsCache);
+            $model::deleted($forgetLlmsCache);
         }
 
         SEOManager::SEODataTransformer(function (SEOData $data): SEOData {
