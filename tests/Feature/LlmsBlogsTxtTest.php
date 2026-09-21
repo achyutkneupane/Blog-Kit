@@ -50,6 +50,18 @@ it('serves a blogs index linking both the human and markdown article', function 
         ->and($content)->toContain(route('blog.markdown', $this->regular));
 });
 
+it('lists the human and markdown links for an article in a single entry', function (): void {
+    $content = (string) $this->get(route('llms.blogs'))->getContent();
+
+    $line = collect(explode("\n", $content))
+        ->first(fn (string $line): bool => str_contains($line, route('blog.view', $this->regular)));
+
+    expect($line)->not->toBeNull()
+        ->and($line)->toStartWith('- [Regular Article](')
+        ->and($line)->toContain('([Markdown]('.route('blog.markdown', $this->regular).'))')
+        ->and(mb_substr_count($content, route('blog.markdown', $this->regular)))->toBe(1);
+});
+
 it('separates featured articles from the other articles', function (): void {
     $content = (string) $this->get(route('llms.blogs'))->getContent();
 

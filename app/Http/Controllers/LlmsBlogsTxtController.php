@@ -49,12 +49,12 @@ final class LlmsBlogsTxtController
             $seo = $blog->getDynamicSEOData();
 
             $lines[] = sprintf(
-                '- [%s](%s): %s',
+                '- [%s](%s): %s ([Markdown](%s))',
                 $seo->title,
                 route('blog.view', $blog),
                 $seo->description,
+                route('blog.markdown', $blog),
             );
-            $lines[] = sprintf('- [%s](%s)', $seo->title, route('blog.markdown', $blog));
             $lines[] = '';
         });
     }

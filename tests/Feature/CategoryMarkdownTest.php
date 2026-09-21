@@ -43,6 +43,18 @@ it('serves a category manifest as markdown', function (): void {
         ->and($content)->toContain(route('blog.markdown', $this->blog));
 });
 
+it('lists the human and markdown links for an article in a single entry', function (): void {
+    $content = (string) $this->get(route('category.markdown', $this->category))->getContent();
+
+    $line = collect(explode("\n", $content))
+        ->first(fn (string $line): bool => str_contains($line, route('blog.view', $this->blog)));
+
+    expect($line)->not->toBeNull()
+        ->and($line)->toStartWith('- [Categorised Article](')
+        ->and($line)->toContain('([Markdown]('.route('blog.markdown', $this->blog).'))')
+        ->and(mb_substr_count($content, route('blog.markdown', $this->blog)))->toBe(1);
+});
+
 it('excludes drafts from the category manifest', function (): void {
     $draft = Blog::query()->create([
         'title' => 'Draft Categorised Article',

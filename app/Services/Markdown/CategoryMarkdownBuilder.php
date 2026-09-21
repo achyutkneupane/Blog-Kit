@@ -34,8 +34,13 @@ final class CategoryMarkdownBuilder
         $blogs->each(function (Blog $blog) use (&$lines): void {
             $seo = $blog->getDynamicSEOData();
 
-            $lines[] = sprintf('- [%s](%s): %s', $seo->title, route('blog.view', $blog), $seo->description);
-            $lines[] = sprintf('- [%s](%s)', $seo->title, route('blog.markdown', $blog));
+            $lines[] = sprintf(
+                '- [%s](%s): %s ([Markdown](%s))',
+                $seo->title,
+                route('blog.view', $blog),
+                $seo->description,
+                route('blog.markdown', $blog),
+            );
             $lines[] = '';
         });
 
