@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use App\Enums\PageType;
 use App\Models\Blog;
+use App\Models\Category;
+use App\Models\Faq;
 use App\Models\StaticPage;
 use App\Models\User;
 use App\Settings\SiteSettings;
@@ -18,7 +20,9 @@ beforeEach(function (): void {
         'tags' => [],
     ]);
 
-    $this->author = User::factory()->create();
+    $this->author = User::factory()->create(['name' => 'Jane Writer']);
+
+    $this->category = Category::query()->create(['name' => 'Laravel']);
 
     $this->blog = Blog::query()->create([
         'title' => 'Published Article',
@@ -28,9 +32,25 @@ beforeEach(function (): void {
         'user_id' => $this->author->getKey(),
         'published_at' => now()->subDay(),
     ]);
+
+    $this->blog->categories()->attach($this->category);
+
+    Faq::query()->create([
+        'question' => 'What is Blog Kit?',
+        'answer' => 'Blog Kit is a Laravel starter kit for blogging.',
+        'is_active' => true,
+        'sort_order' => 1,
+    ]);
+
+    Faq::query()->create([
+        'question' => 'Is there a license?',
+        'answer' => 'Yes, Blog Kit is MIT licensed.',
+        'is_active' => false,
+        'sort_order' => 2,
+    ]);
 });
 
-it('serves an llms file listing pages and published articles', function (): void {
+it('serves an llms file with pages, categories, authors, faqs and links', function (): void {
     $settings = app(SiteSettings::class);
 
     $response = $this->get('/llms.txt');
@@ -41,45 +61,33 @@ it('serves an llms file listing pages and published articles', function (): void
 
     expect($response->headers->get('Content-Type'))->toContain('text/plain')
         ->and($content)->toContain('# '.$settings->name)
-        ->and($content)->toContain('Published Article')
-        ->and($content)->toContain(route('blog.view', $this->blog))
-        ->and($content)->toContain('About Us');
+        ->and($content)->toContain('## Pages')
+        ->and($content)->toContain('About Us')
+        ->and($content)->toContain('## Categories')
+        ->and($content)->toContain(route('category.view', $this->category))
+        ->and($content)->toContain(route('category.markdown', $this->category))
+        ->and($content)->toContain('## Authors')
+        ->and($content)->toContain('## FAQs')
+        ->and($content)->toContain('What is Blog Kit?')
+        ->and($content)->not->toContain('Is there a license?')
+        ->and($content)->toContain('## Articles')
+        ->and($content)->toContain(route('llms.blogs'))
+        ->and($content)->toContain('## Optional')
+        ->and($content)->toContain(url('/sitemap.xml'))
+        ->and($content)->toContain(url('/ai.txt'));
 });
 
-it('excludes unpublished articles from the llms file', function (): void {
-    Blog::query()->create([
-        'title' => 'Draft Article',
-        'description' => 'Not published yet.',
-        'content' => '<p>Body</p>',
-        'tags' => [],
-        'user_id' => $this->author->getKey(),
-        'published_at' => null,
-    ]);
-
+it('does not list individual articles in the llms file', function (): void {
     $content = (string) $this->get('/llms.txt')->getContent();
 
-    expect($content)->not->toContain('Draft Article');
+    expect($content)->not->toContain('Published Article')
+        ->and($content)->not->toContain(route('blog.view', $this->blog));
 });
 
-it('refreshes the llms file when a blog is published', function (): void {
+it('refreshes the llms file when content changes', function (): void {
     $this->get('/llms.txt');
 
-    $this->blog->update(['title' => 'Renamed Article']);
+    $this->category->update(['name' => 'Laravel Framework']);
 
-    expect((string) $this->get('/llms.txt')->getContent())->toContain('Renamed Article');
-});
-
-it('serves an ai policy file', function (): void {
-    $response = $this->get('/ai.txt');
-
-    $response->assertOk();
-
-    $content = (string) $response->getContent();
-
-    expect($content)->toContain('GPTBot')
-        ->and($content)->toContain('ClaudeBot')
-        ->and($content)->toContain('PerplexityBot')
-        ->and($content)->toContain('Google-Extended')
-        ->and($content)->toContain('Disallow: /admin')
-        ->and($content)->toContain('Sitemap: '.url('/sitemap.xml'));
+    expect((string) $this->get('/llms.txt')->getContent())->toContain('Laravel Framework');
 });

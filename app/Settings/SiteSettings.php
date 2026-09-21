@@ -26,6 +26,8 @@ final class SiteSettings extends Settings
 
     public ?string $robots_txt;
 
+    public ?string $ai_txt;
+
     public static function group(): string
     {
         return 'site';

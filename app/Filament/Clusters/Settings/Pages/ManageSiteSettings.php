@@ -81,6 +81,9 @@ final class ManageSiteSettings extends SettingsPage
                     ]),
                 CodeEditor::make('robots_txt')
                     ->label('robots.txt'),
+                CodeEditor::make('ai_txt')
+                    ->label('ai.txt')
+                    ->helperText('Leave empty to generate the AI usage policy automatically.'),
                 CodeEditor::make('header_scripts')
                     ->language(Language::Html),
                 CodeEditor::make('footer_scripts')

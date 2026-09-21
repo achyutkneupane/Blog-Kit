@@ -158,6 +158,18 @@ class Blog extends MediaModel implements HasMarkup, HasOGImage, Viewable
         return $this->author?->getAttribute('avatar');
     }
 
+    /**
+     * Whether the article should be discoverable by crawlers and AI agents.
+     */
+    public function isIndexable(): bool
+    {
+        if (! $this->seoShouldIndex()) {
+            return false;
+        }
+
+        return ! in_array('noindex', (array) ($this->seo?->robots ?? []), true);
+    }
+
     /** @return array<Breadcrumb> */
     public function breadcrumbs(): array
     {

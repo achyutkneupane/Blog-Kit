@@ -52,6 +52,37 @@ class Category extends Model
         return 'slug';
     }
 
+    public function urlValue(): string
+    {
+        return route('category.view', $this);
+    }
+
+    public function titleValue(): string
+    {
+        return $this->name;
+    }
+
+    public function authorValue(): ?string
+    {
+        /** @phpstan-var string|null */
+        return config('app.name');
+    }
+
+    public function authorUrlValue(): ?string
+    {
+        return route('landing-page');
+    }
+
+    public function publisherValue(): ?string
+    {
+        return $this->getAuthorValue();
+    }
+
+    public function publisherUrlValue(): ?string
+    {
+        return $this->getAuthorUrlValue();
+    }
+
     /** @return BelongsToMany<Blog> */
     public function blogs(): BelongsToMany
     {
