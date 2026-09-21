@@ -47,9 +47,9 @@ final class CategoryMarkdownBuilder
     {
         return $category->blogs()
             ->with(['author', 'seo'])
-            ->orderByDesc('published_at')
+            ->latest('published_at')
             ->get()
-            ->reject(fn (Blog $blog): bool => ! $blog->isIndexable())
+            ->filter(fn (Blog $blog): bool => $blog->isIndexable())
             ->values();
     }
 }

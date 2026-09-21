@@ -21,7 +21,7 @@ new class extends Component {
     {
         return $this->category->blogs()
             ->with('author')
-            ->orderByDesc('published_at')
+            ->latest('published_at')
             ->paginate(9);
     }
 

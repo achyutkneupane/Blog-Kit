@@ -24,7 +24,7 @@ final class LlmsBlogsTxtController
 
             $blogs = Blog::query()
                 ->with('seo')
-                ->orderByDesc('published_at')
+                ->latest('published_at')
                 ->get();
 
             $this->append($lines, 'Featured', $blogs->where('is_featured', true)->values());

@@ -10,13 +10,13 @@ final class HtmlToMarkdown
 {
     public function convert(string $html): string
     {
-        $converter = new HtmlConverter([
+        $htmlConverter = new HtmlConverter([
             'header_style' => 'atx',
             'hard_break' => true,
             'strip_tags' => true,
             'remove_nodes' => 'script style',
         ]);
 
-        return mb_trim($converter->convert($html));
+        return mb_trim($htmlConverter->convert($html));
     }
 }
