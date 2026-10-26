@@ -10,7 +10,6 @@
     "packages": [
         "filament/filament",
         "barryvdh/laravel-debugbar",
-        "revolution/laravel-boost-phpstorm-copilot",
         "achyutn/filament-log-viewer",
         "achyutn/laravel-seo"
     ],
